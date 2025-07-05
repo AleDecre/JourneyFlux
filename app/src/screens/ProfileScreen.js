@@ -14,6 +14,7 @@ import StatCard from '../components/StatCard';
 import { getUserProfile } from '../data/user';
 import { getEarnedBadges, getAvailableBadges } from '../data/badges';
 import { getCompletedChallenges } from '../data/challenges';
+import { theme } from '../utils/theme';
 
 const ProfileScreen = ({ navigation }) => {
   const userProfile = getUserProfile();
@@ -250,12 +251,13 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     marginBottom: 8,
   },
   joinDate: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
   },
   quickStats: {
@@ -270,11 +272,12 @@ const styles = StyleSheet.create({
   },
   quickStatValue: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
   quickStatLabel: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
     marginTop: 4,
@@ -292,7 +295,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
     marginHorizontal: 16,
@@ -325,19 +328,20 @@ const styles = StyleSheet.create({
   },
   challengeTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     color: '#2C3E50',
     marginBottom: 4,
   },
   challengeLocation: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     marginBottom: 4,
   },
   challengePoints: {
     fontSize: 14,
     color: '#4ECDC4',
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   completedBadge: {
     width: 32,
@@ -350,7 +354,7 @@ const styles = StyleSheet.create({
   completedText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
   },
   emptyState: {
     alignItems: 'center',
@@ -359,6 +363,7 @@ const styles = StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     textAlign: 'center',
     marginBottom: 16,
@@ -374,7 +379,7 @@ const styles = StyleSheet.create({
   startButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   preferencesContainer: {
     marginHorizontal: 16,
@@ -392,12 +397,13 @@ const styles = StyleSheet.create({
   },
   preferenceLabel: {
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     color: '#2C3E50',
     marginBottom: 8,
   },
   preferenceValue: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
   },
   categoriesContainer: {
@@ -414,7 +420,7 @@ const styles = StyleSheet.create({
   categoryText: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
 });
 

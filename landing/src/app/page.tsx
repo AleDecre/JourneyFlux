@@ -1,53 +1,42 @@
-import Image from "next/image";
-import { ChevronRightIcon, MapPinIcon, TrophyIcon, UsersIcon, SparklesIcon, StarIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, MapPinIcon, TrophyIcon, UsersIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { PlayIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/solid';
 import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 overflow-x-hidden">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: '4s' }}></div>
-      </div>
-
+    <div className="min-h-screen bg-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed w-full z-50 bg-white/10 backdrop-blur-md border-b border-white/20 glass">
+      <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg animate-pulse-glow">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                   J
                 </div>
-                <span className="ml-3 text-2xl font-bold text-white">JourneyFlux</span>
+                <span className="ml-3 text-xl font-bold text-gray-900">JourneyFlux</span>
               </div>
             </div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-6">
-                <a href="#features" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-                  ✨ Features
+              <div className="ml-10 flex items-baseline space-x-8">
+                <a href="#features" className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                  Features
                 </a>
-                <a href="#how-it-works" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-                  🎯 Come Funziona
+                <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                  How it works
                 </a>
-                <a href="#testimonials" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-                  💬 Testimonials
+                <a href="#testimonials" className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                  Testimonials
                 </a>
-                <a href="#pricing" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-                  💎 Piani
-                </a>
-                <a href="#join-team" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-                  👥 Join Us
+                <a href="#pricing" className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                  Pricing
                 </a>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                🚀 Inizia Ora
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                Get Started
               </button>
             </div>
           </div>
@@ -55,54 +44,54 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden">
+      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="mb-8">
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-white font-medium text-sm backdrop-blur-sm border border-white/20">
-                🚀 MVP Live - Inizia da Napoli!
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-medium text-sm border border-blue-200">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                MVP Live • Mercato Italia
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight">
-              Trasforma ogni viaggio in una
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              Il futuro del{" "}
               <br />
-              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent animate-gradient">
-                AVVENTURA EPICA
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                turismo digitale
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-              🎮 Gamifica la tua esperienza di viaggio con sfide geolocalizzate, 
-              <br className="hidden sm:block" />
-              badge collezionabili e contenuti creati dalla community
+            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Piattaforma di gamification location-based che trasforma il turismo attraverso sfide interattive, 
+              esperienze data-driven e coinvolgimento della community nelle destinazioni italiane.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <button className="group bg-gradient-to-r from-purple-500 to-pink-500 text-white px-10 py-5 rounded-full font-bold text-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-2xl hover:shadow-purple-500/30 transform hover:scale-105 flex items-center">
-                <PlayIcon className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform" />
-                Guarda Demo
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center">
+                <PlayIcon className="mr-2 w-5 h-5" />
+                Guarda la Demo
               </button>
-              <button className="group bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300 flex items-center">
-                <DevicePhoneMobileIcon className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform" />
-                Scarica Beta
+              <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold text-lg hover:border-gray-400 transition-colors flex items-center">
+                <DevicePhoneMobileIcon className="mr-2 w-5 h-5" />
+                Richiedi Accesso Beta
               </button>
             </div>
             
             {/* Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">Beta</div>
-                <div className="text-white/70 text-sm">Testing Phase</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">Live</div>
+                <div className="text-gray-500 text-sm">Status MVP</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">5+</div>
-                <div className="text-white/70 text-sm">Città Italiane</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">5</div>
+                <div className="text-gray-500 text-sm">Città Principali</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">100+</div>
-                <div className="text-white/70 text-sm">Sfide Disponibili</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">100+</div>
+                <div className="text-gray-500 text-sm">Sfide Attive</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">🚀</div>
-                <div className="text-white/70 text-sm">In Sviluppo</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">€50B</div>
+                <div className="text-gray-500 text-sm">Mercato Turismo Italia</div>
               </div>
             </div>
           </div>
@@ -110,56 +99,57 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 sm:py-32 bg-white relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Perché tutti parlano di 
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"> JourneyFlux?</span>
+      <section id="features" className="py-20 sm:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Innovazione turistica <span className="text-blue-600">guidata dalla tecnologia</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              La prima app al mondo che trasforma il turismo in un'esperienza gaming immersiva
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Piattaforma avanzata basata su localizzazione con verifica in tempo reale e coinvolgimento della community
             </p>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-8">
-            <div className="group bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-purple-100 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
-                <MapPinIcon className="w-8 h-8 text-white" />
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                <MapPinIcon className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🎯 Sfide Geolocalizzate</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Sfide Verificate GPS</h3>
               <p className="text-gray-600 mb-4">
-                Esplora le città attraverso missioni GPS. Ogni location ha sfide culturali, gastronomiche e fotografiche verificate.
+                Tracciamento preciso della posizione con verifica fotografica garantisce esperienze autentiche. 
+                Ogni sfida validata attraverso il nostro sistema proprietario di verifica.
               </p>
-              <div className="flex items-center justify-center text-sm text-purple-600 font-medium">
-                <span>� Tecnologia GPS + Foto</span>
+              <div className="text-sm text-blue-600 font-medium">
+                Verifica in tempo reale di posizione e foto
               </div>
             </div>
             
-            <div className="group bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-orange-100 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
-                <TrophyIcon className="w-8 h-8 text-white" />
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                <TrophyIcon className="w-6 h-6 text-purple-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">💎 Badge Collezionabili</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Sistema di Achievement Digitali</h3>
               <p className="text-gray-600 mb-4">
-                Guadagna badge digitali unici per ogni città visitata. Scala le classifiche e diventa un esploratore leggendario!
+                Tracciamento completo dei progressi con achievement specifici per città. 
+                Meccaniche di gamification progettate per massimo engagement e retention degli utenti.
               </p>
-              <div className="flex items-center justify-center text-sm text-orange-600 font-medium">
-                <span>🏆 Classifiche locali</span>
+              <div className="text-sm text-purple-600 font-medium">
+                Analytics avanzate e classifiche
               </div>
             </div>
             
-            <div className="group bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-green-100 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
-                <UsersIcon className="w-8 h-8 text-white" />
+            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                <UsersIcon className="w-6 h-6 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🌟 Community Driven</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Piattaforma Community</h3>
               <p className="text-gray-600 mb-4">
-                Crea e condividi le tue sfide personalizzate. Tutti i contenuti sono moderati dalla community per qualità garantita.
+                Contenuti generati dagli utenti con moderazione AI-powered. 
+                Sistema scalabile di creazione contenuti che abilita rapida espansione di mercato.
               </p>
-              <div className="flex items-center justify-center text-sm text-green-600 font-medium">
-                <span>� Contenuti user-generated</span>
+              <div className="text-sm text-green-600 font-medium">
+                Moderazione AI e garanzia qualità contenuti
               </div>
             </div>
           </div>
@@ -167,54 +157,48 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 sm:py-32 bg-gray-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-pink-900/50"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Come funziona la 
-              <br />
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">magia</span>
+      <section id="how-it-works" className="py-20 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Architettura <span className="text-blue-600">della piattaforma</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Tre passi per diventare un esploratore leggendario
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Esperienza utente semplificata con backend tecnologico avanzato
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center group">
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                  1
-                </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
+                1
               </div>
-              <h3 className="text-2xl font-bold mb-4">🎯 Scopri & Scegli</h3>
-              <p className="text-gray-300 text-lg">
-                Apri l'app, scegli la tua città preferita e scopri decine di sfide GPS personalizzate per te.
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Scoperta e Selezione</h3>
+              <p className="text-gray-600">
+                Motore di raccomandazione AI-powered suggerisce sfide personalizzate 
+                basate su posizione, preferenze e pattern comportamentali dell&apos;utente.
               </p>
             </div>
             
-            <div className="text-center group">
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                  2
-                </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
+                2
               </div>
-              <h3 className="text-2xl font-bold mb-4">📸 Esplora & Completa</h3>
-              <p className="text-gray-300 text-lg">
-                Raggiungi le location, scatta le foto richieste e completa le missioni per guadagnare punti e badge.
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Esecuzione e Verifica</h3>
+              <p className="text-gray-600">
+                Tracciamento GPS e verifica fotografica garantiscono completamento autentico. 
+                Validazione in tempo reale fornisce feedback istantaneo e tracking dei progressi.
               </p>
             </div>
             
-            <div className="text-center group">
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                  3
-                </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
+                3
               </div>
-              <h3 className="text-2xl font-bold mb-4">🏆 Colleziona & Condividi</h3>
-              <p className="text-gray-300 text-lg">
-                Scala le classifiche locali, colleziona badge esclusivi e condividi le tue avventure con la community.
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Analytics e Engagement</h3>
+              <p className="text-gray-600">
+                Raccolta dati completa abilita esperienze personalizzate 
+                e insight preziosi per gli stakeholder del turismo.
               </p>
             </div>
           </div>
@@ -222,24 +206,24 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-teal-600 mb-2">20+</div>
-              <div className="text-gray-600">Città Italiane</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">25</div>
+              <div className="text-gray-600">Città Target</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-teal-600 mb-2">500+</div>
-              <div className="text-gray-600">Sfide Disponibili</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+              <div className="text-gray-600">Sfide Pianificate</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-teal-600 mb-2">50+</div>
-              <div className="text-gray-600">Badge Collezionabili</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
+              <div className="text-gray-600">Categorie Achievement</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-teal-600 mb-2">10k+</div>
-              <div className="text-gray-600">Beta Tester in Lista</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">10k+</div>
+              <div className="text-gray-600">Utenti Target Anno 1</div>
             </div>
           </div>
         </div>
@@ -255,10 +239,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              La nostra roadmap
+              Roadmap di sviluppo
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Scopri cosa abbiamo in serbo per rendere JourneyFlux ancora più incredibile.
+              Fasi di sviluppo strategico per l&apos;espansione del mercato e l&apos;avanzamento tecnologico
             </p>
           </div>
           
@@ -266,326 +250,218 @@ export default function Home() {
             <div className="bg-white p-8 rounded-2xl shadow-sm text-center">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
-                <span className="text-sm font-medium text-green-600">Q1 2024</span>
+                <span className="text-sm font-medium text-green-600">Fase 1 - Completata</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">MVP Release</h3>
-              <ul className="text-gray-600 space-y-2 text-center">
-                <li>• App iOS e Android</li>
-                <li>• 5 città italiane</li>
-                <li>• Sistema di sfide base</li>
-                <li>• Badge e punti</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white p-8 rounded-2xl shadow-sm text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
-                <span className="text-sm font-medium text-yellow-600">Q2 2024</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Espansione</h3>
-              <ul className="text-gray-600 space-y-2 text-center">
-                <li>• 15 nuove città</li>
-                <li>• Contenuti UGC</li>
-                <li>• Sistema di moderazione</li>
-                <li>• Tour tematici</li>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">MVP & Validazione Mercato</h3>
+              <ul className="text-gray-600 space-y-2 text-left">
+                <li>• Applicazioni iOS e Android</li>
+                <li>• 5 città italiane integrate</li>
+                <li>• Sistema di sfide core</li>
+                <li>• Sistema achievement e punti</li>
               </ul>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-sm text-center">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-                <span className="text-sm font-medium text-blue-600">Q3 2024</span>
+                <span className="text-sm font-medium text-blue-600">Fase 2 - Q2 2024</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Scala & Partnership</h3>
+              <ul className="text-gray-600 space-y-2 text-left">
+                <li>• 20+ nuove città</li>
+                <li>• Partnership con enti turistici</li>
+                <li>• Gestione contenuti avanzata</li>
+                <li>• Modello revenue sharing</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm text-center">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                <span className="text-sm font-medium text-purple-600">Fase 3 - Q4 2024</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Funzionalità Avanzate</h3>
-              <ul className="text-gray-600 space-y-2 text-center">
-                <li>• Realtà Aumentata</li>
-                <li>• Social features</li>
-                <li>• Partnership locali</li>
-                <li>• Espansione Europea</li>
+              <ul className="text-gray-600 space-y-2 text-left">
+                <li>• Integrazione AR</li>
+                <li>• Funzionalità social</li>
+                <li>• Espansione europea</li>
+                <li>• Partnership enterprise</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Join the Team Section */}
-      <section id="join-team" className="py-20 sm:py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+      {/* Partnership & Investment Section */}
+      <section id="partnership" className="py-20 sm:py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-xl animate-float"></div>
-          <div className="absolute bottom-20 right-20 w-40 h-40 bg-pink-500/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-indigo-500/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-indigo-500/10 rounded-full blur-xl"></div>
+          <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-purple-500/10 rounded-full blur-xl"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
-            <div className="text-6xl mb-6">🚀</div>
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-              Costruisci il futuro del
+              Partnership strategiche e
               <br />
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Turismo Gamificato
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                opportunità di investimento
               </span>
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              Abbiamo già un prototipo funzionante e validato. Ora cerchiamo i talenti giusti per trasformarlo nella prossima unicorn italiana del travel-tech.
+              Unisciti alla rivoluzione travel-tech. Stiamo costruendo l&apos;infrastruttura 
+              per il futuro delle esperienze turistiche basate su localizzazione.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-white/80">
               <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
-                <span className="text-green-400 mr-2">✅</span>
-                <span>MVP Completato</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span>MVP Funzionante</span>
               </div>
               <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
-                <span className="text-green-400 mr-2">✅</span>
-                <span>6 Sfide Validate</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span>Validazione Mercato</span>
               </div>
               <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
-                <span className="text-green-400 mr-2">✅</span>
-                <span>5 Città Mappate</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span>Tecnologia Scalabile</span>
               </div>
               <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
-                <span className="text-green-400 mr-2">✅</span>
-                <span>Documentazione Completa</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span>Opportunità Mercato €50B</span>
               </div>
             </div>
           </div>
 
-          {/* Team Roles Grid */}
+          {/* Partnership Options Grid */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
-            {/* Co-founder Business/CEO */}
-            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+            {/* Investment Opportunity */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500">
               <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
-                  👑
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                  <RocketLaunchIcon className="w-8 h-8 text-white" />
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Co-founder & CEO</h3>
-                  <div className="flex items-center text-yellow-400">
-                    <span className="text-sm font-semibold">🔥 PRIORITY #1</span>
+                  <h3 className="text-2xl font-bold text-white mb-1">Partnership di Investimento</h3>
+                  <div className="flex items-center text-blue-400">
+                    <span className="text-sm font-semibold">Target Serie A</span>
                   </div>
                 </div>
               </div>
               
               <div className="space-y-4 text-white/90">
                 <p className="text-lg">
-                  <strong>Trasforma il nostro prototipo in un business milionario.</strong> 
-                  Cerchiamo il nostro partner strategico per crescere insieme.
+                  <strong>Scala tecnologia provata attraverso i mercati europei.</strong> 
+                  Unisciti a imprenditori esperti con product-market fit validato.
                 </p>
                 
                 <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <h4 className="font-semibold text-white mb-2">Highlights Investimento</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Sviluppo business model e strategia monetizzazione</li>
-                    <li>• Partnership con enti turistici, ristoranti, musei</li>
-                    <li>• Fundraising e relazioni con investitori</li>
-                    <li>• Crescita team e scaling dell'azienda</li>
+                    <li>• MVP funzionante con engagement utente provato</li>
+                    <li>• Mercato indirizzabile €50B+ (turismo Italia)</li>
+                    <li>• Piattaforma tecnologica scalabile</li>
+                    <li>• Percorso chiaro verso monetizzazione</li>
                   </ul>
                 </div>
                 
                 <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🏆 Profilo ideale:</h4>
+                  <h4 className="font-semibold text-white mb-2">Utilizzo Fondi</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Esperienza startup/scale-up (anche junior ma motivato)</li>
-                    <li>• Background turismo, marketing o business development</li>
-                    <li>• Network nel settore turistico italiano</li>
-                    <li>• Passione per travel e gamification</li>
+                    <li>• Sviluppo prodotto ed espansione team</li>
+                    <li>• Espansione mercato a 25+ città europee</li>
+                    <li>• Sviluppo partnership con enti turistici</li>
+                    <li>• Marketing e acquisizione utenti</li>
                   </ul>
                 </div>
                 
-                <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl p-4 border border-purple-400/30">
-                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl p-4 border border-blue-400/30">
+                  <h4 className="font-semibold text-blue-400 mb-2">Cosa Offriamo</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• <strong>Equity significativo</strong> (co-founder level)</li>
-                    <li>• <strong>Prototipo validato</strong> pronto per il mercato</li>
-                    <li>• <strong>Partnership alla pari</strong> nelle decisioni</li>
-                    <li>• <strong>Mercato enorme</strong> (turismo Italia €50B+)</li>
+                    <li>• <strong>Team esperto</strong> con background tech e turismo</li>
+                    <li>• <strong>Tecnologia provata</strong> pronta per la scala</li>
+                    <li>• <strong>Strategia di monetizzazione</strong> chiara</li>
+                    <li>• <strong>Grande mercato indirizzabile</strong> con potenziale di crescita</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Product Designer/UX */}
-            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
-                  🎨
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Product Designer</h3>
-                  <div className="flex items-center text-orange-400">
-                    <span className="text-sm font-semibold">🔥 ALTA PRIORITÀ</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4 text-white/90">
-                <p className="text-lg">
-                  <strong>Trasforma la nostra UI funzionale in un'esperienza magica.</strong> 
-                  Hai l'opportunità di definire il design di una categoria completamente nuova.
-                </p>
-                
-                <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Design system completo e brand identity</li>
-                    <li>• Ottimizzazione UX per gamification e retention</li>
-                    <li>• Prototipazione funzionalità future (AR, social)</li>
-                    <li>• User research e testing con viaggiatori</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Esperienza mobile app (iOS/Android)</li>
-                    <li>• Portfolio con app gamificate o travel</li>
-                    <li>• Figma expert e design system thinking</li>
-                    <li>• Occhio per micro-interazioni e animazioni</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-400/30">
-                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• <strong>Equity + stipendio competitivo</strong></li>
-                    <li>• <strong>Autonomia creativa totale</strong></li>
-                    <li>• <strong>Portfolio piece</strong> per career boost</li>
-                    <li>• <strong>Possibilità freelance</strong> iniziale</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Growth Marketing Specialist */}
-            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+            {/* Partnership Opportunity */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500">
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
-                  📈
+                  <UsersIcon className="w-8 h-8 text-white" />
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Growth Marketer</h3>
+                  <h3 className="text-2xl font-bold text-white mb-1">Partnership Strategica</h3>
                   <div className="flex items-center text-green-400">
-                    <span className="text-sm font-semibold">🎯 GROWTH FOCUS</span>
+                    <span className="text-sm font-semibold">Turismo & Hospitality</span>
                   </div>
                 </div>
               </div>
               
               <div className="space-y-4 text-white/90">
                 <p className="text-lg">
-                  <strong>Porta JourneyFlux a 100K+ utenti nel primo anno.</strong> 
-                  Hai la possibilità di creare strategie virali uniche per il travel-tech.
+                  <strong>Integrazione con infrastruttura turistica esistente.</strong> 
+                  Sfrutta la nostra piattaforma per migliorare l&apos;engagement dei visitatori e raccogliere dati preziosi.
                 </p>
                 
                 <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <h4 className="font-semibold text-white mb-2">Benefici Partnership</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Strategie acquisizione su TikTok, IG, YouTube</li>
-                    <li>• Collaborazioni con travel influencer e creator</li>
-                    <li>• SEO per "cosa fare a Roma/Milano/Napoli"</li>
-                    <li>• Viral marketing per gamification e sfide</li>
+                    <li>• Maggiore engagement e retention dei visitatori</li>
+                    <li>• Dati turistici preziosi e analytics</li>
+                    <li>• Trasformazione digitale del turismo tradizionale</li>
+                    <li>• Opportunità di revenue sharing</li>
                   </ul>
                 </div>
                 
                 <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
+                  <h4 className="font-semibold text-white mb-2">Partner Ideali</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Esperienza growth hacking (app o travel)</li>
-                    <li>• Master di social media e content marketing</li>
-                    <li>• Conoscenza settore travel e turismo</li>
-                    <li>• Data-driven mindset e analytics</li>
+                    <li>• Enti turistici e destination management</li>
+                    <li>• Hotel, ristoranti e attrazioni</li>
+                    <li>• Agenzie di viaggio e tour operator</li>
+                    <li>• Aziende tecnologiche e mobilità</li>
                   </ul>
                 </div>
                 
                 <div className="bg-gradient-to-r from-green-500/20 to-teal-500/20 rounded-xl p-4 border border-green-400/30">
-                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                  <h4 className="font-semibold text-green-400 mb-2">Valore Partnership</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• <strong>Equity + performance bonus</strong></li>
-                    <li>• <strong>Budget marketing</strong> per esperimenti</li>
-                    <li>• <strong>Accesso dati esclusivi</strong> travel behavior</li>
-                    <li>• <strong>Opportunità consulenza</strong> freelance</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Tourism/Local Expert */}
-            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
-                  🗺️
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Tourism Expert</h3>
-                  <div className="flex items-center text-blue-400">
-                    <span className="text-sm font-semibold">🏛️ CONTENT SPECIALIST</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4 text-white/90">
-                <p className="text-lg">
-                  <strong>Crea esperienze autentiche che i turisti ameranno.</strong> 
-                  Trasforma la tua passione per l'Italia in sfide indimenticabili.
-                </p>
-                
-                <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Creazione sfide culturali e gastronomiche</li>
-                    <li>• Partnership con guide, ristoratori, musei</li>
-                    <li>• Validazione accuratezza esperienze</li>
-                    <li>• Espansione da 6 a 500+ sfide</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-white/10 rounded-xl p-4">
-                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Guida turistica o travel blogger</li>
-                    <li>• Conoscenza approfondita città italiane</li>
-                    <li>• Network locale (ristoranti, musei, guide)</li>
-                    <li>• Passione per storytelling e cultura</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-xl p-4 border border-blue-400/30">
-                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• <strong>Equity + compenso per contenuti</strong></li>
-                    <li>• <strong>Viaggi pagati</strong> per ricerca/validazione</li>
-                    <li>• <strong>Riconoscimento</strong> come esperto travel</li>
-                    <li>• <strong>Flessibilità</strong> part-time/consulenza</li>
+                    <li>• <strong>Maggiore tempo di permanenza</strong> e spesa dei visitatori</li>
+                    <li>• <strong>Dati clienti ricchi</strong> per business intelligence</li>
+                    <li>• <strong>Marketing digitale</strong> attraverso gamification</li>
+                    <li>• <strong>Turismo sostenibile</strong> attraverso migliore distribuzione</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Join CTA */}
+          {/* Contact CTA */}
           <div className="text-center">
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl p-8 mb-8">
-              <h3 className="text-3xl font-bold text-black mb-4">
-                🚀 Pronto a costruire il futuro insieme?
+            <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl p-8 mb-8">
+              <h3 className="text-3xl font-bold text-white mb-4">
+                Pronto a discutere opportunità?
               </h3>
-              <p className="text-black/80 text-lg mb-6">
-                Inviaci il tuo CV + una riga su perché JourneyFlux ti entusiasma
+              <p className="text-white/90 text-lg mb-6">
+                Pianifica un incontro per esplorare possibilità di investimento e partnership
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
-                  href="mailto:careers@journeyflux.com?subject=Candidatura%20JourneyFlux%20Team&body=Ciao!%0A%0ASono%20interessato%20al%20ruolo%20di%20[RUOLO]%20in%20JourneyFlux.%0A%0AEcco%20perché%20sono%20la%20persona%20giusta:%0A%0A[La%20tua%20motivazione%20qui]%0A%0ATrovi%20il%20mio%20CV%20in%20allegato.%0A%0AHo%20visto%20il%20vostro%20prototipo%20e%20sono%20davvero%20entusiasta%20del%20progetto!%0A%0AScrivetemi%20presto%20💫"
-                  className="group bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                  href="mailto:partnerships@journeyflux.com?subject=Richiesta%20Investimento&body=Salve%20Team%20JourneyFlux,%0A%0ASono%20interessato%20a%20discutere%20opportunità%20di%20investimento%20per%20la%20vostra%20piattaforma.%0A%0AFornitemi%20per%20favore%20la%20vostra%20disponibilità%20per%20una%20chiamata%20o%20un%20incontro.%0A%0ADistinti%20saluti"
+                  className="group bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
                 >
-                  <span className="mr-2">📧</span>
-                  Candidati Ora
+                  Richiesta Investimento
                   <ChevronRightIcon className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://linkedin.com/company/journeyflux"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-white/20 text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                  href="mailto:partnerships@journeyflux.com?subject=Richiesta%20Partnership&body=Salve%20Team%20JourneyFlux,%0A%0ASono%20interessato%20a%20esplorare%20opportunità%20di%20partnership%20con%20la%20vostra%20piattaforma.%0A%0AFornitemi%20per%20favore%20la%20vostra%20disponibilità%20per%20una%20discussione.%0A%0ADistinti%20saluti"
+                  className="group bg-white/20 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
                 >
-                  <span className="mr-2">💼</span>
-                  Seguici su LinkedIn
+                  Richiesta Partnership
                   <ChevronRightIcon className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -593,24 +469,24 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div className="bg-white/10 rounded-2xl p-6">
-                <div className="text-3xl mb-2">🎯</div>
-                <h4 className="font-semibold text-white mb-2">Processo Veloce</h4>
+                <div className="text-2xl mb-2">⚡</div>
+                <h4 className="font-semibold text-white mb-2">Risposta Rapida</h4>
                 <p className="text-white/80 text-sm">
-                  Colloquio informale → Test pratico → Decisione in 1 settimana
+                  Risposta iniziale entro 24 ore. Presentazione completa disponibile su richiesta.
                 </p>
               </div>
               <div className="bg-white/10 rounded-2xl p-6">
-                <div className="text-3xl mb-2">🌟</div>
-                <h4 className="font-semibold text-white mb-2">Remote-First</h4>
+                <div className="text-2xl mb-2">🌍</div>
+                <h4 className="font-semibold text-white mb-2">Focus Europeo</h4>
                 <p className="text-white/80 text-sm">
-                  Lavoro da remoto con meet-up periodici in Italia
+                  Iniziando dall&apos;Italia, espansione verso i principali mercati turistici europei.
                 </p>
               </div>
               <div className="bg-white/10 rounded-2xl p-6">
-                <div className="text-3xl mb-2">💎</div>
-                <h4 className="font-semibold text-white mb-2">Equity Reale</h4>
+                <div className="text-2xl mb-2">📊</div>
+                <h4 className="font-semibold text-white mb-2">Data-Driven</h4>
                 <p className="text-white/80 text-sm">
-                  Partecipazione agli utili quando l'azienda cresce
+                  Analytics comprensivi e reporting per tutti gli stakeholder.
                 </p>
               </div>
             </div>
@@ -623,158 +499,45 @@ export default function Home() {
         <Pricing />
       </div>
 
-      {/* Roadmap Section */}
-      <section className="py-20 sm:py-32 bg-gradient-to-r from-gray-50 to-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Il futuro di
-              <br />
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">JourneyFlux</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Scopri cosa stiamo sviluppando per rendere la tua esperienza ancora più incredibile
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl shadow-xl border border-green-200">
-              <div className="flex items-center mb-6">
-                <div className="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
-                <span className="text-sm font-bold text-green-600">✅ ATTIVO ORA</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🚀 MVP Base</h3>
-              <ul className="text-gray-600 space-y-3">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  App iOS e Android funzionante
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  5 città italiane disponibili
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Sfide GPS + foto verification
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Sistema badge e punti
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Contenuti user-generated
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-white p-8 rounded-3xl shadow-xl border border-yellow-200">
-              <div className="flex items-center mb-6">
-                <div className="w-4 h-4 bg-yellow-500 rounded-full mr-3"></div>
-                <span className="text-sm font-bold text-yellow-600">🔨 IN SVILUPPO</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">📱 Espansione</h3>
-              <ul className="text-gray-600 space-y-3">
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">⏳</span>
-                  15 nuove città italiane
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">⏳</span>
-                  Tour tematici avanzati
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">⏳</span>
-                  Sistema di moderazione IA
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">⏳</span>
-                  Classifiche globali
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">⏳</span>
-                  Partnership con locali
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-white p-8 rounded-3xl shadow-xl border border-purple-200">
-              <div className="flex items-center mb-6">
-                <div className="w-4 h-4 bg-purple-500 rounded-full mr-3"></div>
-                <span className="text-sm font-bold text-purple-600">🔮 FUTURO</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🌟 Next Level</h3>
-              <ul className="text-gray-600 space-y-3">
-                <li className="flex items-center">
-                  <span className="text-purple-500 mr-2">🔮</span>
-                  Integrazione Realtà Aumentata
-                </li>
-                <li className="flex items-center">
-                  <span className="text-purple-500 mr-2">🔮</span>
-                  Badge NFT collezionabili
-                </li>
-                <li className="flex items-center">
-                  <span className="text-purple-500 mr-2">🔮</span>
-                  Revenue sharing per creator
-                </li>
-                <li className="flex items-center">
-                  <span className="text-purple-500 mr-2">🔮</span>
-                  Espansione europea
-                </li>
-                <li className="flex items-center">
-                  <span className="text-purple-500 mr-2">🔮</span>
-                  Premi e rewards reali
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-20 sm:py-32 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section className="py-20 sm:py-32 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
-          <div className="absolute top-32 right-20 w-16 h-16 bg-white/10 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-white/10 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full"></div>
+          <div className="absolute top-32 right-20 w-16 h-16 bg-white/10 rounded-full"></div>
+          <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-white/10 rounded-full"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="mb-8">
-            <div className="text-6xl mb-4">🚀</div>
-          </div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            Pronto per diventare una 
-            <br />
-            <span className="text-yellow-300">LEGGENDA?</span>
+            Pronto a trasformare il turismo?
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
-            Unisciti ai primi esploratori che stanno testando l'app. 
+            Unisciti alla prossima generazione di tecnologia travel. 
             <br className="hidden sm:block" />
-            Il tuo viaggio gamificato inizia con un click.
+            Vivi il futuro dell&apos;engagement basato su localizzazione.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="group bg-white text-purple-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-white/30 transform hover:scale-105 flex items-center">
+            <button className="group bg-white text-blue-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-white/30 transform hover:scale-105 flex items-center">
               <RocketLaunchIcon className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform" />
-              Diventa Beta Tester
+              Richiedi Demo Piattaforma
             </button>
             <button className="group bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300 flex items-center">
               <PlayIcon className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform" />
-              Guarda in Azione
+              Guarda Panoramica Tecnologica
             </button>
           </div>
           <div className="mt-12 flex justify-center items-center space-x-8 text-white/70">
             <div className="flex items-center">
-              <span className="text-2xl mr-2">🧪</span>
-              <span>Beta Testing</span>
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+              <span>Piattaforma Live</span>
             </div>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">🆓</span>
-              <span>100% Gratis</span>
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+              <span>Tecnologia Provata</span>
             </div>
             <div className="flex items-center">
-              <span className="text-2xl mr-2">🇮🇹</span>
-              <span>Made in Italy</span>
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+              <span>Soluzione Scalabile</span>
             </div>
           </div>
         </div>
@@ -786,61 +549,61 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
                   J
                 </div>
                 <span className="ml-3 text-2xl font-bold">JourneyFlux</span>
               </div>
               <p className="text-gray-400 mb-6">
-                La prima app al mondo che trasforma il turismo in un'avventura gaming epica.
+                Piattaforma avanzata basata su localizzazione che trasforma il turismo attraverso gamification ed esperienze data-driven.
               </p>
               <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors cursor-pointer">
-                  <span className="text-white font-bold">f</span>
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer">
+                  <span className="text-white font-bold text-sm">Li</span>
                 </div>
-                <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors cursor-pointer">
-                  <span className="text-white font-bold">ig</span>
+                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+                  <span className="text-white font-bold text-sm">Tw</span>
                 </div>
-                <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors cursor-pointer">
-                  <span className="text-white font-bold">yt</span>
+                <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                  <span className="text-white font-bold text-sm">Gh</span>
                 </div>
               </div>
             </div>
             
             <div>
-              <h4 className="text-lg font-bold mb-6">🚀 Prodotto</h4>
+              <h4 className="text-lg font-bold mb-6">Piattaforma</h4>
               <ul className="space-y-3 text-gray-400">
-                <li><a href="#features" className="hover:text-white transition-colors">✨ Features</a></li>
-                <li><a href="#how-it-works" className="hover:text-white transition-colors">🎯 Come Funziona</a></li>
-                <li><a href="#testimonials" className="hover:text-white transition-colors">💬 Testimonials</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">💎 Piani</a></li>
-                <li><a href="#join-team" className="hover:text-white transition-colors">👥 Join Us</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">Funzionalità</a></li>
+                <li><a href="#how-it-works" className="hover:text-white transition-colors">Tecnologia</a></li>
+                <li><a href="#testimonials" className="hover:text-white transition-colors">Casi Studio</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">Prezzi</a></li>
+                <li><a href="#roadmap" className="hover:text-white transition-colors">Roadmap</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="text-lg font-bold mb-6">🏢 Azienda</h4>
+              <h4 className="text-lg font-bold mb-6">Business</h4>
               <ul className="space-y-3 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">👥 Team</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">💼 Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">📰 Press Kit</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">🤝 Partnership</a></li>
+                <li><a href="#partnership" className="hover:text-white transition-colors">Partnership</a></li>
+                <li><a href="#partnership" className="hover:text-white transition-colors">Investimenti</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Press Kit</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Documentazione</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="text-lg font-bold mb-6">📞 Contatti</h4>
+              <h4 className="text-lg font-bold mb-6">Contatti</h4>
               <ul className="space-y-3 text-gray-400">
-                <li><a href="mailto:hello@journeyflux.com" className="hover:text-white transition-colors">✉️ hello@journeyflux.com</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">🎧 Supporto 24/7</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">💬 Live Chat</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">📱 Social Media</a></li>
+                <li><a href="mailto:hello@journeyflux.com" className="hover:text-white transition-colors">hello@journeyflux.com</a></li>
+                <li><a href="mailto:partnerships@journeyflux.com" className="hover:text-white transition-colors">partnerships@journeyflux.com</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Documentazione</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Supporto</a></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 JourneyFlux. Tutti i diritti riservati. Made with ❤️ in Italy 🇮🇹</p>
+            <p>&copy; 2024 JourneyFlux. Tutti i diritti riservati. Piattaforma avanzata di tecnologia travel.</p>
           </div>
         </div>
       </footer>

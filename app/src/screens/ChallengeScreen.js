@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getChallengeById } from '../data/challenges';
 import { getBadgeById } from '../data/badges';
+import { theme } from '../utils/theme';
 
 const ChallengeScreen = ({ route, navigation }) => {
   const { challengeId } = route.params;
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
   backButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   headerContent: {
     alignItems: 'center',
@@ -274,13 +275,14 @@ const styles = StyleSheet.create({
   },
   challengeTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 8,
   },
   challengeLocation: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     marginBottom: 16,
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
   difficultyText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   pointsBadge: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -308,7 +310,7 @@ const styles = StyleSheet.create({
   pointsText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   content: {
     padding: 16,
@@ -318,12 +320,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 12,
   },
   description: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: '#34495E',
     lineHeight: 24,
   },
@@ -343,6 +346,7 @@ const styles = StyleSheet.create({
   },
   requirementText: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#34495E',
     flex: 1,
     lineHeight: 20,
@@ -369,15 +373,16 @@ const styles = StyleSheet.create({
   },
   verificationTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     color: '#2C3E50',
   },
   verificationStatus: {
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   verificationSubtitle: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
   },
   photoUploadButton: {
@@ -393,7 +398,7 @@ const styles = StyleSheet.create({
   photoUploadText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     textAlign: 'center',
   },
   badgePreview: {
@@ -418,7 +423,7 @@ const styles = StyleSheet.create({
   },
   badgeName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     textAlign: 'center',
   },
@@ -434,7 +439,7 @@ const styles = StyleSheet.create({
   },
   completedText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#27AE60',
   },
   actionButton: {
@@ -448,10 +453,11 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
   },
   errorText: {
     fontSize: 18,
+    fontFamily: theme.fonts.bold,
     color: '#E74C3C',
     textAlign: 'center',
     marginTop: 50,

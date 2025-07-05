@@ -5,12 +5,14 @@ import {
   StyleSheet, 
   TouchableOpacity,
   Animated,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getChallengeById } from '../data/challenges';
 import { getBadgeById } from '../data/badges';
+import { theme } from '../utils/theme';
 
 const { width } = Dimensions.get('window');
 
@@ -64,15 +66,20 @@ const ChallengeCompleteScreen = ({ route, navigation }) => {
         end={{ x: 1, y: 1 }}
         style={styles.background}
       >
-        <Animated.View 
-          style={[
-            styles.content,
-            {
-              opacity: fadeAnim,
-              transform: [{ translateY: slideAnim }]
-            }
-          ]}
+        <ScrollView 
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
+          <Animated.View 
+            style={[
+              styles.content,
+              {
+                opacity: fadeAnim,
+                transform: [{ translateY: slideAnim }]
+              }
+            ]}
+          >
           {/* Congratulations Section */}
           <View style={styles.congratsSection}>
             <Animated.View 
@@ -199,9 +206,10 @@ const ChallengeCompleteScreen = ({ route, navigation }) => {
             </Text>
           </View>
         </Animated.View>
-      </LinearGradient>
-    </SafeAreaView>
-  );
+      </ScrollView>
+    </LinearGradient>
+  </SafeAreaView>
+);
 };
 
 const styles = StyleSheet.create({
@@ -211,36 +219,44 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
-  content: {
+  scrollView: {
     flex: 1,
-    padding: 20,
+  },
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: 'center',
+    paddingVertical: 20,
+  },
+  content: {
+    padding: 20,
   },
   congratsSection: {
     alignItems: 'center',
     marginBottom: 30,
+    paddingHorizontal: 10,
   },
   successIcon: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
   },
   successEmoji: {
-    fontSize: 64,
+    fontSize: 50,
   },
   congratsTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 12,
   },
   congratsSubtitle: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     lineHeight: 24,
@@ -252,9 +268,10 @@ const styles = StyleSheet.create({
   },
   pointsCard: {
     borderRadius: 20,
-    padding: 24,
+    padding: 20,
     alignItems: 'center',
-    minWidth: 200,
+    minWidth: 180,
+    maxWidth: 250,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
@@ -262,16 +279,17 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   pointsIcon: {
-    fontSize: 48,
+    fontSize: 40,
     marginBottom: 8,
   },
   pointsEarned: {
-    fontSize: 36,
-    fontWeight: 'bold',
+    fontSize: 32,
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
   pointsLabel: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     marginTop: 4,
   },
@@ -281,16 +299,17 @@ const styles = StyleSheet.create({
   },
   badgeTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 16,
   },
   badgeCard: {
     borderRadius: 16,
-    padding: 20,
+    padding: 16,
     alignItems: 'center',
-    minWidth: 180,
+    minWidth: 160,
+    maxWidth: 200,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
@@ -298,12 +317,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   badgeIcon: {
-    fontSize: 40,
+    fontSize: 32,
     marginBottom: 8,
   },
   badgeName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
   },
@@ -312,7 +331,7 @@ const styles = StyleSheet.create({
   },
   statsTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 16,
@@ -329,11 +348,12 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
   statLabel: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
     marginTop: 4,
@@ -358,7 +378,7 @@ const styles = StyleSheet.create({
   primaryButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
   },
   secondaryButtonsRow: {
     flexDirection: 'row',
@@ -375,7 +395,7 @@ const styles = StyleSheet.create({
   secondaryButtonText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   motivationSection: {
     alignItems: 'center',
@@ -383,6 +403,7 @@ const styles = StyleSheet.create({
   },
   motivationText: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
     fontStyle: 'italic',

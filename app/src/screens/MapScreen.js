@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { challenges } from '../data/challenges';
 import { cities } from '../data/cities';
+import { theme } from '../utils/theme';
 
 const MapScreen = ({ navigation }) => {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -190,13 +191,14 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 8,
   },
   headerSubtitle: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
   },
@@ -225,12 +227,13 @@ const styles = StyleSheet.create({
   },
   mapText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 8,
   },
   mapSubtext: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     textAlign: 'center',
   },
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
     marginHorizontal: 16,
@@ -273,13 +276,14 @@ const styles = StyleSheet.create({
   },
   cityName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 4,
   },
   cityRegion: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
     marginBottom: 8,
@@ -293,7 +297,7 @@ const styles = StyleSheet.create({
   challengesCount: {
     fontSize: 12,
     color: 'rgba(255, 255, 255, 0.9)',
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   featuredBadge: {
     width: 20,
@@ -312,7 +316,7 @@ const styles = StyleSheet.create({
   },
   legendTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
   },
@@ -339,6 +343,7 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#2C3E50',
   },
   statsSection: {
@@ -347,7 +352,7 @@ const styles = StyleSheet.create({
   },
   statsTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
   },
@@ -368,11 +373,12 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#4ECDC4',
   },
   statLabel: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     marginTop: 4,
   },
@@ -397,12 +403,13 @@ const styles = StyleSheet.create({
   },
   comingSoonTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     marginBottom: 12,
   },
   comingSoonText: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     lineHeight: 20,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { theme } from '../utils/theme';
 
 const ChallengeCard = ({ challenge, onPress }) => {
   const getDifficultyColor = (difficulty) => {
@@ -118,13 +119,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: theme.fonts.sizes.heading,
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     marginBottom: 4,
   },
   location: {
-    fontSize: 14,
+    fontSize: theme.fonts.sizes.small,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     marginBottom: 12,
   },
@@ -144,8 +146,8 @@ const styles = StyleSheet.create({
   },
   difficultyText: {
     color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: theme.fonts.sizes.tiny,
+    fontFamily: theme.fonts.semiBold,
   },
   pointsContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -155,16 +157,16 @@ const styles = StyleSheet.create({
   },
   pointsText: {
     color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: theme.fonts.sizes.tiny,
+    fontFamily: theme.fonts.bold,
   },
   categoryContainer: {
     alignSelf: 'flex-start',
   },
   categoryText: {
     color: 'rgba(255, 255, 255, 0.9)',
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: theme.fonts.sizes.tiny,
+    fontFamily: theme.fonts.medium,
   },
 });
 

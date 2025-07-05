@@ -69,20 +69,17 @@ export default function Pricing() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-20">
-          <div className="mb-6">
-            <span className="text-6xl">💎</span>
-          </div>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Scegli il tuo piano di
+            Struttura
             <br />
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">AVVENTURA</span>
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">prezzi piattaforma</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Inizia gratis e passa al premium quando sei pronto per esplorare senza limiti.
+            Prezzi flessibili progettati per diversi segmenti di utenti e partnership aziendali.
           </p>
-          <div className="mt-8 inline-flex items-center bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2 rounded-full font-medium text-sm">
-            <span className="mr-2">🎉</span>
-            Beta testing: prezzi speciali per i primi utenti!
+          <div className="mt-8 inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-full font-medium text-sm">
+            <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+            Accesso anticipato: Prezzi speciali per partner iniziali
           </div>
         </div>
         
@@ -149,20 +146,20 @@ export default function Pricing() {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-300 mb-8">
               <div className="flex items-center justify-center">
-                <span className="text-2xl mr-3">🔒</span>
-                <span className="font-medium">Sicuro al 100%</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                <span className="font-medium">Sicuro e Conforme</span>
               </div>
               <div className="flex items-center justify-center">
-                <span className="text-2xl mr-3">↩️</span>
-                <span className="font-medium">Cancella quando vuoi</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                <span className="font-medium">Contratti Flessibili</span>
               </div>
               <div className="flex items-center justify-center">
-                <span className="text-2xl mr-3">🎁</span>
-                <span className="font-medium">7 giorni gratis</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                <span className="font-medium">Prova 30 giorni</span>
               </div>
             </div>
             <p className="text-gray-400">
-              Tutti i piani premium includono 7 giorni di prova gratuita. Cancella in qualsiasi momento durante il beta testing.
+              Tutti i piani premium includono 30 giorni di prova gratuita. Termini flessibili per early adopter e accordi di partnership.
             </p>
           </div>
         </div>

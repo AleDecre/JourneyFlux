@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { theme } from '../utils/theme';
 
 const StatCard = ({ title, value, subtitle, icon, colors = ['#4ECDC4', '#44A08D'] }) => {
   return (
@@ -55,18 +56,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
   },
   value: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 10,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
     marginTop: 4,

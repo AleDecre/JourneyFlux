@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { theme } from '../utils/theme';
 
 const BadgeCard = ({ badge, size = 'medium' }) => {
   const getSize = () => {
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
     color: '#2C3E50',
     marginTop: 4,
     paddingHorizontal: 4,

@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
-import { theme } from './utils/theme';
 
 // Screens
 import HomeScreen from './screens/HomeScreen';
@@ -11,6 +10,7 @@ import ChallengeScreen from './screens/ChallengeScreen';
 import ChallengeCompleteScreen from './screens/ChallengeCompleteScreen';
 import MapScreen from './screens/MapScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import { theme } from './utils/theme';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,7 +22,6 @@ const HomeStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Challenge" component={ChallengeScreen} />
       <Stack.Screen name="ChallengeComplete" component={ChallengeCompleteScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };
@@ -46,10 +45,10 @@ const TabNavigator = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#4ECDC4',
-        tabBarInactiveTintColor: '#95A5A6',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.textLight,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: theme.colors.surface,
           borderTopWidth: 0,
           elevation: 8,
           shadowColor: '#000',
@@ -62,7 +61,7 @@ const TabNavigator = () => {
         },
         tabBarLabelStyle: {
           fontSize: 12,
-          fontFamily: theme.fonts.semiBold,
+          fontWeight: '600',
         },
       })}
     >
