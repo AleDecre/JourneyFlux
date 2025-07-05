@@ -40,6 +40,9 @@ export default function Home() {
                 <a href="#pricing" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
                   💎 Piani
                 </a>
+                <a href="#join-team" className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
+                  👥 Join Us
+                </a>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -170,6 +173,7 @@ export default function Home() {
           <div className="text-center mb-20">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               Come funziona la 
+              <br />
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">magia</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -304,6 +308,316 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Join the Team Section */}
+      <section id="join-team" className="py-20 sm:py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-pink-500/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-indigo-500/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-20">
+            <div className="text-6xl mb-6">🚀</div>
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              Costruisci il futuro del
+              <br />
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                Turismo Gamificato
+              </span>
+            </h2>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
+              Abbiamo già un prototipo funzionante e validato. Ora cerchiamo i talenti giusti per trasformarlo nella prossima unicorn italiana del travel-tech.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-white/80">
+              <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
+                <span className="text-green-400 mr-2">✅</span>
+                <span>MVP Completato</span>
+              </div>
+              <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
+                <span className="text-green-400 mr-2">✅</span>
+                <span>6 Sfide Validate</span>
+              </div>
+              <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
+                <span className="text-green-400 mr-2">✅</span>
+                <span>5 Città Mappate</span>
+              </div>
+              <div className="flex items-center bg-white/10 px-4 py-2 rounded-full">
+                <span className="text-green-400 mr-2">✅</span>
+                <span>Documentazione Completa</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Roles Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+            {/* Co-founder Business/CEO */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                  👑
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-2xl font-bold text-white mb-1">Co-founder & CEO</h3>
+                  <div className="flex items-center text-yellow-400">
+                    <span className="text-sm font-semibold">🔥 PRIORITY #1</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4 text-white/90">
+                <p className="text-lg">
+                  <strong>Trasforma il nostro prototipo in un business milionario.</strong> 
+                  Cerchiamo il nostro partner strategico per crescere insieme.
+                </p>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Sviluppo business model e strategia monetizzazione</li>
+                    <li>• Partnership con enti turistici, ristoranti, musei</li>
+                    <li>• Fundraising e relazioni con investitori</li>
+                    <li>• Crescita team e scaling dell'azienda</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🏆 Profilo ideale:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Esperienza startup/scale-up (anche junior ma motivato)</li>
+                    <li>• Background turismo, marketing o business development</li>
+                    <li>• Network nel settore turistico italiano</li>
+                    <li>• Passione per travel e gamification</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl p-4 border border-purple-400/30">
+                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• <strong>Equity significativo</strong> (co-founder level)</li>
+                    <li>• <strong>Prototipo validato</strong> pronto per il mercato</li>
+                    <li>• <strong>Partnership alla pari</strong> nelle decisioni</li>
+                    <li>• <strong>Mercato enorme</strong> (turismo Italia €50B+)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Product Designer/UX */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                  🎨
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-2xl font-bold text-white mb-1">Product Designer</h3>
+                  <div className="flex items-center text-orange-400">
+                    <span className="text-sm font-semibold">🔥 ALTA PRIORITÀ</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4 text-white/90">
+                <p className="text-lg">
+                  <strong>Trasforma la nostra UI funzionale in un'esperienza magica.</strong> 
+                  Hai l'opportunità di definire il design di una categoria completamente nuova.
+                </p>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Design system completo e brand identity</li>
+                    <li>• Ottimizzazione UX per gamification e retention</li>
+                    <li>• Prototipazione funzionalità future (AR, social)</li>
+                    <li>• User research e testing con viaggiatori</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Esperienza mobile app (iOS/Android)</li>
+                    <li>• Portfolio con app gamificate o travel</li>
+                    <li>• Figma expert e design system thinking</li>
+                    <li>• Occhio per micro-interazioni e animazioni</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-400/30">
+                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• <strong>Equity + stipendio competitivo</strong></li>
+                    <li>• <strong>Autonomia creativa totale</strong></li>
+                    <li>• <strong>Portfolio piece</strong> per career boost</li>
+                    <li>• <strong>Possibilità freelance</strong> iniziale</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Growth Marketing Specialist */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                  📈
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-2xl font-bold text-white mb-1">Growth Marketer</h3>
+                  <div className="flex items-center text-green-400">
+                    <span className="text-sm font-semibold">🎯 GROWTH FOCUS</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4 text-white/90">
+                <p className="text-lg">
+                  <strong>Porta JourneyFlux a 100K+ utenti nel primo anno.</strong> 
+                  Hai la possibilità di creare strategie virali uniche per il travel-tech.
+                </p>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Strategie acquisizione su TikTok, IG, YouTube</li>
+                    <li>• Collaborazioni con travel influencer e creator</li>
+                    <li>• SEO per "cosa fare a Roma/Milano/Napoli"</li>
+                    <li>• Viral marketing per gamification e sfide</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Esperienza growth hacking (app o travel)</li>
+                    <li>• Master di social media e content marketing</li>
+                    <li>• Conoscenza settore travel e turismo</li>
+                    <li>• Data-driven mindset e analytics</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-500/20 to-teal-500/20 rounded-xl p-4 border border-green-400/30">
+                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• <strong>Equity + performance bonus</strong></li>
+                    <li>• <strong>Budget marketing</strong> per esperimenti</li>
+                    <li>• <strong>Accesso dati esclusivi</strong> travel behavior</li>
+                    <li>• <strong>Opportunità consulenza</strong> freelance</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tourism/Local Expert */}
+            <div className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                  🗺️
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-2xl font-bold text-white mb-1">Tourism Expert</h3>
+                  <div className="flex items-center text-blue-400">
+                    <span className="text-sm font-semibold">🏛️ CONTENT SPECIALIST</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4 text-white/90">
+                <p className="text-lg">
+                  <strong>Crea esperienze autentiche che i turisti ameranno.</strong> 
+                  Trasforma la tua passione per l'Italia in sfide indimenticabili.
+                </p>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🎯 Cosa farai:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Creazione sfide culturali e gastronomiche</li>
+                    <li>• Partnership con guide, ristoratori, musei</li>
+                    <li>• Validazione accuratezza esperienze</li>
+                    <li>• Espansione da 6 a 500+ sfide</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-white mb-2">🏆 Cerchiamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Guida turistica o travel blogger</li>
+                    <li>• Conoscenza approfondita città italiane</li>
+                    <li>• Network locale (ristoranti, musei, guide)</li>
+                    <li>• Passione per storytelling e cultura</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-xl p-4 border border-blue-400/30">
+                  <h4 className="font-semibold text-yellow-400 mb-2">💎 Cosa offriamo:</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• <strong>Equity + compenso per contenuti</strong></li>
+                    <li>• <strong>Viaggi pagati</strong> per ricerca/validazione</li>
+                    <li>• <strong>Riconoscimento</strong> come esperto travel</li>
+                    <li>• <strong>Flessibilità</strong> part-time/consulenza</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Join CTA */}
+          <div className="text-center">
+            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl p-8 mb-8">
+              <h3 className="text-3xl font-bold text-black mb-4">
+                🚀 Pronto a costruire il futuro insieme?
+              </h3>
+              <p className="text-black/80 text-lg mb-6">
+                Inviaci il tuo CV + una riga su perché JourneyFlux ti entusiasma
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a 
+                  href="mailto:careers@journeyflux.com?subject=Candidatura%20JourneyFlux%20Team&body=Ciao!%0A%0ASono%20interessato%20al%20ruolo%20di%20[RUOLO]%20in%20JourneyFlux.%0A%0AEcco%20perché%20sono%20la%20persona%20giusta:%0A%0A[La%20tua%20motivazione%20qui]%0A%0ATrovi%20il%20mio%20CV%20in%20allegato.%0A%0AHo%20visto%20il%20vostro%20prototipo%20e%20sono%20davvero%20entusiasta%20del%20progetto!%0A%0AScrivetemi%20presto%20💫"
+                  className="group bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                >
+                  <span className="mr-2">📧</span>
+                  Candidati Ora
+                  <ChevronRightIcon className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a 
+                  href="https://linkedin.com/company/journeyflux"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-white/20 text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                >
+                  <span className="mr-2">💼</span>
+                  Seguici su LinkedIn
+                  <ChevronRightIcon className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div className="bg-white/10 rounded-2xl p-6">
+                <div className="text-3xl mb-2">🎯</div>
+                <h4 className="font-semibold text-white mb-2">Processo Veloce</h4>
+                <p className="text-white/80 text-sm">
+                  Colloquio informale → Test pratico → Decisione in 1 settimana
+                </p>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-6">
+                <div className="text-3xl mb-2">🌟</div>
+                <h4 className="font-semibold text-white mb-2">Remote-First</h4>
+                <p className="text-white/80 text-sm">
+                  Lavoro da remoto con meet-up periodici in Italia
+                </p>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-6">
+                <div className="text-3xl mb-2">💎</div>
+                <h4 className="font-semibold text-white mb-2">Equity Reale</h4>
+                <p className="text-white/80 text-sm">
+                  Partecipazione agli utili quando l'azienda cresce
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <div id="pricing">
         <Pricing />
@@ -314,7 +628,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Il futuro di 
+              Il futuro di
+              <br />
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">JourneyFlux</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -499,6 +814,7 @@ export default function Home() {
                 <li><a href="#how-it-works" className="hover:text-white transition-colors">🎯 Come Funziona</a></li>
                 <li><a href="#testimonials" className="hover:text-white transition-colors">💬 Testimonials</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">💎 Piani</a></li>
+                <li><a href="#join-team" className="hover:text-white transition-colors">👥 Join Us</a></li>
               </ul>
             </div>
             
