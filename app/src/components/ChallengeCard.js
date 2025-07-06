@@ -5,6 +5,8 @@ import { theme } from '../utils/theme';
 
 const ChallengeCard = ({ challenge, onPress }) => {
   const getDifficultyColor = (difficulty) => {
+    if (!difficulty) return '#95A5A6';
+    
     switch (difficulty.toLowerCase()) {
       case 'facile':
         return '#4ECDC4';
@@ -18,6 +20,8 @@ const ChallengeCard = ({ challenge, onPress }) => {
   };
 
   const getCategoryColor = (category) => {
+    if (!category) return ['#95A5A6', '#B2BFC6'];
+    
     switch (category.toLowerCase()) {
       case 'gastronomia':
         return ['#FF6B6B', '#FF8E8E'];
@@ -27,6 +31,12 @@ const ChallengeCard = ({ challenge, onPress }) => {
         return ['#45B7D1', '#6AC5E5'];
       case 'arte':
         return ['#F06292', '#F48FB1'];
+      case 'mistero':
+        return ['#8B5CF6', '#A78BFA'];
+      case 'leggenda':
+        return ['#F59E0B', '#FCD34D'];
+      case 'storia':
+        return ['#DC2626', '#F87171'];
       default:
         return ['#95A5A6', '#B2BFC6'];
     }
@@ -52,21 +62,21 @@ const ChallengeCard = ({ challenge, onPress }) => {
         </View>
         
         <View style={styles.content}>
-          <Text style={styles.title} numberOfLines={2}>{challenge.title}</Text>
-          <Text style={styles.location}>{challenge.location}</Text>
+          <Text style={styles.title} numberOfLines={2}>{challenge.title || 'Titolo mancante'}</Text>
+          <Text style={styles.location}>{challenge.location || 'Posizione non specificata'}</Text>
           
           <View style={styles.footer}>
             <View style={styles.infoRow}>
               <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}>
-                <Text style={styles.difficultyText}>{challenge.difficulty}</Text>
+                <Text style={styles.difficultyText}>{challenge.difficulty || 'N/A'}</Text>
               </View>
               <View style={styles.pointsContainer}>
-                <Text style={styles.pointsText}>{challenge.points} pts</Text>
+                <Text style={styles.pointsText}>{challenge.points || 0} pts</Text>
               </View>
             </View>
             
             <View style={styles.categoryContainer}>
-              <Text style={styles.categoryText}>{challenge.category}</Text>
+              <Text style={styles.categoryText}>{challenge.category || 'Categoria non specificata'}</Text>
             </View>
           </View>
         </View>
@@ -81,10 +91,12 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 16,
     elevation: 4,
+    // iOS shadow properties
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    backgroundColor: 'transparent', // Ensure shadow visibility
   },
   gradient: {
     borderRadius: 16,

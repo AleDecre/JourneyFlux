@@ -11,18 +11,51 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import ChallengeCard from '../components/ChallengeCard';
 import CitySelector from '../components/CitySelector';
+
+// Data imports - MVP 2.0
 import { challenges } from '../data/challenges';
 import { cities, getFeaturedCities } from '../data/cities';
-import { getUserProfile } from '../data/user';
+import { getUserProfile, getDisplayStats } from '../data/user';
+import { getAllNarrativePaths, getFeaturedNarrativePaths, getNarrativePathsByCity } from '../data/narrativePaths';
+import { getAllItineraries, getFeaturedItineraries, getItinerariesByCity } from '../data/itineraries';
+import { getAllPartnerExperiences, getFeaturedPartnerExperiences, getPartnerExperiencesByCity } from '../data/partnerExperiences';
+import { CONTENT_TYPES } from '../data/contentTypes';
 
 const HomeScreen = ({ navigation }) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showAllChallenges, setShowAllChallenges] = useState(false);
+  const [showAllNarrativePaths, setShowAllNarrativePaths] = useState(false);
+  const [showAllItineraries, setShowAllItineraries] = useState(false);
+  const [showAllPartnerExperiences, setShowAllPartnerExperiences] = useState(false);
   
   const userProfile = getUserProfile();
   const featuredCities = getFeaturedCities();
 
+  // Get content for all types
+  const allNarrativePaths = getAllNarrativePaths();
+  const allItineraries = getAllItineraries();
+  const allPartnerExperiences = getAllPartnerExperiences();
+
+  // Featured content
+  const featuredNarrativePaths = getFeaturedNarrativePaths();
+  const featuredItineraries = getFeaturedItineraries();
+  const featuredPartnerExperiences = getFeaturedPartnerExperiences();
+
+  // City-filtered content
+  const narrativePathsToShow = selectedCity 
+    ? getNarrativePathsByCity(selectedCity.name)
+    : featuredNarrativePaths;
+
+  const itinerariesToShow = selectedCity 
+    ? getItinerariesByCity(selectedCity.name)
+    : featuredItineraries;
+
+  const partnerExperiencesToShow = selectedCity 
+    ? getPartnerExperiencesByCity(selectedCity.name)
+    : featuredPartnerExperiences;
+
+  // Legacy challenges (maintained for compatibility)
   const filteredChallenges = selectedCity 
     ? challenges.filter(challenge => 
         challenge.location.toLowerCase().includes(selectedCity.name.toLowerCase())
@@ -32,6 +65,19 @@ const HomeScreen = ({ navigation }) => {
   const displayedChallenges = showAllChallenges 
     ? filteredChallenges 
     : filteredChallenges.slice(0, 3);
+
+  // Display logic for new content types
+  const displayedNarrativePaths = showAllNarrativePaths 
+    ? narrativePathsToShow 
+    : narrativePathsToShow.slice(0, 3);
+
+  const displayedItineraries = showAllItineraries 
+    ? itinerariesToShow 
+    : itinerariesToShow.slice(0, 3);
+
+  const displayedPartnerExperiences = showAllPartnerExperiences 
+    ? partnerExperiencesToShow 
+    : partnerExperiencesToShow.slice(0, 3);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -44,9 +90,27 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('Challenge', { challengeId: challenge.id });
   };
 
+  const handleNarrativePathPress = (path) => {
+    // TODO: Navigate to NarrativePathScreen when created
+    console.log('Navigating to narrative path:', path.title);
+  };
+
+  const handleItineraryPress = (itinerary) => {
+    // TODO: Navigate to ItineraryScreen when created
+    console.log('Navigating to itinerary:', itinerary.title);
+  };
+
+  const handlePartnerExperiencePress = (experience) => {
+    // TODO: Navigate to PartnerExperienceScreen when created
+    console.log('Navigating to partner experience:', experience.name);
+  };
+
   const handleCitySelect = (city) => {
     setSelectedCity(selectedCity?.id === city.id ? null : city);
     setShowAllChallenges(false);
+    setShowAllNarrativePaths(false);
+    setShowAllItineraries(false);
+    setShowAllPartnerExperiences(false);
   };
 
   return (
@@ -84,12 +148,189 @@ const HomeScreen = ({ navigation }) => {
           onCitySelect={handleCitySelect}
         />
 
-        <View style={styles.challengesSection}>
+        {/* SEZIONE 1: PERCORSI NARRATIVI */}
+        <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>
-              {selectedCity ? `Sfide a ${selectedCity.name}` : 'Sfide Popolari'}
+              🎭 {selectedCity ? `Percorsi a ${selectedCity.name}` : 'Percorsi Narrativi'}
             </Text>
-            <Text style={styles.challengeCount}>
+            <Text style={styles.contentCount}>
+              {narrativePathsToShow.length} disponibili
+            </Text>
+          </View>
+
+          {displayedNarrativePaths.length > 0 ? (
+            <>
+              {displayedNarrativePaths.map((path) => (
+                <ChallengeCard
+                  key={`narrative-${path.id}`}
+                  challenge={{
+                    id: path.id,
+                    title: path.title,
+                    description: path.description,
+                    location: path.city,
+                    difficulty: path.difficulty,
+                    points: path.rewards.points,
+                    category: path.category,
+                    image: path.icon,
+                    completed: path.completed
+                  }}
+                  onPress={() => handleNarrativePathPress(path)}
+                />
+              ))}
+              
+              {narrativePathsToShow.length > 3 && (
+                <TouchableOpacity
+                  style={styles.showMoreButton}
+                  onPress={() => setShowAllNarrativePaths(!showAllNarrativePaths)}
+                >
+                  <LinearGradient
+                    colors={['#FF6B6B', '#FF8E8E']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.showMoreGradient}
+                  >
+                    <Text style={styles.showMoreText}>
+                      {showAllNarrativePaths ? 'Mostra meno' : `Mostra tutti (${narrativePathsToShow.length - 3} rimanenti)`}
+                    </Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              )}
+            </>
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Nessun percorso narrativo disponibile per {selectedCity?.name}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* SEZIONE 2: ITINERARI CONSIGLIATI */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>
+              🗺️ {selectedCity ? `Itinerari a ${selectedCity.name}` : 'Itinerari Consigliati'}
+            </Text>
+            <Text style={styles.contentCount}>
+              {itinerariesToShow.length} disponibili
+            </Text>
+          </View>
+
+          {displayedItineraries.length > 0 ? (
+            <>
+              {displayedItineraries.map((itinerary) => (
+                <ChallengeCard
+                  key={`itinerary-${itinerary.id}`}
+                  challenge={{
+                    id: itinerary.id,
+                    title: itinerary.title,
+                    description: itinerary.description,
+                    location: itinerary.city,
+                    difficulty: itinerary.difficulty,
+                    points: itinerary.estimatedPoints || 100,
+                    category: itinerary.type === 'community' ? 'Community' : 'Tour Operator',
+                    image: itinerary.type === 'community' ? '👥' : '🏛️',
+                    completed: false
+                  }}
+                  onPress={() => handleItineraryPress(itinerary)}
+                />
+              ))}
+              
+              {itinerariesToShow.length > 3 && (
+                <TouchableOpacity
+                  style={styles.showMoreButton}
+                  onPress={() => setShowAllItineraries(!showAllItineraries)}
+                >
+                  <LinearGradient
+                    colors={['#4ECDC4', '#7ED5D1']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.showMoreGradient}
+                  >
+                    <Text style={styles.showMoreText}>
+                      {showAllItineraries ? 'Mostra meno' : `Mostra tutti (${itinerariesToShow.length - 3} rimanenti)`}
+                    </Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              )}
+            </>
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Nessun itinerario disponibile per {selectedCity?.name}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* SEZIONE 3: FOOD & DRINK PARTNER */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>
+              🍷 {selectedCity ? `Food & Drink a ${selectedCity.name}` : 'Partner Experiences'}
+            </Text>
+            <Text style={styles.contentCount}>
+              {partnerExperiencesToShow.length} disponibili
+            </Text>
+          </View>
+
+          {displayedPartnerExperiences.length > 0 ? (
+            <>
+              {displayedPartnerExperiences.map((experience) => (
+                <ChallengeCard
+                  key={`partner-${experience.id}`}
+                  challenge={{
+                    id: experience.id,
+                    title: experience.name,
+                    description: experience.experience.description,
+                    location: experience.city,
+                    difficulty: 'Facile',
+                    points: experience.rewards.points,
+                    category: experience.category,
+                    image: experience.partner.type === 'bar' ? '🍸' : 
+                           experience.partner.type === 'restaurant' ? '🍝' : 
+                           experience.partner.type === 'bottega' ? '🧀' : '🍷',
+                    completed: false
+                  }}
+                  onPress={() => handlePartnerExperiencePress(experience)}
+                />
+              ))}
+              
+              {partnerExperiencesToShow.length > 3 && (
+                <TouchableOpacity
+                  style={styles.showMoreButton}
+                  onPress={() => setShowAllPartnerExperiences(!showAllPartnerExperiences)}
+                >
+                  <LinearGradient
+                    colors={['#F06292', '#F48FB1']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.showMoreGradient}
+                  >
+                    <Text style={styles.showMoreText}>
+                      {showAllPartnerExperiences ? 'Mostra meno' : `Mostra tutti (${partnerExperiencesToShow.length - 3} rimanenti)`}
+                    </Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              )}
+            </>
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Nessuna esperienza partner disponibile per {selectedCity?.name}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* SEZIONE LEGACY: SFIDE CLASSICHE (mantenuta per compatibilità) */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>
+              🏆 {selectedCity ? `Sfide Classiche a ${selectedCity.name}` : 'Sfide Classiche'}
+            </Text>
+            <Text style={styles.contentCount}>
               {filteredChallenges.length} disponibili
             </Text>
           </View>
@@ -98,7 +339,7 @@ const HomeScreen = ({ navigation }) => {
             <>
               {displayedChallenges.map((challenge) => (
                 <ChallengeCard
-                  key={challenge.id}
+                  key={`challenge-${challenge.id}`}
                   challenge={challenge}
                   onPress={() => handleChallengePress(challenge)}
                 />
@@ -110,7 +351,7 @@ const HomeScreen = ({ navigation }) => {
                   onPress={() => setShowAllChallenges(!showAllChallenges)}
                 >
                   <LinearGradient
-                    colors={['#4ECDC4', '#44A08D']}
+                    colors={['#45B7D1', '#6AC5E5']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.showMoreGradient}
@@ -125,37 +366,57 @@ const HomeScreen = ({ navigation }) => {
           ) : (
             <View style={styles.emptyState}>
               <Text style={styles.emptyStateText}>
-                Nessuna sfida disponibile per {selectedCity?.name}
+                Nessuna sfida classica disponibile per {selectedCity?.name}
               </Text>
-              <TouchableOpacity
-                style={styles.clearFilterButton}
-                onPress={() => setSelectedCity(null)}
-              >
-                <Text style={styles.clearFilterText}>
-                  Mostra tutte le sfide
-                </Text>
-              </TouchableOpacity>
             </View>
           )}
         </View>
 
+        {/* STATISTICHE UTENTE AGGIORNATE */}
         <View style={styles.quickStats}>
-          <Text style={styles.quickStatsTitle}>I tuoi progressi</Text>
-          <View style={styles.statsRow}>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{userProfile.stats.challengesCompleted}</Text>
-              <Text style={styles.statLabel}>Completate</Text>
+          <Text style={styles.quickStatsTitle}>I tuoi progressi MVP 2.0</Text>
+          <View style={styles.statsGrid}>
+            <View style={styles.statRow}>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.narrativePathsCompleted}</Text>
+                <Text style={styles.statLabel}>Percorsi</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.itinerariesFollowed}</Text>
+                <Text style={styles.statLabel}>Itinerari</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.partnersVisited}</Text>
+                <Text style={styles.statLabel}>Partner</Text>
+              </View>
             </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{userProfile.stats.badgesEarned}</Text>
-              <Text style={styles.statLabel}>Badge</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{userProfile.stats.currentStreak}</Text>
-              <Text style={styles.statLabel}>Streak</Text>
+            <View style={styles.statRow}>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.storyPoints}</Text>
+                <Text style={styles.statLabel}>Story Points</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.badgesEarned}</Text>
+                <Text style={styles.statLabel}>Badge</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{userProfile.stats.currentStreak}</Text>
+                <Text style={styles.statLabel}>Streak</Text>
+              </View>
             </View>
           </View>
         </View>
+
+        {selectedCity && (
+          <TouchableOpacity
+            style={styles.clearFilterButton}
+            onPress={() => setSelectedCity(null)}
+          >
+            <Text style={styles.clearFilterText}>
+              Mostra tutti i contenuti
+            </Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -206,7 +467,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  challengesSection: {
+  section: {
     marginTop: 16,
   },
   sectionHeader: {
@@ -217,11 +478,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#2C3E50',
   },
-  challengeCount: {
+  contentCount: {
     fontSize: 14,
     color: '#7F8C8D',
   },
@@ -252,14 +513,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   clearFilterButton: {
+    marginHorizontal: 16,
+    marginVertical: 16,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 12,
     backgroundColor: '#4ECDC4',
-    borderRadius: 8,
+    borderRadius: 12,
+    alignItems: 'center',
   },
   clearFilterText: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
   },
   quickStats: {
@@ -267,12 +531,12 @@ const styles = StyleSheet.create({
     marginVertical: 24,
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    padding: 16,
-    elevation: 2,
+    padding: 20,
+    elevation: 3,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 4,
   },
   quickStatsTitle: {
     fontSize: 18,
@@ -281,12 +545,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
-  statsRow: {
+  statsGrid: {
+    flexDirection: 'column',
+    gap: 16,
+  },
+  statRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   statItem: {
     alignItems: 'center',
+    flex: 1,
   },
   statValue: {
     fontSize: 24,
@@ -297,6 +566,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#7F8C8D',
     marginTop: 4,
+  },
+  // Legacy styles per compatibilità
+  challengesSection: {
+    marginTop: 16,
+  },
+  challengeCount: {
+    fontSize: 14,
+    color: '#7F8C8D',
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 
