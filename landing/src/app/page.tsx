@@ -54,15 +54,15 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Il futuro del{" "}
+              Trasforma l&apos;Italia in{" "}
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                turismo digitale
+                avventure narrative
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-              Piattaforma di gamification location-based che trasforma il turismo attraverso sfide interattive, 
-              esperienze data-driven e coinvolgimento della community nelle destinazioni italiane.
+              Scopri i segreti nascosti delle città italiane attraverso <strong>Percorsi Narrativi</strong>, 
+              <strong>Itinerari Community</strong> e <strong>Partner Experiences</strong> che trasformano ogni viaggio in un&apos;avventura coinvolgente.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
               <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center">
@@ -79,19 +79,19 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900 mb-1">Live</div>
-                <div className="text-gray-500 text-sm">Status MVP</div>
+                <div className="text-gray-500 text-sm">MVP 2.0</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">5</div>
-                <div className="text-gray-500 text-sm">Città Principali</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">4</div>
+                <div className="text-gray-500 text-sm">Città Attive</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">100+</div>
-                <div className="text-gray-500 text-sm">Sfide Attive</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">16</div>
+                <div className="text-gray-500 text-sm">Esperienze Totali</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">€50B</div>
-                <div className="text-gray-500 text-sm">Mercato Turismo Italia</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">21</div>
+                <div className="text-gray-500 text-sm">Badge Collezionabili</div>
               </div>
             </div>
           </div>
@@ -103,10 +103,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Innovazione turistica <span className="text-blue-600">guidata dalla tecnologia</span>
+              Tre tipologie di <span className="text-blue-600">esperienze narrative</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Piattaforma avanzata basata su localizzazione con verifica in tempo reale e coinvolgimento della community
+              Percorsi curati, itinerari community e partner locali che svelano i segreti delle città italiane
             </p>
           </div>
           
@@ -115,41 +115,41 @@ export default function Home() {
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <MapPinIcon className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Sfide Verificate GPS</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">🎭 Percorsi Narrativi</h3>
               <p className="text-gray-600 mb-4">
-                Tracciamento preciso della posizione con verifica fotografica garantisce esperienze autentiche. 
-                Ogni sfida validata attraverso il nostro sistema proprietario di verifica.
+                Mini-avventure curate che raccontano storie, leggende e misteri urbani. 
+                Ogni percorso ha intro narrative, tappe GPS e foto-enigma finale con ricompense esclusive.
               </p>
               <div className="text-sm text-blue-600 font-medium">
-                Verifica in tempo reale di posizione e foto
+                6 percorsi disponibili • Roma & Napoli
               </div>
             </div>
             
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                <TrophyIcon className="w-6 h-6 text-purple-600" />
+                <UsersIcon className="w-6 h-6 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Sistema di Achievement Digitali</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">🗺️ Itinerari Community</h3>
               <p className="text-gray-600 mb-4">
-                Tracciamento completo dei progressi con achievement specifici per città. 
-                Meccaniche di gamification progettate per massimo engagement e retention degli utenti.
+                Esperienze create da local ambassador e tour operator professionali. 
+                Sistema di rating, recensioni e timeline dettagliate con costi e prenotazioni.
               </p>
               <div className="text-sm text-purple-600 font-medium">
-                Analytics avanzate e classifiche
+                5 itinerari • Community + Tour Operator
               </div>
             </div>
             
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <UsersIcon className="w-6 h-6 text-green-600" />
+                <TrophyIcon className="w-6 h-6 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Piattaforma Community</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">🍷 Partner Experiences</h3>
               <p className="text-gray-600 mb-4">
-                Contenuti generati dagli utenti con moderazione AI-powered. 
-                Sistema scalabile di creazione contenuti che abilita rapida espansione di mercato.
+                Offerte esclusive da bar, ristoranti e botteghe locali. 
+                Sconti fino al 30%, degustazioni speciali e badge partner dedicati per collezionisti.
               </p>
               <div className="text-sm text-green-600 font-medium">
-                Moderazione AI e garanzia qualità contenuti
+                5 partner • QR codes e riscatti
               </div>
             </div>
           </div>
@@ -161,10 +161,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Architettura <span className="text-blue-600">della piattaforma</span>
+              Come funziona <span className="text-blue-600">l&apos;esperienza narrative</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Esperienza utente semplificata con backend tecnologico avanzato
+              Dalla scoperta dei contenuti al passaporto digitale: il viaggio in 3 step
             </p>
           </div>
           
@@ -173,10 +173,10 @@ export default function Home() {
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
                 1
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Scoperta e Selezione</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Esplora & Scegli</h3>
               <p className="text-gray-600">
-                Motore di raccomandazione AI-powered suggerisce sfide personalizzate 
-                basate su posizione, preferenze e pattern comportamentali dell&apos;utente.
+                Scopri Percorsi Narrativi, Itinerari Community e Partner Experiences. 
+                Filtra per città (Milano, Roma, Napoli, Firenze) e trova l&apos;avventura perfetta per te.
               </p>
             </div>
             
@@ -184,10 +184,10 @@ export default function Home() {
               <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
                 2
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Esecuzione e Verifica</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Vivi l&apos;Avventura</h3>
               <p className="text-gray-600">
-                Tracciamento GPS e verifica fotografica garantiscono completamento autentico. 
-                Validazione in tempo reale fornisce feedback istantaneo e tracking dei progressi.
+                Segui le storie coinvolgenti, completa le tappe GPS, risolvi foto-enigma 
+                e scopri segreti nascosti che il 99% dei turisti non vedrà mai.
               </p>
             </div>
             
@@ -195,10 +195,10 @@ export default function Home() {
               <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6">
                 3
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Analytics e Engagement</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Colleziona & Condividi</h3>
               <p className="text-gray-600">
-                Raccolta dati completa abilita esperienze personalizzate 
-                e insight preziosi per gli stakeholder del turismo.
+                Ottieni badge esclusivi per il tuo passaporto digitale. 
+                21 badge con sistema di rarità: da Comune a Epico. Diventa un Maestro Esploratore!
               </p>
             </div>
           </div>
@@ -210,20 +210,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">25</div>
-              <div className="text-gray-600">Città Target</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">6</div>
+              <div className="text-gray-600">Percorsi Narrativi</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-              <div className="text-gray-600">Sfide Pianificate</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+              <div className="text-gray-600">Itinerari Community</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
-              <div className="text-gray-600">Categorie Achievement</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+              <div className="text-gray-600">Partner Experiences</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">10k+</div>
-              <div className="text-gray-600">Utenti Target Anno 1</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">21</div>
+              <div className="text-gray-600">Badge Collezionabili</div>
             </div>
           </div>
         </div>
