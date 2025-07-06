@@ -10,6 +10,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import ChallengeCard from '../components/ChallengeCard';
+import NarrativePathCard from '../components/NarrativePathCard';
+import ItineraryCard from '../components/ItineraryCard';
+import PartnerExperienceCard from '../components/PartnerExperienceCard';
 import CitySelector from '../components/CitySelector';
 
 // Data imports - MVP 2.0
@@ -162,19 +165,9 @@ const HomeScreen = ({ navigation }) => {
           {displayedNarrativePaths.length > 0 ? (
             <>
               {displayedNarrativePaths.map((path) => (
-                <ChallengeCard
+                <NarrativePathCard
                   key={`narrative-${path.id}`}
-                  challenge={{
-                    id: path.id,
-                    title: path.title,
-                    description: path.description,
-                    location: path.city,
-                    difficulty: path.difficulty,
-                    points: path.rewards.points,
-                    category: path.category,
-                    image: path.icon,
-                    completed: path.completed
-                  }}
+                  narrativePath={path}
                   onPress={() => handleNarrativePathPress(path)}
                 />
               ))}
@@ -220,19 +213,9 @@ const HomeScreen = ({ navigation }) => {
           {displayedItineraries.length > 0 ? (
             <>
               {displayedItineraries.map((itinerary) => (
-                <ChallengeCard
+                <ItineraryCard
                   key={`itinerary-${itinerary.id}`}
-                  challenge={{
-                    id: itinerary.id,
-                    title: itinerary.title,
-                    description: itinerary.description,
-                    location: itinerary.city,
-                    difficulty: itinerary.difficulty,
-                    points: itinerary.estimatedPoints || 100,
-                    category: itinerary.type === 'community' ? 'Community' : 'Tour Operator',
-                    image: itinerary.type === 'community' ? '👥' : '🏛️',
-                    completed: false
-                  }}
+                  itinerary={itinerary}
                   onPress={() => handleItineraryPress(itinerary)}
                 />
               ))}
@@ -278,21 +261,9 @@ const HomeScreen = ({ navigation }) => {
           {displayedPartnerExperiences.length > 0 ? (
             <>
               {displayedPartnerExperiences.map((experience) => (
-                <ChallengeCard
+                <PartnerExperienceCard
                   key={`partner-${experience.id}`}
-                  challenge={{
-                    id: experience.id,
-                    title: experience.name,
-                    description: experience.experience.description,
-                    location: experience.city,
-                    difficulty: 'Facile',
-                    points: experience.rewards.points,
-                    category: experience.category,
-                    image: experience.partner.type === 'bar' ? '🍸' : 
-                           experience.partner.type === 'restaurant' ? '🍝' : 
-                           experience.partner.type === 'bottega' ? '🧀' : '🍷',
-                    completed: false
-                  }}
+                  partnerExperience={experience}
                   onPress={() => handlePartnerExperiencePress(experience)}
                 />
               ))}

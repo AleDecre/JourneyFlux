@@ -11,6 +11,7 @@ const narrativePathsRoma = [
     title: 'I Fantasmi di Castel Sant\'Angelo',
     category: NARRATIVE_CATEGORIES.MISTERO,
     city: 'Roma',
+    icon: '👻', // Icona per il percorso narrativo
     
     // Intro narrativa (il "gancio" emotivo)
     introduction: 'Nel 590 d.C., mentre la peste devastava Roma, Papa Gregorio Magno vide l\'Arcangelo Michele ringuainare la spada sulla sommità del Mausoleo di Adriano. La pestilenza cessò, ma le anime dei prigionieri continuano a vagare tra le mura del castello...',
@@ -117,10 +118,11 @@ const narrativePathsRoma = [
     title: 'L\'Alchimia Segreta del Pantheon',
     category: NARRATIVE_CATEGORIES.MISTERO,
     city: 'Roma',
+    icon: '🔮', // Icona per alchimia
     
     introduction: 'Il Pantheon non è solo un tempio romano. I suoi architetti nascosero proporzioni alchemiche che trasformano chi entra in "iniziato". La cupola è un orologio solare che rivela quando aprire la "Porta dell\'Immortalità"...',
     
-    description: 'Decifera i simboli alchemici nascosti nel Pantheon e scopri il segreto della "Porta dell\'Immortalità" che ossessionò i maestri del Rinascimento.',
+    description: 'Decifra i simboli alchemici nascosti nel Pantheon e scopri il segreto della "Porta dell\'Immortalità" che ossessionò i maestri del Rinascimento.',
     
     difficulty: 'difficile',
     duration: 45,
@@ -142,7 +144,7 @@ const narrativePathsRoma = [
       {
         id: 'step_2',
         title: 'Portico del Pantheon - Le Colonne Parlanti',
-        description: 'Decifera il messaggio nascosto nelle proporzioni delle colonne',
+        description: 'Decifra il messaggio nascosto nelle proporzioni delle colonne',
         coordinates: { lat: 41.8987, lng: 12.4768 },
         storyContent: 'Le 16 colonne del portico seguono la sequenza di Fibonacci. Ma c\'è di più: le loro ombre a mezzogiorno disegnano una mappa stellare che indica...',
         hint: 'Conta le colonne da sinistra, fermati alla quinta',
@@ -212,6 +214,7 @@ const narrativePathsRoma = [
     title: 'Gli Spiriti della Via Appia',
     category: NARRATIVE_CATEGORIES.LEGGENDA,
     city: 'Roma',
+    icon: '⚔️', // Icona per gladiatori/spiriti
     
     introduction: 'La Via Appia Antica non è solo una strada romana. È un ponte tra i mondi, dove le anime dei gladiatori e dei martiri cristiani si manifestano ancora oggi. I pastori locali evitano certi tratti dopo il tramonto...',
     
@@ -310,6 +313,7 @@ const narrativePathsNapoli = [
     title: 'Il Sangue di San Gennaro',
     category: NARRATIVE_CATEGORIES.MISTERO,
     city: 'Napoli',
+    icon: '🩸', // Icona per sangue/miracolo
     
     introduction: 'Tre volte l\'anno, il sangue di San Gennaro si liquefa. Ma la scienza non riesce a spiegarlo completamente. Cosa nasconde davvero la reliquia più misteriosa del mondo? E perché alcune volte il miracolo "fallisce"?',
     
@@ -405,6 +409,7 @@ const narrativePathsNapoli = [
     title: 'Le Sirene di Partenope',
     category: NARRATIVE_CATEGORIES.LEGGENDA,
     city: 'Napoli',
+    icon: '🧜‍♀️', // Icona per sirene
     
     introduction: 'Napoli sorge sul corpo della sirena Partenope, morta per amore di Ulisse. Ma la leggenda nasconde una verità: le sirene non erano mostri, ma custodi di conoscenze antiche. E alcune sono ancora vive...',
     
@@ -500,6 +505,7 @@ const narrativePathsNapoli = [
     title: 'Il Complotto della Pizza Margherita',
     category: NARRATIVE_CATEGORIES.GASTRONOMIA,
     city: 'Napoli',
+    icon: '🍕', // Icona per pizza
     
     introduction: 'La pizza Margherita non fu creata per onorare la regina. Fu un messaggio politico segreto dei pizzaioli napoletani contro l\'unità d\'Italia. Ogni ingrediente nascondeva un simbolo di resistenza...',
     
