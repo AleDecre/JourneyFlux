@@ -46,368 +46,282 @@ const ChallengeCompleteScreen = ({ route, navigation }) => {
     ]).start();
   }, []);
 
-  const handleGoHome = () => {
-    navigation.navigate('Home');
+  const handleContinue = () => {
+    navigation.navigate('HomeTab');
   };
 
-  const handleNextChallenge = () => {
-    navigation.navigate('Home');
+  const handleNewChallenge = () => {
+    navigation.navigate('HomeTab');
   };
 
-  const handleViewProfile = () => {
-    navigation.navigate('Profile');
-  };
+  const badge = badgeEarned ? getBadgeById(badgeEarned) : null;
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#667eea', '#764ba2']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.background}
-      >
-        <ScrollView 
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Animated.View
+          style={[
+            styles.content,
+            {
+              opacity: fadeAnim,
+              transform: [
+                { translateY: slideAnim },
+                { scale: scaleAnim }
+              ]
+            }
+          ]}
         >
-          <Animated.View 
-            style={[
-              styles.content,
-              {
-                opacity: fadeAnim,
-                transform: [{ translateY: slideAnim }]
-              }
-            ]}
-          >
-          {/* Congratulations Section */}
-          <View style={styles.congratsSection}>
-            <Animated.View 
-              style={[
-                styles.successIcon,
-                {
-                  transform: [{ scale: scaleAnim }]
-                }
-              ]}
-            >
-              <Text style={styles.successEmoji}>🎉</Text>
-            </Animated.View>
-            
-            <Text style={styles.congratsTitle}>Sfida Completata!</Text>
-            <Text style={styles.congratsSubtitle}>
-              Complimenti! Hai completato con successo la sfida "{challenge?.title}"
+          {/* Success Header */}
+          <View style={styles.successHeader}>
+            <Text style={styles.successIcon}>🎉</Text>
+            <Text style={styles.successTitle}>Sfida Completata!</Text>
+            <Text style={styles.successSubtitle}>
+              Hai completato con successo la sfida "{challenge?.title}"
             </Text>
           </View>
 
-          {/* Points Earned */}
-          <Animated.View 
-            style={[
-              styles.pointsSection,
-              {
-                opacity: fadeAnim,
-                transform: [{ scale: scaleAnim }]
-              }
-            ]}
-          >
-            <LinearGradient
-              colors={['#FFD700', '#FFA500']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.pointsCard}
-            >
-              <Text style={styles.pointsIcon}>⭐</Text>
-              <Text style={styles.pointsEarned}>+{pointsEarned}</Text>
-              <Text style={styles.pointsLabel}>Punti Ottenuti</Text>
-            </LinearGradient>
-          </Animated.View>
+          {/* Challenge Info */}
+          <View style={styles.challengeInfo}>
+            <Text style={styles.challengeEmoji}>{challenge?.image}</Text>
+            <Text style={styles.challengeTitle}>{challenge?.title}</Text>
+            <Text style={styles.challengeLocation}>{challenge?.location}</Text>
+          </View>
 
-          {/* Badge Earned */}
-          {badgeEarned && (
-            <Animated.View 
-              style={[
-                styles.badgeSection,
-                {
-                  opacity: fadeAnim,
-                  transform: [{ scale: scaleAnim }]
-                }
-              ]}
-            >
-              <Text style={styles.badgeTitle}>Nuovo Badge Sbloccato!</Text>
+          {/* Rewards Section */}
+          <View style={styles.rewardsSection}>
+            <Text style={styles.rewardsTitle}>Ricompense Ottenute</Text>
+            
+            {/* Points Earned */}
+            <View style={styles.rewardCard}>
               <LinearGradient
                 colors={['#4ECDC4', '#44A08D']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={styles.badgeCard}
+                style={styles.rewardGradient}
               >
-                <Text style={styles.badgeIcon}>🏆</Text>
-                <Text style={styles.badgeName}>{challenge?.badge}</Text>
+                <Text style={styles.rewardIcon}>💎</Text>
+                <Text style={styles.rewardTitle}>Punti Guadagnati</Text>
+                <Text style={styles.rewardValue}>+{pointsEarned}</Text>
               </LinearGradient>
-            </Animated.View>
-          )}
-
-          {/* Achievement Stats */}
-          <View style={styles.statsSection}>
-            <Text style={styles.statsTitle}>Statistiche aggiornate</Text>
-            <View style={styles.statsContainer}>
-              <View style={styles.statItem}>
-                <Text style={styles.statValue}>+1</Text>
-                <Text style={styles.statLabel}>Sfida completata</Text>
-              </View>
-              <View style={styles.statItem}>
-                <Text style={styles.statValue}>+{pointsEarned}</Text>
-                <Text style={styles.statLabel}>Punti totali</Text>
-              </View>
-              {badgeEarned && (
-                <View style={styles.statItem}>
-                  <Text style={styles.statValue}>+1</Text>
-                  <Text style={styles.statLabel}>Badge ottenuto</Text>
-                </View>
-              )}
             </View>
+
+            {/* Badge Earned */}
+            {badge && (
+              <View style={styles.rewardCard}>
+                <LinearGradient
+                  colors={['#F06292', '#E91E63']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.rewardGradient}
+                >
+                  <Text style={styles.rewardIcon}>🏆</Text>
+                  <Text style={styles.rewardTitle}>Badge Sbloccato</Text>
+                  <Text style={styles.badgeName}>{badge.name}</Text>
+                  <Text style={styles.badgeDescription}>{badge.description}</Text>
+                </LinearGradient>
+              </View>
+            )}
           </View>
 
           {/* Action Buttons */}
-          <View style={styles.actionsSection}>
+          <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.primaryButton}
-              onPress={handleNextChallenge}
+              onPress={handleContinue}
             >
               <LinearGradient
-                colors={['#27AE60', '#2ECC71']}
+                colors={['#667eea', '#764ba2']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={styles.primaryButtonGradient}
+                style={styles.buttonGradient}
               >
-                <Text style={styles.primaryButtonText}>Prossima Sfida</Text>
+                <Text style={styles.buttonText}>Continua</Text>
               </LinearGradient>
             </TouchableOpacity>
 
-            <View style={styles.secondaryButtonsRow}>
-              <TouchableOpacity
-                style={styles.secondaryButton}
-                onPress={handleViewProfile}
-              >
-                <Text style={styles.secondaryButtonText}>Vedi Profilo</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.secondaryButton}
-                onPress={handleGoHome}
-              >
-                <Text style={styles.secondaryButtonText}>Torna alla Home</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.secondaryButton}
+              onPress={handleNewChallenge}
+            >
+              <Text style={styles.secondaryButtonText}>Nuova Sfida</Text>
+            </TouchableOpacity>
           </View>
 
-          {/* Motivational Message */}
-          <View style={styles.motivationSection}>
-            <Text style={styles.motivationText}>
-              "Ogni viaggio inizia con un singolo passo. Continua a esplorare!"
+          {/* Motivational Quote */}
+          <View style={styles.quoteContainer}>
+            <Text style={styles.quote}>
+              "Ogni viaggio inizia con un singolo passo... e tu ne hai appena fatto uno fantastico!"
             </Text>
           </View>
         </Animated.View>
       </ScrollView>
-    </LinearGradient>
-  </SafeAreaView>
-);
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  background: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
+    backgroundColor: '#F8F9FA',
   },
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 40,
   },
   content: {
-    padding: 20,
+    alignItems: 'center',
   },
-  congratsSection: {
+  successHeader: {
     alignItems: 'center',
     marginBottom: 30,
-    paddingHorizontal: 10,
   },
   successIcon: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
+    fontSize: 64,
+    marginBottom: 16,
   },
-  successEmoji: {
-    fontSize: 50,
-  },
-  congratsTitle: {
-    fontSize: 28,
+  successTitle: {
+    fontSize: 32,
     fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
+    color: '#2C3E50',
+    marginBottom: 8,
     textAlign: 'center',
-    marginBottom: 12,
   },
-  congratsSubtitle: {
+  successSubtitle: {
     fontSize: 16,
     fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: '#7F8C8D',
     textAlign: 'center',
-    lineHeight: 24,
     paddingHorizontal: 20,
   },
-  pointsSection: {
+  challengeInfo: {
     alignItems: 'center',
     marginBottom: 30,
-  },
-  pointsCard: {
-    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
     padding: 20,
-    alignItems: 'center',
-    minWidth: 180,
-    maxWidth: 250,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-  },
-  pointsIcon: {
-    fontSize: 40,
-    marginBottom: 8,
-  },
-  pointsEarned: {
-    fontSize: 32,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-  },
-  pointsLabel: {
-    fontSize: 16,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.9)',
-    marginTop: 4,
-  },
-  badgeSection: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  badgeTitle: {
-    fontSize: 20,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  badgeCard: {
     borderRadius: 16,
-    padding: 16,
-    alignItems: 'center',
-    minWidth: 160,
-    maxWidth: 200,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-  },
-  badgeIcon: {
-    fontSize: 32,
-    marginBottom: 8,
-  },
-  badgeName: {
-    fontSize: 16,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-    textAlign: 'center',
-  },
-  statsSection: {
-    marginBottom: 30,
-  },
-  statsTitle: {
-    fontSize: 18,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 16,
-    padding: 16,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 24,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-  },
-  statLabel: {
-    fontSize: 12,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
-    marginTop: 4,
-  },
-  actionsSection: {
-    marginBottom: 20,
-  },
-  primaryButton: {
-    borderRadius: 16,
-    marginBottom: 16,
-    elevation: 3,
+    width: '100%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    elevation: 2,
   },
-  primaryButtonGradient: {
+  challengeEmoji: {
+    fontSize: 48,
+    marginBottom: 12,
+  },
+  challengeTitle: {
+    fontSize: 20,
+    fontFamily: theme.fonts.bold,
+    color: '#2C3E50',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  challengeLocation: {
+    fontSize: 16,
+    fontFamily: theme.fonts.regular,
+    color: '#7F8C8D',
+    textAlign: 'center',
+  },
+  rewardsSection: {
+    width: '100%',
+    marginBottom: 30,
+  },
+  rewardsTitle: {
+    fontSize: 24,
+    fontFamily: theme.fonts.bold,
+    color: '#2C3E50',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  rewardCard: {
     borderRadius: 16,
-    paddingVertical: 16,
+    marginBottom: 16,
+    overflow: 'hidden',
+  },
+  rewardGradient: {
+    padding: 20,
     alignItems: 'center',
   },
-  primaryButtonText: {
+  rewardIcon: {
+    fontSize: 32,
+    marginBottom: 8,
+  },
+  rewardTitle: {
+    fontSize: 18,
+    fontFamily: theme.fonts.semiBold,
     color: '#FFFFFF',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  rewardValue: {
+    fontSize: 28,
+    fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
+  badgeName: {
     fontSize: 18,
     fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textAlign: 'center',
   },
-  secondaryButtonsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
+  badgeDescription: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255, 255, 255, 0.9)',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  primaryButton: {
+    width: '100%',
+    borderRadius: 16,
+    marginBottom: 12,
+    overflow: 'hidden',
+  },
+  buttonGradient: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
   },
   secondaryButton: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 12,
-    paddingVertical: 12,
+    width: '100%',
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#4ECDC4',
     alignItems: 'center',
   },
   secondaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: theme.fonts.semiBold,
+    color: '#4ECDC4',
   },
-  motivationSection: {
-    alignItems: 'center',
-    paddingTop: 20,
+  quoteContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    padding: 20,
+    borderRadius: 16,
+    width: '100%',
   },
-  motivationText: {
+  quote: {
     fontSize: 16,
     fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#7F8C8D',
     textAlign: 'center',
     fontStyle: 'italic',
-    lineHeight: 24,
   },
 });
 

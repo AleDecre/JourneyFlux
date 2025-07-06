@@ -11,8 +11,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import BadgeCard from '../components/BadgeCard';
 import StatCard from '../components/StatCard';
+import PassportBadge from '../components/PassportBadge';
 import { getUserProfile } from '../data/user';
-import { getEarnedBadges, getAvailableBadges } from '../data/badges';
+import { getEarnedBadges, getAvailableBadges, getBadgesByType, getBadgesByTypeWithCounts } from '../data/badges';
 import { getCompletedChallenges } from '../data/challenges';
 import { theme } from '../utils/theme';
 
@@ -21,13 +22,29 @@ const ProfileScreen = ({ navigation }) => {
   const earnedBadges = getEarnedBadges();
   const availableBadges = getAvailableBadges();
   const completedChallenges = getCompletedChallenges();
+  
+  // MVP 2.0 - Badge categories - Using helper functions
+  const narrativeBadges = getBadgesByTypeWithCounts('narrativo');
+  const partnerBadges = getBadgesByTypeWithCounts('partner');
+  const communityBadges = getBadgesByTypeWithCounts('community');
+  const rareBadges = earnedBadges.filter(badge => badge.rarity === 'raro' || badge.rarity === 'epico');
 
   const getProgressPercentage = () => {
-    return Math.round((userProfile.stats.challengesCompleted / userProfile.stats.challengesTotal) * 100);
+    const totalContent = userProfile.stats.challengesTotal + 
+                        userProfile.stats.narrativePathsTotal + 
+                        userProfile.stats.itinerariesTotal;
+    const completedContent = userProfile.stats.challengesCompleted + 
+                           userProfile.stats.narrativePathsCompleted + 
+                           userProfile.stats.itinerariesFollowed;
+    return Math.round((completedContent / totalContent) * 100);
   };
 
   const renderBadgeItem = ({ item }) => (
     <BadgeCard badge={item} size="medium" />
+  );
+
+  const renderPassportBadge = ({ item }) => (
+    <PassportBadge badge={item} size="medium" />
   );
 
   const renderCompletedChallenge = ({ item }) => (
@@ -74,16 +91,16 @@ const ProfileScreen = ({ navigation }) => {
 
           <View style={styles.quickStats}>
             <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.totalPoints}</Text>
-              <Text style={styles.quickStatLabel}>Punti Totali</Text>
+              <Text style={styles.quickStatValue}>{userProfile.stats.storyPoints}</Text>
+              <Text style={styles.quickStatLabel}>Story Points</Text>
             </View>
             <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.challengesCompleted}</Text>
-              <Text style={styles.quickStatLabel}>Sfide Completate</Text>
+              <Text style={styles.quickStatValue}>{userProfile.stats.narrativePathsCompleted}</Text>
+              <Text style={styles.quickStatLabel}>Percorsi Narrativi</Text>
             </View>
             <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.badgesEarned}</Text>
-              <Text style={styles.quickStatLabel}>Badge Ottenuti</Text>
+              <Text style={styles.quickStatValue}>{userProfile.stats.partnersVisited}</Text>
+              <Text style={styles.quickStatLabel}>Partner Visitati</Text>
             </View>
           </View>
         </LinearGradient>
@@ -92,44 +109,66 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.statsContainer}>
           <View style={styles.statsRow}>
             <StatCard
-              title="Progresso"
+              title="Progresso Totale"
               value={`${getProgressPercentage()}%`}
-              subtitle={`${userProfile.stats.challengesCompleted}/${userProfile.stats.challengesTotal} sfide`}
+              subtitle={`Esperienze completate`}
               icon="📊"
               colors={['#4ECDC4', '#44A08D']}
             />
             <StatCard
-              title="Streak"
-              value={userProfile.stats.currentStreak}
-              subtitle={`Record: ${userProfile.stats.longestStreak}`}
-              icon="🔥"
-              colors={['#FFB74D', '#FF9800']}
+              title="Story Points"
+              value={userProfile.stats.storyPoints}
+              subtitle={`${userProfile.stats.totalPoints} punti totali`}
+              icon="�"
+              colors={['#667eea', '#764ba2']}
             />
           </View>
           <View style={styles.statsRow}>
             <StatCard
-              title="Città visitate"
+              title="Città Esplorate"
               value={userProfile.stats.citiesVisited}
               subtitle="Italia"
               icon="🏙️"
               colors={['#F06292', '#E91E63']}
             />
             <StatCard
-              title="Livello"
-              value={Math.floor(userProfile.stats.totalPoints / 100) + 1}
-              subtitle={`${userProfile.stats.totalPoints % 100}/100 al prossimo`}
-              icon="⭐"
+              title="Badge Rari"
+              value={rareBadges.length}
+              subtitle={`${userProfile.stats.badgesEarned} totali`}
+              icon="💎"
               colors={['#9C27B0', '#673AB7']}
             />
           </View>
         </View>
 
-        {/* Earned Badges */}
+        {/* Passaporto Digitale - Featured Badges */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Badge Ottenuti ({earnedBadges.length})</Text>
-          {earnedBadges.length > 0 ? (
+          <Text style={styles.sectionTitle}>🎫 Passaporto Digitale</Text>
+          <Text style={styles.sectionSubtitle}>I tuoi badge più preziosi</Text>
+          {rareBadges.length > 0 ? (
             <FlatList
-              data={earnedBadges}
+              data={rareBadges}
+              renderItem={renderPassportBadge}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.badgesContainer}
+            />
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Completa i Percorsi Narrativi per sbloccare badge esclusivi! 🎭
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Badge Narrativi */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>🎭 Badge Narrativi ({narrativeBadges.earned.length}/{narrativeBadges.total.length})</Text>
+          {narrativeBadges.earned.length > 0 ? (
+            <FlatList
+              data={narrativeBadges.earned}
               renderItem={renderBadgeItem}
               keyExtractor={(item) => item.id.toString()}
               horizontal
@@ -139,63 +178,94 @@ const ProfileScreen = ({ navigation }) => {
           ) : (
             <View style={styles.emptyState}>
               <Text style={styles.emptyStateText}>
-                Nessun badge ottenuto ancora. Completa le sfide per sbloccare i primi badge!
+                Inizia un Percorso Narrativo per sbloccare i tuoi primi badge da esploratore! 
               </Text>
             </View>
           )}
         </View>
 
-        {/* Available Badges */}
+        {/* Badge Partner */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Badge Disponibili ({availableBadges.length})</Text>
-          <FlatList
-            data={availableBadges.slice(0, 6)}
-            renderItem={renderBadgeItem}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.badgesContainer}
-          />
-        </View>
-
-        {/* Completed Challenges */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Sfide Completate ({completedChallenges.length})</Text>
-          {completedChallenges.length > 0 ? (
+          <Text style={styles.sectionTitle}>🍷 Badge Partner ({partnerBadges.earned.length}/{partnerBadges.total.length})</Text>
+          {partnerBadges.earned.length > 0 ? (
             <FlatList
-              data={completedChallenges}
-              renderItem={renderCompletedChallenge}
+              data={partnerBadges.earned}
+              renderItem={renderBadgeItem}
               keyExtractor={(item) => item.id.toString()}
-              scrollEnabled={false}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.badgesContainer}
             />
           ) : (
             <View style={styles.emptyState}>
               <Text style={styles.emptyStateText}>
-                Nessuna sfida completata ancora. Inizia la tua prima avventura!
+                Visita i nostri partner locali per badge esclusivi e sconti speciali!
               </Text>
-              <TouchableOpacity
-                style={styles.startButton}
-                onPress={() => navigation.navigate('Home')}
-              >
-                <LinearGradient
-                  colors={['#4ECDC4', '#44A08D']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.startButtonGradient}
-                >
-                  <Text style={styles.startButtonText}>Inizia Ora</Text>
-                </LinearGradient>
-              </TouchableOpacity>
             </View>
           )}
         </View>
 
+        {/* Badge Community */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>🗺️ Badge Community ({communityBadges.earned.length}/{communityBadges.total.length})</Text>
+          {communityBadges.earned.length > 0 ? (
+            <FlatList
+              data={communityBadges.earned}
+              renderItem={renderBadgeItem}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.badgesContainer}
+            />
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Segui gli itinerari della community per badges collaborativi!
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Attività Recenti */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>🎯 Attività Recenti</Text>
+          <View style={styles.activityContainer}>
+            <View style={styles.activityItem}>
+              <Text style={styles.activityIcon}>🎭</Text>
+              <View style={styles.activityContent}>
+                <Text style={styles.activityTitle}>Percorsi Narrativi</Text>
+                <Text style={styles.activitySubtitle}>
+                  {userProfile.stats.narrativePathsCompleted} completati
+                </Text>
+              </View>
+            </View>
+            <View style={styles.activityItem}>
+              <Text style={styles.activityIcon}>🗺️</Text>
+              <View style={styles.activityContent}>
+                <Text style={styles.activityTitle}>Itinerari Seguiti</Text>
+                <Text style={styles.activitySubtitle}>
+                  {userProfile.stats.itinerariesFollowed} esplorati
+                </Text>
+              </View>
+            </View>
+            <View style={styles.activityItem}>
+              <Text style={styles.activityIcon}>🍷</Text>
+              <View style={styles.activityContent}>
+                <Text style={styles.activityTitle}>Partner Visitati</Text>
+                <Text style={styles.activitySubtitle}>
+                  {userProfile.stats.partnersVisited} locali scoperti
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
         {/* User Preferences */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Preferenze</Text>
+          <Text style={styles.sectionTitle}>⚙️ Preferenze</Text>
           <View style={styles.preferencesContainer}>
             <View style={styles.preferenceItem}>
-              <Text style={styles.preferenceLabel}>Categorie preferite:</Text>
+              <Text style={styles.preferenceLabel}>Tipologie preferite:</Text>
               <View style={styles.categoriesContainer}>
                 {userProfile.preferences.favoriteCategories.map((category, index) => (
                   <View key={index} style={styles.categoryTag}>
@@ -209,8 +279,8 @@ const ProfileScreen = ({ navigation }) => {
               <Text style={styles.preferenceValue}>{userProfile.preferences.difficulty}</Text>
             </View>
             <View style={styles.preferenceItem}>
-              <Text style={styles.preferenceLabel}>Città di origine:</Text>
-              <Text style={styles.preferenceValue}>{userProfile.location.homeCity}</Text>
+              <Text style={styles.preferenceLabel}>Tempo medio per esperienza:</Text>
+              <Text style={styles.preferenceValue}>{userProfile.preferences.averageTime} minuti</Text>
             </View>
           </View>
         </View>
@@ -298,6 +368,13 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
+    marginHorizontal: 16,
+  },
+  sectionSubtitle: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#7F8C8D',
+    marginBottom: 12,
     marginHorizontal: 16,
   },
   badgesContainer: {
@@ -421,6 +498,42 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontFamily: theme.fonts.semiBold,
+  },
+  activityContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    marginHorizontal: 16,
+    padding: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  activityItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  activityIcon: {
+    fontSize: 24,
+    marginRight: 16,
+  },
+  activityContent: {
+    flex: 1,
+  },
+  activityTitle: {
+    fontSize: 16,
+    fontFamily: theme.fonts.semiBold,
+    color: '#2C3E50',
+    marginBottom: 2,
+  },
+  activitySubtitle: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#7F8C8D',
   },
 });
 

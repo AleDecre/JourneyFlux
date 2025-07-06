@@ -398,7 +398,32 @@ export const getBadgeById = (id) => {
  * @returns {Array} Badge del tipo specificato
  */
 export const getBadgesByType = (type) => {
-  return badges.filter(badge => badge.type === type);
+  // Mapping per compatibilità con ProfileScreen
+  const typeMapping = {
+    'narrative': BADGE_TYPES.NARRATIVO,
+    'narrativo': BADGE_TYPES.NARRATIVO,
+    'partner': BADGE_TYPES.PARTNER,
+    'community': BADGE_TYPES.COMMUNITY,
+    'legacy': BADGE_TYPES.LEGACY
+  };
+  
+  const mappedType = typeMapping[type] || type;
+  return badges.filter(badge => badge.type === mappedType);
+};
+
+/**
+ * Ottiene badge per tipo con earned/total count
+ * @param {string} type - Tipo badge
+ * @returns {Object} Oggetto con earned e total arrays
+ */
+export const getBadgesByTypeWithCounts = (type) => {
+  const allBadges = getBadgesByType(type);
+  const earnedBadges = allBadges.filter(badge => badge.earned);
+  
+  return {
+    earned: earnedBadges,
+    total: allBadges
+  };
 };
 
 /**
@@ -588,6 +613,7 @@ export default {
   getAvailableBadges,
   getBadgeById,
   getBadgesByType,
+  getBadgesByTypeWithCounts,
   getNarrativeBadges,
   getPartnerBadges,
   getCommunityBadges,

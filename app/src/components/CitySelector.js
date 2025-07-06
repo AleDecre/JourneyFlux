@@ -1,40 +1,58 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { getAllNarrativePaths } from '../data/narrativePaths';
+import { getAllItineraries } from '../data/itineraries';
+import { getAllPartnerExperiences } from '../data/partnerExperiences';
+import { getAllChallenges } from '../data/challenges';
 
 const CitySelector = ({ cities, selectedCity, onCitySelect }) => {
+  // Funzione per contare tutti i contenuti per città
+  const getTotalContentForCity = (cityName) => {
+    const narratives = getAllNarrativePaths().filter(n => n.city === cityName).length;
+    const itineraries = getAllItineraries().filter(i => i.city === cityName).length;
+    const partners = getAllPartnerExperiences().filter(p => p.city === cityName).length;
+    const challenges = getAllChallenges().filter(c => c.location.includes(cityName)).length;
+    
+    return narratives + itineraries + partners + challenges;
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scegli la tua destinazione</Text>
       <View style={styles.citiesContainer}>
-        {cities.map((city) => (
-          <TouchableOpacity
-            key={city.id}
-            style={styles.cityItem}
-            onPress={() => onCitySelect(city)}
-          >
-            <LinearGradient
-              colors={selectedCity?.id === city.id ? ['#4ECDC4', '#44A08D'] : ['#F8F9FA', '#E9ECEF']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.cityGradient}
+        {cities.map((city) => {
+          const totalContent = getTotalContentForCity(city.name);
+          
+          return (
+            <TouchableOpacity
+              key={city.id}
+              style={styles.cityItem}
+              onPress={() => onCitySelect(city)}
             >
-              <Text style={styles.cityEmoji}>{city.image}</Text>
-              <Text style={[
-                styles.cityName,
-                selectedCity?.id === city.id && styles.selectedCityName
-              ]}>
-                {city.name}
-              </Text>
-              <Text style={[
-                styles.challengeCount,
-                selectedCity?.id === city.id && styles.selectedChallengeCount
-              ]}>
-                {city.challengesCount} sfide
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        ))}
+              <LinearGradient
+                colors={selectedCity?.id === city.id ? ['#4ECDC4', '#44A08D'] : ['#F8F9FA', '#E9ECEF']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.cityGradient}
+              >
+                <Text style={styles.cityEmoji}>{city.image}</Text>
+                <Text style={[
+                  styles.cityName,
+                  selectedCity?.id === city.id && styles.selectedCityName
+                ]}>
+                  {city.name}
+                </Text>
+                <Text style={[
+                  styles.challengeCount,
+                  selectedCity?.id === city.id && styles.selectedChallengeCount
+                ]}>
+                  {totalContent} esperienze
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );

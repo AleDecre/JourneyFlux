@@ -39,16 +39,6 @@ export const cities = [
     image: "🎨",
     description: "Il cuore del Rinascimento italiano",
     featured: true
-  },
-  {
-    id: 5,
-    name: "Toscana",
-    region: "Toscana",
-    coordinates: { lat: 43.3439, lng: 11.3161 },
-    challengesCount: 1,
-    image: "🏞️",
-    description: "Paesaggi mozzafiato e borghi storici",
-    featured: false
   }
 ];
 
@@ -62,4 +52,14 @@ export const getCityById = (id) => {
 
 export const getCityByName = (name) => {
   return cities.find(city => city.name.toLowerCase() === name.toLowerCase());
+};
+
+// Get all cities (alias for getCitiesWithContent)
+export const getCitiesWithContent = () => {
+  return cities;
+};
+
+// Get all cities
+export const getAllCities = () => {
+  return cities;
 };

@@ -127,3 +127,7 @@ export const getCompletedChallenges = () => {
 export const getPendingChallenges = () => {
   return challenges.filter(challenge => !challenge.completed);
 };
+
+export const getAllChallenges = () => {
+  return challenges;
+};

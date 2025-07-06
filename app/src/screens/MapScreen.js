@@ -2,176 +2,289 @@ import React, { useState } from 'react';
 import { 
   View, 
   Text, 
+  ScrollView, 
   StyleSheet, 
   TouchableOpacity,
-  ScrollView,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { challenges } from '../data/challenges';
-import { cities } from '../data/cities';
+import { getCitiesWithContent } from '../data/cities';
+import { getUserProfile } from '../data/user';
+import { getAllNarrativePaths } from '../data/narrativePaths';
+import { getAllItineraries } from '../data/itineraries';
+import { getAllPartnerExperiences } from '../data/partnerExperiences';
+import { getAllChallenges } from '../data/challenges';
 import { theme } from '../utils/theme';
 
 const MapScreen = ({ navigation }) => {
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedContentType, setSelectedContentType] = useState('all');
+  const userProfile = getUserProfile();
+  
+  // Content types for filtering
+  const contentTypes = [
+    { id: 'all', name: 'Tutti', icon: '🌟', color: '#667eea' },
+    { id: 'narratives', name: 'Percorsi Narrativi', icon: '🎭', color: '#4ECDC4' },
+    { id: 'itineraries', name: 'Itinerari', icon: '🗺️', color: '#FF6B6B' },
+    { id: 'partners', name: 'Partner', icon: '🍷', color: '#45B7D1' },
+    { id: 'challenges', name: 'Sfide', icon: '🏆', color: '#F06292' }
+  ];
 
-  const handleCityPress = (city) => {
-    setSelectedCity(city);
-    const cityChallenges = challenges.filter(challenge => 
-      challenge.location.toLowerCase().includes(city.name.toLowerCase())
-    );
+  // Get content counts for each city
+  const getCityContentCount = (city) => {
+    const narratives = getAllNarrativePaths().filter(n => n.city === city.name).length;
+    const itineraries = getAllItineraries().filter(i => i.city === city.name).length;
+    const partners = getAllPartnerExperiences().filter(p => p.city === city.name).length;
+    const challenges = getAllChallenges().filter(c => c.location.includes(city.name)).length;
     
-    if (cityChallenges.length > 0) {
+    return {
+      narratives,
+      itineraries,
+      partners,
+      challenges,
+      total: narratives + itineraries + partners + challenges
+    };
+  };
+
+  // Filter cities based on selected content type
+  const getFilteredCities = () => {
+    const cities = getCitiesWithContent();
+    if (selectedContentType === 'all') {
+      return cities.map(city => ({
+        ...city,
+        count: getCityContentCount(city).total
+      }));
+    }
+    
+    return cities.map(city => {
+      const counts = getCityContentCount(city);
+      let count = 0;
+      
+      switch (selectedContentType) {
+        case 'narratives':
+          count = counts.narratives;
+          break;
+        case 'itineraries':
+          count = counts.itineraries;
+          break;
+        case 'partners':
+          count = counts.partners;
+          break;
+        case 'challenges':
+          count = counts.challenges;
+          break;
+      }
+      
+      return { ...city, count };
+    }).filter(city => city.count > 0);
+  };
+
+  // Handle city press
+  const handleCityPress = (city) => {
+    const counts = getCityContentCount(city);
+    
+    if (counts.total > 0) {
       Alert.alert(
-        `Sfide a ${city.name}`,
-        `Trovate ${cityChallenges.length} sfide in questa città. Vuoi esplorarle?`,
+        `Contenuti disponibili a ${city.name}`,
+        `🎭 ${counts.narratives} Percorsi Narrativi\n🗺️ ${counts.itineraries} Itinerari\n🍷 ${counts.partners} Partner Experiences\n🏆 ${counts.challenges} Sfide Classiche`,
         [
           { text: "Annulla", style: "cancel" },
-          { text: "Esplora", onPress: () => navigation.navigate('Home') }
+          { text: "Esplora", onPress: () => navigation.navigate('HomeTab') }
         ]
       );
     } else {
       Alert.alert(
         `${city.name}`,
-        "Al momento non ci sono sfide disponibili in questa città, ma ne arriveranno presto!",
+        "Al momento non ci sono contenuti disponibili in questa città, ma ne arriveranno presto!",
         [{ text: "OK", style: "default" }]
       );
     }
   };
 
-  const getCityColor = (city) => {
-    const cityColors = {
-      'Milano': ['#FF6B6B', '#FF8E8E'],
-      'Roma': ['#4ECDC4', '#7ED5D1'],
-      'Napoli': ['#FFB74D', '#FFCC80'],
-      'Firenze': ['#F06292', '#F48FB1'],
-      'Toscana': ['#45B7D1', '#6AC5E5'],
-    };
-    return cityColors[city.name] || ['#95A5A6', '#B2BFC6'];
+  // Handle content type filter
+  const handleContentTypePress = (contentType) => {
+    setSelectedContentType(contentType.id);
   };
+
+  // Get global stats
+  const getGlobalStats = () => {
+    const totalNarratives = getAllNarrativePaths().length;
+    const totalItineraries = getAllItineraries().length;
+    const totalPartners = getAllPartnerExperiences().length;
+    const totalChallenges = getAllChallenges().length;
+    
+    return {
+      totalNarratives,
+      totalItineraries,
+      totalPartners,
+      totalChallenges,
+      totalContent: totalNarratives + totalItineraries + totalPartners + totalChallenges
+    };
+  };
+
+  const filteredCities = getFilteredCities();
+  const globalStats = getGlobalStats();
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#667eea', '#764ba2']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.header}
-      >
-        <Text style={styles.headerTitle}>Mappa Italia</Text>
-        <Text style={styles.headerSubtitle}>Scopri le sfide nelle tue città preferite</Text>
-      </LinearGradient>
-
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Map Placeholder */}
-        <View style={styles.mapContainer}>
-          <LinearGradient
-            colors={['#E8F5E8', '#F0F8F0']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.mapPlaceholder}
+        {/* Header */}
+        <LinearGradient
+          colors={['#667eea', '#764ba2']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.header}
+        >
+          <Text style={styles.headerTitle}>🗺️ Mappa JourneyFlux</Text>
+          <Text style={styles.headerSubtitle}>
+            Esplora l'Italia attraverso {globalStats.totalContent} esperienze uniche
+          </Text>
+        </LinearGradient>
+
+        {/* Content Type Filters */}
+        <View style={styles.filtersSection}>
+          <Text style={styles.filtersTitle}>Filtra per tipologia:</Text>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filtersContainer}
           >
-            <Text style={styles.mapEmoji}>🗺️</Text>
-            <Text style={styles.mapText}>Mappa Interattiva</Text>
-            <Text style={styles.mapSubtext}>
-              Tocca le città per scoprire le sfide disponibili
-            </Text>
-          </LinearGradient>
+            {contentTypes.map((type) => (
+              <TouchableOpacity
+                key={type.id}
+                style={[
+                  styles.filterButton,
+                  selectedContentType === type.id && styles.filterButtonActive
+                ]}
+                onPress={() => handleContentTypePress(type)}
+              >
+                <LinearGradient
+                  colors={
+                    selectedContentType === type.id
+                      ? [type.color, type.color + '80']
+                      : ['#F8F9FA', '#FFFFFF']
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.filterButtonGradient}
+                >
+                  <Text style={styles.filterIcon}>{type.icon}</Text>
+                  <Text style={[
+                    styles.filterText,
+                    selectedContentType === type.id && styles.filterTextActive
+                  ]}>
+                    {type.name}
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Legend */}
+        <View style={styles.legendSection}>
+          <Text style={styles.legendTitle}>Legenda Pin:</Text>
+          <View style={styles.legendContainer}>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendPin, { backgroundColor: '#4ECDC4' }]} />
+              <Text style={styles.legendText}>Percorsi Narrativi</Text>
+            </View>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendPin, { backgroundColor: '#FF6B6B' }]} />
+              <Text style={styles.legendText}>Itinerari Community</Text>
+            </View>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendPin, { backgroundColor: '#45B7D1' }]} />
+              <Text style={styles.legendText}>Partner Experiences</Text>
+            </View>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendPin, { backgroundColor: '#F06292' }]} />
+              <Text style={styles.legendText}>Sfide Classiche</Text>
+            </View>
+          </View>
         </View>
 
         {/* Cities Grid */}
         <View style={styles.citiesSection}>
-          <Text style={styles.sectionTitle}>Città Disponibili</Text>
+          <Text style={styles.citiesTitle}>
+            Città disponibili ({filteredCities.length})
+          </Text>
           <View style={styles.citiesGrid}>
-            {cities.map((city) => (
-              <TouchableOpacity
-                key={city.id}
-                style={styles.cityCard}
-                onPress={() => handleCityPress(city)}
-              >
-                <LinearGradient
-                  colors={getCityColor(city)}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.cityGradient}
+            {filteredCities.map((city) => {
+              const totalCount = getCityContentCount(city);
+              const filteredCount = city.count;
+              
+              return (
+                <TouchableOpacity
+                  key={city.id}
+                  style={styles.cityCard}
+                  onPress={() => handleCityPress(city)}
                 >
-                  <Text style={styles.cityEmoji}>{city.image}</Text>
-                  <Text style={styles.cityName}>{city.name}</Text>
-                  <Text style={styles.cityRegion}>{city.region}</Text>
-                  <View style={styles.challengesInfo}>
-                    <Text style={styles.challengesCount}>
-                      {city.challengesCount} sfide
-                    </Text>
-                    {city.featured && (
-                      <View style={styles.featuredBadge}>
-                        <Text style={styles.featuredText}>⭐</Text>
-                      </View>
-                    )}
-                  </View>
-                </LinearGradient>
-              </TouchableOpacity>
-            ))}
+                  <LinearGradient
+                    colors={
+                      city.featured
+                        ? ['#4ECDC4', '#44A08D']
+                        : ['#FFFFFF', '#F8F9FA']
+                    }
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.cityCardGradient}
+                  >
+                    <Text style={styles.cityEmoji}>{city.image}</Text>
+                    <Text style={styles.cityName}>{city.name}</Text>
+                    <View style={styles.cityStats}>
+                      <Text style={styles.cityStatsText}>
+                        {selectedContentType === 'all' 
+                          ? `${totalCount.total} contenuti` 
+                          : `${filteredCount} ${contentTypes.find(t => t.id === selectedContentType)?.name?.toLowerCase()}`
+                        }
+                      </Text>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 
-        {/* Map Legend */}
-        <View style={styles.legendSection}>
-          <Text style={styles.legendTitle}>Legenda</Text>
-          <View style={styles.legendContainer}>
-            <View style={styles.legendItem}>
-              <View style={[styles.legendColor, { backgroundColor: '#4ECDC4' }]} />
-              <Text style={styles.legendText}>Sfide Culturali</Text>
-            </View>
-            <View style={styles.legendItem}>
-              <View style={[styles.legendColor, { backgroundColor: '#FF6B6B' }]} />
-              <Text style={styles.legendText}>Sfide Gastronomiche</Text>
-            </View>
-            <View style={styles.legendItem}>
-              <View style={[styles.legendColor, { backgroundColor: '#45B7D1' }]} />
-              <Text style={styles.legendText}>Sfide Naturalistiche</Text>
-            </View>
-            <View style={styles.legendItem}>
-              <View style={[styles.legendColor, { backgroundColor: '#F06292' }]} />
-              <Text style={styles.legendText}>Sfide Artistiche</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Quick Stats */}
+        {/* Global Stats */}
         <View style={styles.statsSection}>
-          <Text style={styles.statsTitle}>Statistiche Globali</Text>
+          <Text style={styles.statsTitle}>Statistiche Globali MVP 2.0</Text>
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{challenges.length}</Text>
-              <Text style={styles.statLabel}>Sfide Totali</Text>
+              <Text style={styles.statIcon}>🎭</Text>
+              <Text style={styles.statValue}>{globalStats.totalNarratives}</Text>
+              <Text style={styles.statLabel}>Percorsi Narrativi</Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{cities.length}</Text>
-              <Text style={styles.statLabel}>Città Coperte</Text>
+              <Text style={styles.statIcon}>🗺️</Text>
+              <Text style={styles.statValue}>{globalStats.totalItineraries}</Text>
+              <Text style={styles.statLabel}>Itinerari</Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{cities.filter(c => c.featured).length}</Text>
-              <Text style={styles.statLabel}>Città in Evidenza</Text>
+              <Text style={styles.statIcon}>🍷</Text>
+              <Text style={styles.statValue}>{globalStats.totalPartners}</Text>
+              <Text style={styles.statLabel}>Partner</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statIcon}>🏆</Text>
+              <Text style={styles.statValue}>{globalStats.totalChallenges}</Text>
+              <Text style={styles.statLabel}>Sfide</Text>
             </View>
           </View>
         </View>
 
         {/* Coming Soon */}
         <View style={styles.comingSoonSection}>
-          <LinearGradient
-            colors={['#FFB74D', '#FF9800']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.comingSoonContainer}
-          >
-            <Text style={styles.comingSoonEmoji}>🚀</Text>
-            <Text style={styles.comingSoonTitle}>Prossimamente</Text>
-            <Text style={styles.comingSoonText}>
-              Mappa interattiva con geolocalizzazione in tempo reale, 
-              realtà aumentata e molte altre città italiane!
-            </Text>
-          </LinearGradient>
+          <Text style={styles.comingSoonTitle}>🚀 Prossimamente</Text>
+          <Text style={styles.comingSoonText}>
+            • Mappa interattiva GPS{'\n'}
+            • Realtà Aumentata per scoperte{'\n'}
+            • Chat community per ogni città{'\n'}
+            • Itinerari personalizzati AI{'\n'}
+            • Prenotazioni partner integrate
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -183,18 +296,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F8F9FA',
   },
+  scrollView: {
+    flex: 1,
+  },
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    padding: 24,
+    alignItems: 'center',
   },
   headerTitle: {
     fontSize: 28,
     fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
-    textAlign: 'center',
     marginBottom: 8,
+    textAlign: 'center',
   },
   headerSubtitle: {
     fontSize: 16,
@@ -202,216 +316,195 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
   },
-  scrollView: {
-    flex: 1,
+  filtersSection: {
+    paddingVertical: 16,
+    backgroundColor: '#FFFFFF',
   },
-  mapContainer: {
-    marginHorizontal: 16,
-    marginVertical: 20,
-    borderRadius: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  mapPlaceholder: {
-    borderRadius: 16,
-    paddingVertical: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapEmoji: {
-    fontSize: 64,
-    marginBottom: 16,
-  },
-  mapText: {
-    fontSize: 24,
-    fontFamily: theme.fonts.bold,
+  filtersTitle: {
+    fontSize: 18,
+    fontFamily: theme.fonts.semiBold,
     color: '#2C3E50',
-    marginBottom: 8,
+    marginBottom: 12,
+    marginHorizontal: 16,
   },
-  mapSubtext: {
+  filtersContainer: {
+    paddingHorizontal: 16,
+  },
+  filterButton: {
+    marginRight: 12,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  filterButtonActive: {
+    // Active state handled by gradient
+  },
+  filterButtonGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  filterIcon: {
     fontSize: 16,
+    marginRight: 8,
+  },
+  filterText: {
+    fontSize: 14,
+    fontFamily: theme.fonts.semiBold,
+    color: '#2C3E50',
+  },
+  filterTextActive: {
+    color: '#FFFFFF',
+  },
+  legendSection: {
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: '#FFFFFF',
+    marginTop: 8,
+  },
+  legendTitle: {
+    fontSize: 16,
+    fontFamily: theme.fonts.semiBold,
+    color: '#2C3E50',
+    marginBottom: 12,
+  },
+  legendContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  legendRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  legendPin: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginRight: 6,
+  },
+  legendText: {
+    fontSize: 12,
     fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
-    textAlign: 'center',
   },
   citiesSection: {
-    marginBottom: 24,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: '#FFFFFF',
+    marginTop: 8,
   },
-  sectionTitle: {
+  citiesTitle: {
     fontSize: 20,
     fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
-    marginHorizontal: 16,
   },
   citiesGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 8,
+    gap: 12,
   },
   cityCard: {
     width: '48%',
-    marginHorizontal: '1%',
-    marginVertical: 8,
-    borderRadius: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderRadius: 12,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
-  cityGradient: {
-    borderRadius: 16,
+  cityCardGradient: {
     padding: 16,
     alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 140,
+    minHeight: 120,
   },
   cityEmoji: {
-    fontSize: 40,
-    marginBottom: 12,
+    fontSize: 32,
+    marginBottom: 8,
   },
   cityName: {
     fontSize: 16,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  cityRegion: {
-    fontSize: 12,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  challengesInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  challengesCount: {
-    fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.9)',
     fontFamily: theme.fonts.semiBold,
-  },
-  featuredBadge: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  featuredText: {
-    fontSize: 12,
-  },
-  legendSection: {
-    marginHorizontal: 16,
-    marginBottom: 24,
-  },
-  legendTitle: {
-    fontSize: 18,
-    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
-    marginBottom: 16,
+    marginBottom: 8,
+    textAlign: 'center',
   },
-  legendContainer: {
-    backgroundColor: '#FFFFFF',
+  cityStats: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 12,
-    padding: 16,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
   },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  legendColor: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  legendText: {
-    fontSize: 14,
+  cityStatsText: {
+    fontSize: 12,
     fontFamily: theme.fonts.regular,
     color: '#2C3E50',
+    textAlign: 'center',
   },
   statsSection: {
-    marginHorizontal: 16,
-    marginBottom: 24,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: '#FFFFFF',
+    marginTop: 8,
   },
   statsTitle: {
     fontSize: 18,
     fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
+    textAlign: 'center',
   },
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
   },
   statItem: {
     alignItems: 'center',
   },
-  statValue: {
+  statIcon: {
     fontSize: 24,
+    marginBottom: 4,
+  },
+  statValue: {
+    fontSize: 20,
     fontFamily: theme.fonts.bold,
-    color: '#4ECDC4',
+    color: '#2C3E50',
   },
   statLabel: {
     fontSize: 12,
     fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
+    textAlign: 'center',
     marginTop: 4,
   },
   comingSoonSection: {
-    marginHorizontal: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: '#FFFFFF',
+    marginTop: 8,
     marginBottom: 24,
-    borderRadius: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  comingSoonContainer: {
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
-  },
-  comingSoonEmoji: {
-    fontSize: 48,
-    marginBottom: 12,
   },
   comingSoonTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
+    color: '#2C3E50',
     marginBottom: 12,
+    textAlign: 'center',
   },
   comingSoonText: {
     fontSize: 14,
     fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.9)',
-    textAlign: 'center',
+    color: '#7F8C8D',
     lineHeight: 20,
   },
 });

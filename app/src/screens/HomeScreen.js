@@ -349,6 +349,15 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.statsGrid}>
             <View style={styles.statRow}>
               <View style={styles.statItem}>
+                <Text style={styles.statValue}>
+                  {userProfile.stats.narrativePathsCompleted + 
+                   userProfile.stats.itinerariesFollowed + 
+                   userProfile.stats.partnersVisited + 
+                   userProfile.stats.challengesCompleted}
+                </Text>
+                <Text style={styles.statLabel}>Esperienze Totali</Text>
+              </View>
+              <View style={styles.statItem}>
                 <Text style={styles.statValue}>{userProfile.stats.narrativePathsCompleted}</Text>
                 <Text style={styles.statLabel}>Percorsi</Text>
               </View>
@@ -356,23 +365,19 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.statValue}>{userProfile.stats.itinerariesFollowed}</Text>
                 <Text style={styles.statLabel}>Itinerari</Text>
               </View>
+            </View>
+            <View style={styles.statRow}>
               <View style={styles.statItem}>
                 <Text style={styles.statValue}>{userProfile.stats.partnersVisited}</Text>
                 <Text style={styles.statLabel}>Partner</Text>
               </View>
-            </View>
-            <View style={styles.statRow}>
               <View style={styles.statItem}>
-                <Text style={styles.statValue}>{userProfile.stats.storyPoints}</Text>
-                <Text style={styles.statLabel}>Story Points</Text>
+                <Text style={styles.statValue}>{userProfile.stats.challengesCompleted}</Text>
+                <Text style={styles.statLabel}>Sfide</Text>
               </View>
               <View style={styles.statItem}>
                 <Text style={styles.statValue}>{userProfile.stats.badgesEarned}</Text>
                 <Text style={styles.statLabel}>Badge</Text>
-              </View>
-              <View style={styles.statItem}>
-                <Text style={styles.statValue}>{userProfile.stats.currentStreak}</Text>
-                <Text style={styles.statLabel}>Streak</Text>
               </View>
             </View>
           </View>
