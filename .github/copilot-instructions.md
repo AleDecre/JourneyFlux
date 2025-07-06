@@ -1,9 +1,332 @@
 <!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
 
-# JourneyFlux - Gamified Travel App
+# JourneyFlux - MVP Strategy 2.0 "L'Esploratore di Segreti"
 
 ## Project Overview
-JourneyFlux is a React Native Expo app that gamifies travel experiences in Italy. Users can complete location-based challenges, earn points and badges, and explore different cities through interactive tasks.
+JourneyFlux è una React Native Expo app che trasforma il turismo italiano attraverso **Percorsi Narrativi**, **Itinerari Community** e **Partner Experiences**. Non più semplici sfide, ma mini-avventure che svelano i segreti nascosti delle città italiane.
+
+## Nuova Strategia MVP - Le 6 Leve
+
+### 1. 🎭 Percorsi Narrativi Tematici
+Mini-avventure curate (5-7 per Roma/Napoli) che raccontano storie, leggende e misteri urbani. Ogni percorso ha:
+- **Introduzione narrativa** (il "gancio" emotivo)
+- **2-3 tappe GPS** con story progression
+- **Foto-enigma finale** (non generica, ma puzzle da risolvere)
+- **Ricompensa narrativa** (badge + "Lo sapevi che?" esclusivo)
+
+### 2. 🗺️ Itinerari Community & Tour Operator  
+- **3 Itinerari Community**: Creati da local ambassador con rating/reviews
+- **2 Itinerari Premium**: Tour operator professionali con prenotazioni
+- Sistema di valutazione e feedback della community
+
+### 3. 🍷 Partner Experiences
+3-5 locali partner (bar, ristoranti, botteghe) che offrono:
+- Sconti esclusivi per utenti JourneyFlux
+- Degustazioni e esperienze speciali
+- Badge partner dedicati per collezionisti
+
+### 4. 📸 Card "Pronta per le Stories"
+Sistema automatico di generazione card condivisibili:
+- Template Instagram Stories ottimizzati
+- Badge ottenuto + foto-scoperta + branding JourneyFlux
+- CTA per invitare amici e tracking viral
+
+### 5. 🏆 Badge & Passaporto Digitale
+Evoluzione del sistema badge attuale:
+- **Badge Narrativi**: Per percorsi completati
+- **Badge Partner**: Per esperienze locali
+- **Badge Community**: Per itinerari e contributi
+- **Passaporto Visivo**: Collezione stile "timbri di viaggio"
+
+### 6. 🔔 Push Notifications Contestuali
+- Notifiche quando l'utente è vicino a percorsi o partner
+- Reminder per completare avventure iniziate
+- Offerte time-sensitive basate su location
+
+## Technology Stack (MANTENUTO)
+- **Frontend**: React Native with Expo
+- **Navigation**: React Navigation (Bottom Tabs + Stack)
+- **Styling**: StyleSheet with LinearGradient + Font Nunito
+- **Icons**: Expo Vector Icons (@expo/vector-icons)
+- **State Management**: React Hooks (useState, useEffect)
+- **Data**: Mock JSON data evoluto per 3 tipologie contenuto
+
+## Nuova Project Structure
+```
+src/
+├── components/          # UI components estesi
+│   ├── ChallengeCard.js     # LEGACY - mantenere per riferimento
+│   ├── NarrativePathCard.js # NUOVO - per percorsi narrativi
+│   ├── ItineraryCard.js     # NUOVO - per itinerari community/TO
+│   ├── PartnerExperienceCard.js # NUOVO - per partner locali
+│   ├── PassportBadge.js     # NUOVO - badge stile passaporto
+│   ├── SocialShareCard.js   # NUOVO - generatore card stories
+│   ├── BadgeCard.js         # ESTENDERE - nuovi tipi badge
+│   ├── StatCard.js          # OK - manteniamo
+│   └── CitySelector.js      # OK - manteniamo
+├── screens/             # Screens evolute
+│   ├── HomeScreen.js        # RIDISEGNARE - 3 sezioni (Narrativi/Consigliati/Food&Drink)
+│   ├── ContentDetailScreen.js # EVOLVERE da ChallengeScreen - universale per tutti i contenuti
+│   ├── ExperienceCompleteScreen.js # EVOLVERE da ChallengeCompleteScreen
+│   ├── NarrativePathScreen.js # NUOVO - dettaglio percorsi narrativi
+│   ├── PartnerExperienceScreen.js # NUOVO - dettaglio partner
+│   ├── ProfileScreen.js     # ESTENDERE - passaporto digitale
+│   └── MapScreen.js         # ESTENDERE - pin colorati per tipologia
+├── data/               # Data layer ristrutturato
+│   ├── challenges.js        # LEGACY - mantenere per riferimento
+│   ├── narrativePaths.js    # NUOVO - 5-7 percorsi Roma/Napoli
+│   ├── itineraries.js       # NUOVO - 3 community + 2 TO
+│   ├── partnerExperiences.js # NUOVO - 3-5 partner locali
+│   ├── badges.js            # ESTENDERE - badge narrativi/partner/community
+│   ├── user.js              # ESTENDERE - nuove statistiche
+│   ├── cities.js            # OK - manteniamo
+│   └── contentTypes.js      # NUOVO - definizioni tipi contenuto
+└── utils/              # Utilities (manteniamo)
+    ├── theme.js
+    ├── helpers.js
+    └── typography.js
+```
+
+## Design Principles (AGGIORNATI)
+- **Story-First**: Ogni contenuto deve raccontare una storia coinvolgente
+- **Viral-Ready**: Ogni esperienza deve essere facilmente condivisibile
+- **Quality > Quantity**: Meglio 5 percorsi eccellenti che 50 mediocri
+- **Community-Driven**: Valorizzare local ambassador e creator
+- **Partner-Friendly**: Creare valore tangibile per business locali
+- **Mobile-first**: Ottimizzato per smartphone e Stories
+
+## Nuova Data Structure
+
+### narrativePaths.js - Struttura Percorso Narrativo
+```javascript
+const narrativePath = {
+  id: 1,
+  title: "I Fantasmi di Castel Sant'Angelo",
+  category: "mistero", // mistero, leggenda, storia, arte
+  city: "Roma",
+  description: "Scopri la leggenda dell'Angelo di Hadrian...",
+  introduction: "Nel 590 d.C., mentre la peste devastava Roma...", // Il "gancio" narrativo
+  difficulty: "media",
+  duration: "45-60 min",
+  
+  // Tappe del percorso (2-3 max)
+  steps: [
+    {
+      id: 1,
+      title: "Ponte Sant'Angelo",
+      description: "Trova la statua con l'iscrizione misteriosa",
+      coordinates: { lat: 41.9016, lng: 12.4667 },
+      storyContent: "Le statue di Bernini nascondono un segreto...",
+      validationRadius: 50
+    },
+    // ... altre tappe
+  ],
+  
+  // La prova finale (foto-enigma)
+  finalChallenge: {
+    title: "Il Segreto dell'Angelo",
+    description: "Fotografa l'iscrizione nascosta sul piedistallo dell'Angelo",
+    hint: "Cerca sotto le ali, dove solo pochi guardano...",
+    validationType: "photo_with_text" // richiede testo specifico nella foto
+  },
+  
+  // Ricompense
+  rewards: {
+    points: 200,
+    badge: "Cacciatore di Fantasmi",
+    unlockContent: "La vera storia del miracolo di San Gregorio Magno..."
+  },
+  
+  // Metadati
+  createdBy: "JourneyFlux_Curator",
+  tags: ["storia", "leggende", "roma_segreta"],
+  featured: true,
+  socialShareTemplate: "ho_svelato_fantasmi_castel"
+};
+```
+
+### itineraries.js - Struttura Itinerario
+```javascript
+const itinerary = {
+  id: 1,
+  title: "Roma Segreta del Local",
+  type: "community", // community | tour_operator
+  creator: {
+    name: "Marco_RM_Explorer",
+    type: "local_ambassador",
+    rating: 4.8,
+    reviewsCount: 127,
+    verified: true
+  },
+  
+  // Sequenza tappe complete
+  timeline: [
+    {
+      time: "09:00",
+      type: "colazione",
+      location: "Bar del Cappuccino",
+      description: "Cornetto e cappé da vero romano",
+      coordinates: { lat: 41.9028, lng: 12.4964 },
+      estimatedCost: "€3-5"
+    },
+    // ... altre tappe
+  ],
+  
+  // Metadati itinerario
+  duration: "Mezza giornata",
+  estimatedCost: "€25-40",
+  difficulty: "facile",
+  bestTime: "mattina",
+  
+  // Prenotazione (se tour_operator)
+  booking: {
+    required: false, // true per TO
+    link: null,
+    price: null
+  },
+  
+  // Community feedback
+  rating: 4.8,
+  reviews: [
+    {
+      user: "TravelLover_MI",
+      rating: 5,
+      comment: "Esperienza autentica, Marco conosce davvero Roma!",
+      date: "2025-06-20"
+    }
+  ]
+};
+```
+
+### partnerExperiences.js - Struttura Partner
+```javascript
+const partnerExperience = {
+  id: 1,
+  name: "Bar del Fico - Aperitivo Segreto",
+  partner: {
+    name: "Bar del Fico",
+    type: "bar",
+    address: "Piazza del Fico, 26, Roma",
+    coordinates: { lat: 41.8986, lng: 12.4768 }
+  },
+  
+  // L'offerta speciale
+  experience: {
+    title: "Aperitivo dell'Alchimista",
+    description: "Cocktail esclusivo ispirato ai simboli alchemici di Roma",
+    originalPrice: "€12",
+    discountedPrice: "€8",
+    discountPercentage: 33,
+    validDays: ["mar", "mer", "gio"], // giorni validi
+    validHours: "18:00-20:00"
+  },
+  
+  // Come riscattare
+  redemption: {
+    method: "qr_code", // qr_code | promo_code | phone_call
+    code: "JOURNEYFLUX_FICO",
+    instructions: "Mostra questo QR al barista e menziona 'JourneyFlux'"
+  },
+  
+  // Gamification
+  rewards: {
+    points: 50,
+    badge: "Maestro dell'Aperitivo Romano",
+    unlockCondition: "after_narrative_path_completion" // opzionale
+  },
+  
+  // Metadati
+  featured: true,
+  category: "aperitivo",
+  city: "Roma",
+  active: true,
+  socialShareTemplate: "aperitivo_segreto_fico"
+};
+```
+
+## Code Style Guidelines (AGGIORNATI)
+- **Story-Driven Components**: Ogni componente deve supportare la narrativa
+- **Modular Content**: Componenti riutilizzabili per 3 tipologie di contenuto
+- **Social-Ready**: Ogni completion screen deve generare contenuto condivisibile
+- **Performance-First**: Lazy loading per contenuti pesanti (storie, immagini)
+- **Accessibility**: Screen reader friendly per inclusività
+- **Offline-Ready**: Contenuti base cached per funzionamento offline
+
+## Future Enhancements (AGGIORNATI)
+- **Creator Tools**: Dashboard per local ambassador
+- **Real GPS & Camera**: Integrazione nativa per verifica precisa
+- **AI Content Curation**: Suggerimenti personalizzati
+- **AR Integration**: Scoperta location con realtà aumentata
+- **Revenue Sharing**: Monetizzazione per creator e partner
+- **European Expansion**: Replica del modello in altre città
+
+## 🤖 Personalizzazione AI (Feature Plus)
+
+**Oltre ai Percorsi Narrativi curati, JourneyFlux potrà offrire esperienze personalizzate tramite AI.**
+
+### Approccio AI Integration
+- **Remixing Intelligente**: L'AI combina moduli esistenti (percorsi, partner, itinerari) per creare esperienze uniche
+- **Conversational Planning**: Chat naturale per comprendere preferenze e vincoli
+- **Adaptive Suggestions**: Modifica dinamica dell'esperienza in base a feedback e contesto
+
+### Esempi di Personalizzazione AI
+
+**Input**: "Pomeriggio romantico Roma, 3 ore, budget medio"
+**Output AI**: 
+```
+🎭 "Sussurri d'Amore nell'Eterna"
+- 17:00 Aperitivo Bar del Fico (sconto partner)
+- 18:30 Percorso "Fantasmi Castel Sant'Angelo"
+- 20:00 Cena romantica prenotata Checchino
++ BONUS: Jazz live stasera Villa Giulia
+```
+
+**Input**: "Famiglia con bambini, Firenze, giornata intera"
+**Output AI**:
+```
+🎭 "Piccoli Esploratori di Firenze"
+- 09:00 Caccia tesoro kid-friendly Palazzo Pitti
+- 11:00 Gelato da Vivoli (sconto bambini)
+- 14:00 Laboratorio maschere tradizionali
+- 16:00 Parco giochi Cascine
++ BONUS: Spettacolo marionette oggi
+```
+
+### Implementazione AI (Post-MVP)
+- **Data Layer**: Tagging e categorizzazione contenuti per AI
+- **ML Pipeline**: Recommendation engine e content matching
+- **Conversational Interface**: Chat interface per preferenze utente
+- **Real-time Integration**: Eventi, meteo, traffico per suggerimenti contestuali
+
+> **Nota**: La personalizzazione AI è una **feature aggiuntiva** che estende l'esperienza core dei Percorsi Narrativi, non la sostituisce. I contenuti curati rimangono il fondamento dell'app.
+
+## MVP Implementation Priority
+
+### FASE 1 (Settimana 1): Data Architecture
+- [ ] Creare strutture dati per 3 tipologie contenuto
+- [ ] Mock data per 5-7 percorsi narrativi Roma/Napoli
+- [ ] Mock data per 3 community + 2 TO itinerari
+- [ ] Mock data per 3-5 partner experiences
+
+### FASE 2 (Settimana 2): Core UI Refactoring  
+- [ ] HomeScreen_v2 con 3 sezioni
+- [ ] NarrativePathCard, ItineraryCard, PartnerExperienceCard
+- [ ] ContentDetailScreen universale
+- [ ] Navigation aggiornata
+
+### FASE 3 (Settimana 3): Gamification Avanzata
+- [ ] Badge system esteso (narrativi/partner/community)
+- [ ] PassportBadge component
+- [ ] ProfileScreen_v2 con passaporto digitale
+- [ ] ExperienceCompleteScreen con social preview
+
+### FASE 4 (Settimana 4): Social & Viral
+- [ ] SocialShareCard con template Instagram
+- [ ] Sistema rating/review per itinerari
+- [ ] Push notifications mock
+- [ ] MapScreen_v2 con pin colorati
+
+**REGOLA FONDAMENTALE**: Ogni feature deve rispondere alla domanda "Questo rende l'esperienza più condivisibile e memorabile?"
 
 ## Technology Stack
 - **Frontend**: React Native with Expo

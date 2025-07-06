@@ -2,21 +2,194 @@
 
 ## 📊 Stato Attuale del Progetto
 
-**Data ultimo aggiornamento**: 5 Luglio 2025  
-**Versione**: 1.0.0 (MVP Prototipo)  
-**Stato**: ✅ COMPLETATO (Prototipo Frontend + Font Nunito)  
-**Commit Hash**: [ultimo commit con aggiornamento Nunito]
+**Data ultimo aggiornamento**: 6 Luglio 2025  
+**Versione**: 2.0.0 (MVP Strategy Pivot)  
+**Stato**: 🔄 IN REFACTORING (Transizione a Percorsi Narrativi)  
+**Commit Hash**: [ultimo commit con nuova strategia MVP]
 
-## 🎯 Obiettivi Raggiunti
+## 🎯 NUOVA STRATEGIA MVP - "L'Esploratore di Segreti"
 
-### ✅ Core Features Implementate
+### 📋 Obiettivo Principale
+Trasformare JourneyFlux da app di "sfide singole" a piattaforma di **"Percorsi Narrativi"** che svelano i segreti nascosti delle città italiane.
+
+### � Le 6 Leve Chiave dell'MVP
+1. **Percorsi Narrativi Tematici** - Mini-avventure con storie e misteri
+2. **Itinerari Community & Tour Operator** - Contenuti curati da local e professionisti
+3. **Partner Experiences** - Offerte esclusive da locali partner
+4. **Card "Pronta per le Stories"** - Viralità integrata
+5. **Badge & Passaporto Digitale** - Gamification potenziata
+6. **Push Notifications Contestuali** - Engagement location-based
+
+## ✅ BASE TECNOLOGICA COMPLETATA (v1.0)
+
+### Core Features Implementate
 - [x] **Navigazione completa** - Bottom tabs + Stack navigation
-- [x] **Sistema di sfide** - 6 sfide mock complete con dettagli
+- [x] **Sistema di sfide base** - 6 sfide mock (DA CONVERTIRE in Percorsi Narrativi)
 - [x] **Sistema badge** - 8 badge con stati earned/locked
 - [x] **Profilo utente** - Statistiche complete e progressi
 - [x] **Selezione città** - 5 città italiane con filtri
 - [x] **UI/UX moderna** - Design gradient, animazioni, responsive
 - [x] **Typography System** - Font Nunito applicato sistematicamente
+
+### Componenti Base (DA ESTENDERE)
+- [x] `ChallengeCard` → **DA EVOLVERE** in `NarrativePathCard`
+- [x] `BadgeCard` → **DA ESTENDERE** con badge partner e community
+- [x] `StatCard` → **DA INTEGRARE** con nuove metriche
+- [x] `CitySelector` → **OK** (manteniamo)
+- [x] `FloatingActionButton` → **DA PERSONALIZZARE** per nuove azioni
+
+## 🔄 REFACTORING NECESSARIO
+
+### FASE 1: Architettura Dati (PRIORITÀ ALTA)
+**Status**: 🔴 NON INIZIATO
+
+**Obiettivi**:
+- [ ] Ristrutturare `src/data/` per supportare 3 tipi di contenuto
+- [ ] Creare `narrativePaths.js` (5-7 percorsi Roma/Napoli)
+- [ ] Creare `itineraries.js` (3 community + 2 tour operator)
+- [ ] Creare `partnerExperiences.js` (3-5 locali partner)
+- [ ] Aggiornare `challenges.js` → diventerà legacy/riferimento
+
+**File da Creare/Modificare**:
+```
+src/data/
+├── ✅ challenges.js (legacy - riferimento)
+├── ✅ badges.js (da estendere)
+├── ✅ user.js (da estendere con nuove statistiche)
+├── ✅ cities.js (OK - manteniamo)
+├── 🆕 narrativePaths.js (NUOVO)
+├── 🆕 itineraries.js (NUOVO) 
+├── 🆕 partnerExperiences.js (NUOVO)
+└── 🆕 contentTypes.js (NUOVO - definizioni tipi)
+```
+
+### FASE 2: Navigazione e Screens (PRIORITÀ ALTA)
+**Status**: 🔴 NON INIZIATO
+
+**Obiettivi**:
+- [ ] Ridisegnare `HomeScreen` con 3 sezioni (Narrativi, Consigliati, Food&Drink)
+- [ ] Evolvere `ChallengeScreen` → `ContentDetailScreen` (universale)
+- [ ] Mantenere `ChallengeCompleteScreen` → `ExperienceCompleteScreen`
+- [ ] Estendere `ProfileScreen` con "Passaporto Digitale"
+- [ ] Aggiornare `MapScreen` con pin colorati per tipologia
+
+**Screens Roadmap**:
+```
+src/screens/
+├── 🔄 HomeScreen.js → HomeScreen_v2.js (3 sezioni)
+├── 🔄 ChallengeScreen.js → ContentDetailScreen.js (universale)
+├── 🔄 ChallengeCompleteScreen.js → ExperienceCompleteScreen.js
+├── 🔄 ProfileScreen.js → ProfileScreen_v2.js (+ passaporto)
+├── 🔄 MapScreen.js → MapScreen_v2.js (+ pin colorati)
+├── 🆕 NarrativePathScreen.js (dettaglio percorsi narrativi)
+├── 🆕 PartnerExperienceScreen.js (dettaglio partner)
+└── 🆕 SocialCardScreen.js (generazione card stories)
+```
+
+### FASE 3: Componenti Specializzati (PRIORITÀ MEDIA)
+**Status**: 🔴 NON INIZIATO
+
+**Nuovi Componenti da Creare**:
+- [ ] `NarrativePathCard` - Card per percorsi narrativi con preview storia
+- [ ] `ItineraryCard` - Card per itinerari community/TO con rating
+- [ ] `PartnerExperienceCard` - Card per offerte partner con CTA
+- [ ] `PassportBadge` - Badge stile "timbro passaporto"
+- [ ] `SocialShareCard` - Generatore card Instagram-ready
+- [ ] `LocationPinMarker` - Pin mappa colorati per tipologia
+- [ ] `StoryProgressBar` - Progress bar per percorsi narrativi
+
+## 🚀 ROADMAP IMPLEMENTAZIONE
+
+### 🟢 MILESTONE 1: Data Architecture (Settimana 1)
+**Obiettivo**: Struttura dati completa per 3 tipologie contenuto
+
+**Deliverable**:
+- [x] Documentazione strategia aggiornata
+- [ ] File dati mock per narrativePaths (5-7 percorsi)
+- [ ] File dati mock per itineraries (5 itinerari)
+- [ ] File dati mock per partnerExperiences (3-5 partner)
+- [ ] Helper functions per gestione contenuti
+
+### 🟡 MILESTONE 2: Core UI Refactoring (Settimana 2)
+**Obiettivo**: HomeScreen_v2 con 3 sezioni funzionanti
+
+**Deliverable**:
+- [ ] HomeScreen ridisegnata (Narrativi/Consigliati/Food&Drink)
+- [ ] NavigationService aggiornato per nuovi flussi
+- [ ] Componenti base NarrativePathCard, ItineraryCard, PartnerCard
+- [ ] ContentDetailScreen universale
+
+### 🟡 MILESTONE 3: Gamification Avanzata (Settimana 3)
+**Obiettivo**: Badge system e passaporto digitale
+
+**Deliverable**:
+- [ ] ProfileScreen_v2 con passaporto visuale
+- [ ] Badge system esteso (narrativi + partner + community)
+- [ ] ExperienceCompleteScreen con social card preview
+- [ ] Sistema statistiche avanzate
+
+### 🟡 MILESTONE 4: Social & Viral (Settimana 4)
+**Obiettivo**: Card Stories e push notifications mock
+
+**Deliverable**:
+- [ ] SocialShareCard component con template Instagram
+- [ ] Push notifications mock (location-based)
+- [ ] Sistema rating e recensioni per itinerari
+- [ ] MapScreen_v2 con pin colorati
+
+### 🔮 MILESTONE 5: Polish & Testing (Settimana 5)
+**Obiettivo**: MVP presentabile per demo
+
+**Deliverable**:
+- [ ] Testing completo tutti i flussi
+- [ ] UI/UX polish e micro-animazioni
+- [ ] Performance optimization
+- [ ] Documentazione tecnica aggiornata
+
+## 📁 STRUTTURA PROGETTO TARGET
+
+### File Structure Post-Refactoring
+```
+JourneyFlux/
+├── ✅ App.js (OK - manteniamo)
+├── ✅ package.json (OK - manteniamo)
+├── 🔄 README.md (AGGIORNATO - nuova strategia)
+├── 🔄 PROJECT_STATUS.md (QUESTO FILE)
+├── ✅ src/
+│   ├── 🔄 Navigation.js (DA ESTENDERE per nuovi screen)
+│   ├── 📁 components/
+│   │   ├── ✅ ChallengeCard.js (legacy)
+│   │   ├── ✅ BadgeCard.js (da estendere)
+│   │   ├── ✅ StatCard.js (OK)
+│   │   ├── ✅ CitySelector.js (OK)
+│   │   ├── ✅ FloatingActionButton.js (OK)
+│   │   ├── 🆕 NarrativePathCard.js
+│   │   ├── 🆕 ItineraryCard.js
+│   │   ├── 🆕 PartnerExperienceCard.js
+│   │   ├── 🆕 PassportBadge.js
+│   │   ├── 🆕 SocialShareCard.js
+│   │   └── 🆕 LocationPinMarker.js
+│   ├── 📁 screens/
+│   │   ├── 🔄 HomeScreen.js → HomeScreen_v2.js
+│   │   ├── 🔄 ChallengeScreen.js → ContentDetailScreen.js
+│   │   ├── 🔄 ChallengeCompleteScreen.js → ExperienceCompleteScreen.js
+│   │   ├── 🔄 ProfileScreen.js → ProfileScreen_v2.js
+│   │   ├── 🔄 MapScreen.js → MapScreen_v2.js
+│   │   ├── 🆕 NarrativePathScreen.js
+│   │   ├── 🆕 PartnerExperienceScreen.js
+│   │   └── 🆕 SocialCardScreen.js
+│   ├── 📁 data/
+│   │   ├── ✅ challenges.js (legacy)
+│   │   ├── 🔄 badges.js (da estendere)
+│   │   ├── 🔄 user.js (da estendere)
+│   │   ├── ✅ cities.js (OK)
+│   │   ├── 🆕 narrativePaths.js
+│   │   ├── 🆕 itineraries.js
+│   │   ├── 🆕 partnerExperiences.js
+│   │   └── 🆕 contentTypes.js
+│   └── ✅ utils/ (OK - manteniamo)
+└── ✅ assets/ (OK - manteniamo)
+```
 
 ### ✅ Componenti Sviluppati
 - [x] `ChallengeCard` - Card sfide con gradient tematici + Nunito
@@ -1110,6 +1283,140 @@ JourneyFlux/
 - **Content**: Sfide create da utenti
 - **Viral**: Condivisione social network
 - **Partnerships**: Enti turistici regionali
+
+## 🤖 Personalizzazione AI (Future Feature Plus)
+
+### 🎯 Visione AI Integration
+**Oltre ai Percorsi Narrativi curati, JourneyFlux integrerà un sistema di personalizzazione AI per esperienze su misura.**
+
+### 🔮 Funzionalità AI Previste
+
+#### 1. **Conversational Planning**
+- Chat naturale con AI per definire preferenze
+- Comprensione contesto: tempo, budget, compagnia, interessi
+- Domande intelligenti per affinare i suggerimenti
+
+#### 2. **Smart Remixing**
+- Combinazione intelligente di percorsi narrativi esistenti
+- Integrazione eventi live e meteo
+- Ottimizzazione tragitti e timing
+
+#### 3. **Adaptive Experiences**
+- Modifica dinamica dell'esperienza in base a feedback
+- Suggerimenti alternativi in tempo reale
+- Apprendimento dalle preferenze storiche
+
+### 🛠️ Architettura AI Prevista
+
+#### Data Layer per AI
+```javascript
+// Struttura dati per personalizzazione
+const aiPersonalization = {
+  userProfile: {
+    interests: ['arte', 'cibo', 'mistero'],
+    travelStyle: 'explorative',
+    budget: 'medium',
+    socialPreference: 'group'
+  },
+  
+  contextData: {
+    timeAvailable: '3 hours',
+    weather: 'sunny',
+    companions: 'couple',
+    localEvents: ['jazz_festival', 'food_market']
+  },
+  
+  contentPool: {
+    narrativePaths: [], // Pool di percorsi esistenti
+    itineraries: [],   // Pool di itinerari
+    partners: []       // Pool di partner experiences
+  }
+};
+```
+
+#### AI Engine Integration
+- **NLP Processing**: Comprensione richieste naturali
+- **Content Matching**: Algoritmi di recommendation
+- **Experience Assembly**: Composizione automatica percorsi
+- **Real-time Adaptation**: Modifica dinamica suggerimenti
+
+### 🎮 Esempi di Personalizzazione AI
+
+#### Scenario 1: "Pomeriggio Romantico"
+```
+Input: "Voglio un pomeriggio romantico a Roma, 3 ore, budget medio"
+
+AI Output:
+🎭 Percorso: "Sussurri d'Amore nell'Eterna"
+- 17:00 Aperitivo al Bar del Fico (partner sconto)
+- 18:30 Percorso "Fantasmi di Castel Sant'Angelo"
+- 20:00 Cena prenotata da Checchino dal 1887
++ BONUS: Jazz live stasera a Villa Giulia
+```
+
+#### Scenario 2: "Famiglia con Bambini"
+```
+Input: "Famiglia, 2 bambini piccoli, Firenze, giornata intera"
+
+AI Output:
+🎭 Percorso: "Piccoli Esploratori di Firenze"
+- 09:00 Caccia al tesoro kid-friendly Palazzo Pitti
+- 11:00 Pausa gelato da Vivoli (sconto bambini)
+- 14:00 Laboratorio maschere tradizionali
+- 16:00 Parco giochi Cascine
++ BONUS: Spettacolo marionette in piazza oggi
+```
+
+### 🚀 Roadmap AI Implementation
+
+#### **Fase 1: AI Foundation (Post-MVP)**
+- [ ] Setup AI service infrastructure
+- [ ] Implement basic NLP processing
+- [ ] Create content tagging system
+- [ ] Build recommendation engine
+
+#### **Fase 2: Conversational Interface**
+- [ ] Develop chat interface
+- [ ] Implement context understanding
+- [ ] Add voice input support
+- [ ] Create preference learning system
+
+#### **Fase 3: Smart Assembly**
+- [ ] Build content remixing algorithms
+- [ ] Integrate real-time data sources
+- [ ] Implement adaptive suggestions
+- [ ] Add feedback learning loops
+
+#### **Fase 4: Advanced Features**
+- [ ] Predictive recommendations
+- [ ] Group planning assistance
+- [ ] Multi-city trip planning
+- [ ] AR-guided experiences
+
+### 🎯 Valore Aggiunto AI
+
+#### Per gli Utenti
+- **Personalizzazione**: Esperienze uniche per ogni viaggio
+- **Efficienza**: Pianificazione automatica ottimizzata
+- **Scoperta**: Suggerimenti che non avrebbero mai trovato
+- **Adattabilità**: Modifica dinamica in base a imprevisti
+
+#### Per il Business
+- **Engagement**: Conversazioni prolungate con l'app
+- **Retention**: Esperienze sempre nuove e sorprendenti
+- **Upsell**: Suggerimenti intelligenti per partner premium
+- **Data**: Insights profondi su preferenze utenti
+
+### 🏗️ Considerazioni Tecniche
+
+#### Infrastructure Requirements
+- **AI/ML Platform**: OpenAI API, Google Cloud AI, AWS SageMaker
+- **Real-time Data**: Weather APIs, Event APIs, Traffic APIs
+- **Scalability**: Cloud functions per processing AI
+- **Privacy**: Dati utente completamente anonimizzati
+
+#### Development Priority
+> **Nota**: La personalizzazione AI è una **feature aggiuntiva** che estende l'esperienza core dei Percorsi Narrativi. Verrà implementata solo dopo il consolidamento dell'MVP base e la validazione del product-market fit.
 
 ## 🏆 Successi del Progetto
 

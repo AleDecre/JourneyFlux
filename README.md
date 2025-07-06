@@ -8,24 +8,39 @@ Una app React Native che combina esplorazione, sfide e premi per rendere ogni vi
 
 ## 🎯 Cosa Fa JourneyFlux
 
-JourneyFlux trasforma l'Italia in un gigantesco parco giochi interattivo. Esplora città, completa sfide uniche, raccogli badge e accumula punti mentre scopri i tesori nascosti del nostro Paese.
+JourneyFlux è l'app che **trasforma l'Italia nei tuoi segreti personali**. Non più semplici sfide, ma **Percorsi Narrativi** che ti guidano alla scoperta di storie nascoste, misteri urbani e tesori che il 99% dei turisti non vedrà mai.
 
-### ✨ Caratteristiche Principali
+### ✨ Le 6 Leve dell'MVP
 
-🏆 **Sistema di Gamification**
-- Punti e livelli basati sulle tue esplorazioni
-- Badge collezionabili per ogni traguardo
-- Streak per premiare la costanza
+🎭 **Percorsi Narrativi Tematici**
+- Mini-avventure curate che raccontano storie uniche
+- Ogni percorso svela segreti e leggende nascoste
+- Foto-enigma che richiedono vera osservazione
 
-🎯 **Sfide Geolocalizzate**
-- Compiti basati su luoghi reali in Italia
-- Verifica GPS automatica
-- Prove fotografiche per validare il completamento
+🗺️ **Itinerari Community & Tour Operator**
+- Esperienze create da local ambassador
+- Percorsi premium da tour operator professionali
+- Valutazioni e recensioni della community
 
-🏛️ **Destinazioni Italiane**
-- Milano, Roma, Napoli, Firenze, Toscana
-- Sfide diverse per ogni città
-- Categorie: Gastronomia, Cultura, Arte, Natura
+� **Partner Experiences**
+- Offerte esclusive da bar, ristoranti e botteghe
+- Sconti e degustazioni per utenti JourneyFlux
+- Badge partner per collezionisti
+
+📸 **Card "Pronta per le Stories"**
+- Grafica automatica per condivisione social
+- Badge personalizzati e foto-scoperte
+- Viralità integrata nell'esperienza
+
+� **Badge & Passaporto Digitale**
+- Timbri virtuali per ogni esperienza completata
+- Passaporto visivo delle tue scoperte
+- Sistema di livelli: Novizio → Cercatore → Maestro
+
+🔔 **Push Notifications Contestuali**
+- Notifiche quando sei vicino a percorsi o partner
+- Promemoria per completare avventure iniziate
+- Offerte esclusive basate sulla posizione
 
 ---
 
@@ -81,28 +96,100 @@ npx expo start
 
 ---
 
-## 🏆 Esempi di Sfide
+## � Esempi di Percorsi Narrativi
 
-### 🥐 Sfida Sfogliatella Napoletana
-*Napoli, Campania*
-- Trova una pasticceria storica
-- Ordina e fotografa una sfogliatella
-- Condividi la tua esperienza
-- **Ricompensa**: 150 punti + Badge "Maestro della Sfogliatella"
+### 👻 I Fantasmi di Castel Sant'Angelo
+**Roma - Percorso Narrativo Misterioso**
 
-### 🍸 Tour Aperitivo Romano
-*Roma, Lazio*
-- Visita 3 bar storici del centro
-- Ordina un Negroni in ciascuno
-- Fotografa ogni cocktail
-- **Ricompensa**: 200 punti + Badge "Maestro dell'Aperitivo"
+**La Storia**: Scopri la leggenda dell'Angelo di Hadrian e i segreti delle prigioni papali...
 
-### 🎨 Caccia al Tesoro Artistico
-*Firenze, Toscana*
-- Trova 5 opere d'arte nascoste
-- Fotografa ogni scoperta
-- Condividi la storia dietro ciascuna
-- **Ricompensa**: 300 punti + Badge "Esploratore d'Arte"
+**Tappe del Percorso**:
+1. **Ponte Sant'Angelo** - Trova la statua con la scritta misteriosa
+2. **Ingresso Castel** - Fotografa il dettaglio che nasconde un codice
+3. **Terrazza dell'Angelo** - Scatta la foto-enigma finale
+
+**Ricompensa**: Badge "Cacciatore di Fantasmi" + Storia esclusiva sui prigionieri illustri
+
+---
+
+### 🍸 Il Codice Segreto dell'Aperitivo
+**Roma - Percorso Partner Experience**
+
+**La Storia**: Un tour tra i bar storici che nascondono simboli alchemici nel loro design...
+
+**Partner Coinvolti**:
+- **Bar del Fico** - Aperitivo omaggio con codice JourneyFlux
+- **Salotto 42** - Sconto 20% su cocktail signature
+- **Jerry Thomas** - Degustazione gin esclusiva
+
+**Ricompensa**: Badge "Maestro dell'Aperitivo" + Mappa bar segreti di Roma
+
+---
+
+### 🎨 I Simboli Nascosti di Firenze
+**Firenze - Percorso Community**
+
+**La Storia**: Un local ambassador ti guida alla scoperta dei simboli massonici nascosti nella città...
+
+**Creato da**: Marco_FI_Explorer (Local Ambassador)
+**Rating**: ⭐⭐⭐⭐⭐ (127 reviews)
+
+**Tappe**: Palazzo Pitti → Ponte Vecchio → Duomo → Piazza Signoria
+
+**Ricompensa**: Badge "Decifratore" + Accesso a percorso avanzato "Medici Secrets"
+
+---
+
+## 🤖 Personalizzazione AI (Feature Plus)
+
+**Oltre ai Percorsi Narrativi curati, JourneyFlux offre anche la possibilità di creare esperienze personalizzate tramite AI.**
+
+### Come Funziona l'AI Personalizzata
+
+L'AI di JourneyFlux può **remixare** i contenuti esistenti (percorsi narrativi, partner, itinerari) per creare esperienze uniche basate su:
+
+- **Tue Preferenze**: Arte, cibo, mistero, natura, shopping
+- **Vincoli Temporali**: Quanto tempo hai a disposizione
+- **Compagnia**: Solo, coppia, famiglia, amici
+- **Budget**: Gratuito, medio, premium
+- **Eventi Live**: Cosa succede in città oggi
+
+### Esempi di Personalizzazione
+
+**Richiesta**: "Voglio un pomeriggio romantico a Roma, 3 ore, budget medio"
+
+**Risposta AI**:
+```
+🎭 Percorso Personalizzato: "Sussurri d'Amore nell'Eterna"
+
+17:00 - Aperitivo al Bar del Fico (sconto partner 30%)
+18:30 - Passeggiata narrativa "I Fantasmi di Castel Sant'Angelo" 
+20:00 - Cena romantica prenotata da Checchino dal 1887
+
++ BONUS: Stasera c'è jazz live a Villa Giulia!
+```
+
+**Richiesta**: "Famiglia con bambini, Firenze, giornata intera, budget limitato"
+
+**Risposta AI**:
+```
+🎭 Percorso Personalizzato: "Piccoli Esploratori di Firenze"
+
+09:00 - Caccia al tesoro famiglia a Palazzo Pitti
+11:00 - Pausa gelato da Vivoli (sconto bambini)
+14:00 - Laboratorio maschere tradizionali (Itinerario Community)
+16:00 - Giochi nel Parco delle Cascine
+
++ BONUS: Ingresso gratuito Museo Galileo oggi!
+```
+
+### Modalità di Personalizzazione
+
+1. **Chat Conversazionale**: Dialogo naturale con l'AI
+2. **Quick Setup**: Risposta a 3-4 domande veloci
+3. **Auto-Suggest**: Basato su esperienze passate e posizione
+
+> **Nota**: La personalizzazione AI è una feature aggiuntiva che combina i contenuti curati di JourneyFlux. I Percorsi Narrativi rimangono il cuore dell'esperienza, garantendo qualità e autenticità.
 
 ---
 
@@ -116,22 +203,58 @@ npx expo start
 
 ---
 
-## 🎯 Roadmap Futura
+## 🎯 Roadmap MVP 2025
 
-### 🟡 Prossimi Aggiornamenti
+### � FASE 1: Core MVP (Q3 2025)
 
-- **Backend Integration** - Database reale e API
-- **GPS Reale** - Geolocalizzazione precisa
-- **Fotocamera Integrata** - Scatti diretti dall'app
-- **AI Verification** - Verifica automatica foto
-- **Social Features** - Condivisione e classifiche
+**Percorsi Narrativi** (5-7 percorsi Roma/Napoli)
+- Sistema GPS mock con verifica 50m
+- Foto-enigma con validazione base
+- Badge narrativi e "Lo sapevi che?"
 
-### 🔮 Visione a Lungo Termine
+**Itinerari Community & TO** (5 itinerari totali)
+- 3 Community (local ambassador)
+- 2 Premium (tour operator con prenotazioni)
+- Sistema rating e recensioni
 
-- **Realtà Aumentata** - Scoperta location con AR
-- **User Generated Content** - Sfide create dagli utenti
-- **Partnerships** - Collaborazioni con enti turistici
-- **Espansione Europea** - Oltre i confini italiani
+**Partner Experiences** (3-5 locali)
+- Offerte esclusive geolocalizzate
+- Sistema prenotazioni/riscatto
+- Badge partner dedicati
+
+### 🟡 FASE 2: Viral Features (Q4 2025)
+
+**Card Social Ready**
+- Generazione automatica grafica post-completamento
+- Template Instagram Stories
+- Sistema condivisione con tracking
+
+**Passaporto Digitale**
+- Collezione badge visuale
+- Sistema livelli gamificato
+- Statistiche avanzate personalizzate
+
+**Push Notifications**
+- Notifiche contestuali GPS
+- Reminder percorsi e offerte partner
+- Sistema preference center
+
+### 🔮 FASE 3: Scale & Growth (2026)
+
+**Backend & Real GPS**
+- Database scalabile
+- Geolocalizzazione precisa
+- API per partner e creator
+
+**Creator Economy**
+- Tools per local ambassador
+- Revenue sharing con creator
+- Community management
+
+**Espansione**
+- 20+ città europee
+- Partnership enti turistici
+- Monetizzazione premium
 
 ---
 
