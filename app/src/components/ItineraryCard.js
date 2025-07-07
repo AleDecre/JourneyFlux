@@ -27,11 +27,7 @@ const ItineraryCard = ({ itinerary, onPress }) => {
             <Text style={styles.typeIcon}>{typeIcon}</Text>
             <Text style={styles.typeLabel}>{typeLabel}</Text>
           </View>
-          {itinerary.featured && (
-            <View style={styles.featuredBadge}>
-              <Text style={styles.featuredText}>⭐</Text>
-            </View>
-          )}
+          {/* Nessun elemento a destra */}
         </View>
 
         {/* Content */}
@@ -119,15 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: theme.fonts.semiBold,
     color: '#FFFFFF',
-  },
-  featuredBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  featuredText: {
-    fontSize: 14,
   },
   content: {
     flex: 1,

@@ -13,6 +13,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getChallengeById } from '../data/challenges';
 import { getBadgeById } from '../data/badges';
 import { theme } from '../utils/theme';
+import { Ionicons } from '@expo/vector-icons';
+import AppText from '../components/AppText';
 
 const ChallengeScreen = ({ route, navigation }) => {
   const { challengeId } = route.params;
@@ -99,7 +101,7 @@ const ChallengeScreen = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <LinearGradient
           colors={getCategoryColors(challenge.category)}
@@ -111,20 +113,22 @@ const ChallengeScreen = ({ route, navigation }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.backButtonText}>← Indietro</Text>
+            <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
+            <AppText style={styles.backButtonText}>Indietro</AppText>
           </TouchableOpacity>
-          
           <View style={styles.headerContent}>
-            <Text style={styles.challengeEmoji}>{challenge.image}</Text>
-            <Text style={styles.challengeTitle}>{challenge.title}</Text>
-            <Text style={styles.challengeLocation}>{challenge.location}</Text>
-            
-            <View style={styles.challengeInfo}>
-              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}>
-                <Text style={styles.difficultyText}>{challenge.difficulty}</Text>
+            <View style={styles.typeContainerBanner}>
+              <AppText style={styles.typeIcon}>{challenge.image}</AppText>
+              <AppText style={styles.typeLabel}>{challenge.category ? challenge.category.charAt(0).toUpperCase() + challenge.category.slice(1) : 'Sfida'}</AppText>
+            </View>
+            <AppText style={styles.challengeTitle}>{challenge.title}</AppText>
+            <View style={styles.challengeInfoRow}>
+              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}> 
+                <AppText style={styles.difficultyText}>{challenge.difficulty}</AppText>
               </View>
               <View style={styles.pointsBadge}>
-                <Text style={styles.pointsText}>{challenge.points} punti</Text>
+                <Ionicons name="diamond-outline" size={16} color="#FFFFFF" style={{ marginRight: 4 }} />
+                <AppText style={styles.pointsText}>{challenge.points} punti</AppText>
               </View>
             </View>
           </View>
@@ -260,18 +264,35 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   backButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontFamily: theme.fonts.semiBold,
+    marginLeft: 8,
   },
   headerContent: {
     alignItems: 'center',
   },
-  challengeEmoji: {
-    fontSize: 64,
-    marginBottom: 16,
+  typeContainerBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  typeIcon: {
+    fontSize: 18,
+    marginRight: 6,
+  },
+  typeLabel: {
+    fontSize: 13,
+    fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
+    textTransform: 'capitalize',
   },
   challengeTitle: {
     fontSize: 24,
@@ -280,16 +301,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 8,
   },
-  challengeLocation: {
-    fontSize: 16,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.9)',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  challengeInfo: {
+  challengeInfoRow: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 12,
+    marginBottom: 8,
   },
   difficultyBadge: {
     paddingHorizontal: 16,
@@ -306,6 +323,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   pointsText: {
     color: '#FFFFFF',

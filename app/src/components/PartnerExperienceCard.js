@@ -34,24 +34,16 @@ const PartnerExperienceCard = ({ partnerExperience, onPress }) => {
       >
         {/* Header */}
         <View style={styles.header}>
-          <View style={styles.categoryContainer}>
-            <Text style={styles.categoryIcon}>{getCategoryIcon(partnerExperience.category)}</Text>
-            <Text style={styles.categoryLabel}>{partnerExperience.category}</Text>
+          <View style={styles.typeContainerBanner}>
+            <Text style={styles.typeIcon}>{getCategoryIcon(partnerExperience.partner?.type)}</Text>
+            <Text style={styles.typeLabel}>{partnerExperience.partner?.type ? partnerExperience.partner.type.charAt(0).toUpperCase() + partnerExperience.partner.type.slice(1) : 'Partner'}</Text>
           </View>
-          {partnerExperience.featured && (
-            <View style={styles.featuredBadge}>
-              <Text style={styles.featuredText}>⭐</Text>
-            </View>
-          )}
         </View>
 
         {/* Content */}
         <View style={styles.content}>
           <Text style={styles.title} numberOfLines={2}>
-            {partnerExperience.name}
-          </Text>
-          <Text style={styles.partnerName} numberOfLines={1}>
-            {partnerExperience.partner?.name || 'Partner locale'}
+            {partnerExperience.partner?.name || partnerExperience.name}
           </Text>
           <Text style={styles.description} numberOfLines={2}>
             {partnerExperience.experience?.description || 'Esperienza esclusiva partner'}
@@ -75,14 +67,6 @@ const PartnerExperienceCard = ({ partnerExperience, onPress }) => {
         <View style={styles.infoRow}>
           <Text style={styles.infoText}>📍 {partnerExperience.city}</Text>
           <Text style={styles.infoText}>⏰ {partnerExperience.experience?.validHours || ''}</Text>
-        </View>
-        <View style={styles.bottomRow}>
-          <View style={styles.pointsContainer}>
-            <Text style={styles.pointsText}>{partnerExperience.rewards?.points || 0} pts</Text>
-          </View>
-          <View style={styles.categoryBadge}>
-            <Text style={styles.categoryText}>{partnerExperience.category}</Text>
-          </View>
         </View>
       </LinearGradient>
     </TouchableOpacity>
@@ -116,32 +100,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  categoryContainer: {
+  typeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  typeContainerBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
   },
-  categoryIcon: {
+  typeIcon: {
     fontSize: 14,
     marginRight: 6,
   },
-  categoryLabel: {
+  typeLabel: {
     fontSize: 12,
     fontFamily: theme.fonts.semiBold,
     color: '#FFFFFF',
     textTransform: 'capitalize',
-  },
-  featuredBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  featuredText: {
-    fontSize: 14,
   },
   content: {
     flex: 1,
@@ -209,35 +188,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: theme.fonts.regular,
     color: 'rgba(255,255,255,0.9)',
-  },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  pointsContainer: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  pointsText: {
-    fontSize: 12,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-  },
-  categoryBadge: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  categoryText: {
-    fontSize: 12,
-    fontFamily: theme.fonts.semiBold,
-    color: '#FFFFFF',
-    textTransform: 'capitalize',
   },
 });
 

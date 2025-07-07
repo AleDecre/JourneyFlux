@@ -79,7 +79,7 @@ export default function PartnerExperienceScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <LinearGradient
           colors={getPartnerTypeColors()}
@@ -94,23 +94,19 @@ export default function PartnerExperienceScreen({ navigation }) {
             <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
             <Text style={styles.backButtonText}>Indietro</Text>
           </TouchableOpacity>
-          
           <View style={styles.headerContent}>
             <View style={styles.partnerTypeContainer}>
               <Ionicons name={getPartnerTypeIcon()} size={32} color="#FFFFFF" />
               <Text style={styles.partnerType}>{partner.partner?.type?.toUpperCase()}</Text>
             </View>
-            
             <Text style={styles.title}>{partner.name}</Text>
             <Text style={styles.partnerName}>{partner.partner?.name}</Text>
-            
             <View style={styles.locationContainer}>
               <Ionicons name="location-outline" size={16} color="rgba(255, 255, 255, 0.9)" />
               <Text style={styles.location}>{partner.partner?.address}</Text>
             </View>
           </View>
         </LinearGradient>
-
         <View style={styles.content}>
           {/* Offerta Speciale */}
           <View style={styles.section}>
@@ -118,30 +114,35 @@ export default function PartnerExperienceScreen({ navigation }) {
             <View style={styles.offerCard}>
               <View style={styles.offerHeader}>
                 <Text style={styles.offerTitle}>{partner.experience?.title}</Text>
-                <View style={styles.discountBadge}>
-                  <Text style={styles.discountText}>-{partner.experience?.discountPercentage}%</Text>
-                </View>
+                <Text style={styles.offerDiscount}>{partner.experience?.discountPercentage ? `-${partner.experience.discountPercentage}%` : ''}</Text>
               </View>
-              
               <Text style={styles.offerDescription}>{partner.experience?.description}</Text>
-              
-              <View style={styles.priceContainer}>
-                <Text style={styles.originalPrice}>{partner.experience?.originalPrice}€</Text>
-                <Text style={styles.discountedPrice}>{partner.experience?.discountedPrice}€</Text>
-                <Text style={styles.savings}>Risparmi {partner.experience?.savings}€</Text>
+              <View style={styles.priceRow}>
+                <Text style={styles.originalPrice}>{partner.experience?.originalPrice || ''}</Text>
+                <Text style={styles.discountedPrice}>{partner.experience?.discountedPrice || ''}</Text>
+                {partner.experience?.originalPrice && partner.experience?.discountedPrice &&
+                  typeof partner.experience.originalPrice === 'string' &&
+                  typeof partner.experience.discountedPrice === 'string' ? (
+                  <Text style={styles.savings}>
+                    Risparmi €{(
+                      parseFloat(partner.experience.originalPrice.replace('€', '')) -
+                      parseFloat(partner.experience.discountedPrice.replace('€', ''))
+                    ).toFixed(0)}
+                  </Text>
+                ) : null}
               </View>
               
+              {/* Validità */}
               <View style={styles.validityContainer}>
-                <Ionicons name="calendar-outline" size={16} color="#4ECDC4" />
+                <Ionicons name="calendar-outline" size={16} color="#7F8C8D" />
                 <Text style={styles.validityText}>
-                  Valido: {partner.experience?.validDays?.join(', ')}
+                  Valido: {partner.experience?.validDays?.join(', ') || 'tutti i giorni'}
                 </Text>
               </View>
-              
               <View style={styles.hoursContainer}>
-                <Ionicons name="time-outline" size={16} color="#4ECDC4" />
+                <Ionicons name="time-outline" size={16} color="#7F8C8D" />
                 <Text style={styles.hoursText}>
-                  Orari: {partner.experience?.validHours}
+                  Orari: {partner.experience?.validHours || '18:00-20:00'}
                 </Text>
               </View>
             </View>
@@ -149,61 +150,37 @@ export default function PartnerExperienceScreen({ navigation }) {
 
           {/* Come Riscattare */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>🎫 Come Riscattare</Text>
+            <Text style={styles.sectionTitle}>📱 Come Riscattare</Text>
             <View style={styles.redemptionCard}>
-              <View style={styles.qrCodeContainer}>
-                <QRCode
-                  value={partner.redemption?.code || 'JOURNEYFLUX'}
-                  size={100}
-                  color="#2C3E50"
-                  backgroundColor="#fff"
-                />
-                <Text style={styles.qrCodeText}>{partner.redemption?.code}</Text>
-              </View>
-              <View style={styles.codeContainer}>
-                <Text style={styles.codeLabel}>Codice:</Text>
-                <Text style={styles.codeValue}>{partner.redemption?.code}</Text>
-              </View>
-              <TouchableOpacity style={styles.actionButton} onPress={handleRedeemOffer}>
-                <LinearGradient
-                  colors={getPartnerTypeColors()}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.actionButtonGradient}
-                >
-                  <Text style={styles.actionButtonText}>Riscatta Offerta</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              {showQRCode && (
-                <TouchableOpacity style={styles.qrConfirmButton} onPress={handleCompletePartnerExperience}>
-                  <Text style={styles.qrConfirmButtonText}>Ho riscattato l'offerta</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-
-          {/* Ricompense */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>🏆 Ricompense</Text>
-            <View style={styles.rewardsCard}>
-              <View style={styles.pointsContainer}>
-                <Ionicons name="diamond-outline" size={24} color="#4ECDC4" />
-                <Text style={styles.pointsText}>{partner.rewards?.points} punti</Text>
-              </View>
-              
-              {badge && (
-                <View style={styles.badgeContainer}>
-                  <Text style={styles.badgeLabel}>Badge da sbloccare:</Text>
-                  <PassportBadge badge={badge} size="large" />
-                </View>
-              )}
-              
-              {partner.rewards?.unlockCondition && (
-                <View style={styles.unlockContainer}>
-                  <Ionicons name="lock-closed-outline" size={16} color="#7F8C8D" />
-                  <Text style={styles.unlockText}>
-                    Condizione: {partner.rewards.unlockCondition}
+              {!showQRCode ? (
+                <>
+                  <Text style={styles.instructionsTitle}>Riscatta l'offerta</Text>
+                  <Text style={styles.instructionsText}>
+                    {partner.redemption?.instructions || "Mostra questo QR al personale e menziona 'JourneyFlux'"}
                   </Text>
+                  <TouchableOpacity 
+                    style={styles.qrConfirmButton} 
+                    onPress={handleRedeemOffer}
+                  >
+                    <Text style={styles.qrConfirmButtonText}>Genera QR Code</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <View style={styles.qrContainer}>
+                  <Text style={styles.qrTitle}>Mostra questo QR al personale</Text>
+                  <QRCode
+                    value={partner.redemption?.code || 'JOURNEYFLUX_PARTNER'}
+                    size={150}
+                    color="#2C3E50"
+                    backgroundColor="#FFFFFF"
+                  />
+                  <Text style={styles.qrCodeText}>Codice: {partner.redemption?.code || 'JOURNEYFLUX_PARTNER'}</Text>
+                  <TouchableOpacity 
+                    style={styles.qrConfirmButton} 
+                    onPress={handleCompletePartnerExperience}
+                  >
+                    <Text style={styles.qrConfirmButtonText}>Ho Utilizzato l'Offerta</Text>
+                  </TouchableOpacity>
                 </View>
               )}
             </View>
@@ -214,61 +191,48 @@ export default function PartnerExperienceScreen({ navigation }) {
             <Text style={styles.sectionTitle}>ℹ️ Dettagli Partner</Text>
             <View style={styles.detailsCard}>
               <View style={styles.detailRow}>
-                <Ionicons name="star-outline" size={20} color="#FFD700" />
-                <Text style={styles.detailText}>
-                  {partner.averageRating} stelle ({partner.totalReviews} recensioni)
-                </Text>
+                <Ionicons name="business-outline" size={20} color="#4ECDC4" />
+                <Text style={styles.detailText}>{partner.partner?.name}</Text>
               </View>
-              
               <View style={styles.detailRow}>
-                <Ionicons name="people-outline" size={20} color="#4ECDC4" />
-                <Text style={styles.detailText}>
-                  {partner.totalRedemptions} persone hanno riscattato
-                </Text>
+                <Ionicons name="location-outline" size={20} color="#4ECDC4" />
+                <Text style={styles.detailText}>{partner.partner?.address}</Text>
               </View>
-              
-              {partner.partner?.phone && (
-                <View style={styles.detailRow}>
-                  <Ionicons name="call-outline" size={20} color="#4ECDC4" />
-                  <Text style={styles.detailText}>{partner.partner.phone}</Text>
-                </View>
-              )}
+              <View style={styles.detailRow}>
+                <Ionicons name="restaurant-outline" size={20} color="#4ECDC4" />
+                <Text style={styles.detailText}>{partner.partner?.type?.charAt(0).toUpperCase() + partner.partner?.type?.slice(1)}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Ionicons name="star-outline" size={20} color="#4ECDC4" />
+                <Text style={styles.detailText}>Partner verificato JourneyFlux</Text>
+              </View>
             </View>
           </View>
 
-          {showQRCode && (
-            <View style={styles.qrContainer}>
-              <Text style={styles.qrTitle}>Mostra questo QR al partner per riscattare l'offerta</Text>
-              <QRCode
-                value={partner.redemption?.code || 'JOURNEYFLUX'}
-                size={180}
-                color="#2C3E50"
-                backgroundColor="#fff"
-              />
-              <Text style={styles.qrCodeText}>{partner.redemption?.code}</Text>
-              <TouchableOpacity style={styles.qrConfirmButton} onPress={handleCompletePartnerExperience}>
-                <Text style={styles.qrConfirmButtonText}>Ho riscattato l'offerta</Text>
-              </TouchableOpacity>
+          {/* Ricompensa */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>🏆 Ricompensa</Text>
+            <View style={styles.rewardsCard}>
+              <View style={styles.pointsContainer}>
+                <Ionicons name="diamond-outline" size={24} color="#4ECDC4" />
+                <Text style={styles.pointsText}>{partner.rewards?.points} punti</Text>
+              </View>
+              {badge && (
+                <View style={styles.badgeContainer}>
+                  <Text style={styles.badgeLabel}>Badge da sbloccare:</Text>
+                  <PassportBadge badge={badge} size="large" />
+                </View>
+              )}
+              <View style={styles.unlockContainer}>
+                <Ionicons name="lock-closed-outline" size={16} color="#7F8C8D" />
+                <Text style={styles.unlockText}>
+                  Ricompensa sbloccata dopo aver utilizzato l'offerta
+                </Text>
+              </View>
             </View>
-          )}
+          </View>
         </View>
       </ScrollView>
-
-      {/* Footer con azione */}
-      <View style={styles.footer}>
-        {!showQRCode && (
-          <TouchableOpacity style={styles.actionButton} onPress={handleRedeemOffer}>
-            <LinearGradient
-              colors={getPartnerTypeColors()}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.actionButtonGradient}
-            >
-              <Text style={styles.actionButtonText}>Riscatta Offerta</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        )}
-      </View>
     </SafeAreaView>
   );
 }
@@ -390,16 +354,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 12,
   },
-  discountBadge: {
-    backgroundColor: '#27AE60',
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  discountText: {
-    fontSize: 14,
+  offerDiscount: {
+    fontSize: 16,
     fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
+    color: '#E74C3C',
   },
   offerDescription: {
     fontSize: 14,
@@ -408,7 +366,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginBottom: 16,
   },
-  priceContainer: {
+  priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
@@ -470,15 +428,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-  },
-  qrCodePlaceholder: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#F8F9FA',
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
   },
   qrCodeText: {
     fontSize: 12,

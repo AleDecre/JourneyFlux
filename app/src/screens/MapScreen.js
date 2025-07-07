@@ -127,21 +127,27 @@ const MapScreen = ({ navigation }) => {
   const globalStats = getGlobalStats();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <LinearGradient
+        colors={['#667eea', '#764ba2']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
+        <View style={styles.headerContent}>
+          <View>
+            <Text style={styles.greeting}>Mappa JourneyFlux</Text>
+            <Text style={styles.subtitle}>
+              Esplora l'Italia attraverso {globalStats.totalContent} esperienze uniche
+            </Text>
+          </View>
+          <View style={styles.headerInfoBox}>
+            <Text style={styles.headerInfoLabel}>Città</Text>
+            <Text style={styles.headerInfoValue}>{filteredCities.length}</Text>
+          </View>
+        </View>
+      </LinearGradient>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <LinearGradient
-          colors={['#667eea', '#764ba2']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.header}
-        >
-          <Text style={styles.headerTitle}>🗺️ Mappa JourneyFlux</Text>
-          <Text style={styles.headerSubtitle}>
-            Esplora l'Italia attraverso {globalStats.totalContent} esperienze uniche
-          </Text>
-        </LinearGradient>
-
         {/* Content Type Filters */}
         <View style={styles.filtersSection}>
           <Text style={styles.filtersTitle}>Filtra per tipologia:</Text>
@@ -300,21 +306,40 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  headerContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerTitle: {
-    fontSize: 28,
+  greeting: {
+    fontSize: 24,
     fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
-    marginBottom: 8,
-    textAlign: 'center',
   },
-  headerSubtitle: {
+  subtitle: {
     fontSize: 16,
     fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
-    textAlign: 'center',
+    marginTop: 4,
+  },
+  headerInfoBox: {
+    alignItems: 'center',
+    // nessun background opaco
+  },
+  headerInfoLabel: {
+    fontSize: 12,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  headerInfoValue: {
+    fontSize: 20,
+    fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
   },
   filtersSection: {
     paddingVertical: 16,

@@ -51,7 +51,10 @@ const ChallengeCard = ({ challenge, onPress }) => {
         style={styles.gradient}
       >
         <View style={styles.header}>
-          <Text style={styles.emoji}>{challenge.image}</Text>
+          <View style={styles.typeContainerBanner}>
+            <Text style={styles.typeIcon}>{challenge.image}</Text>
+            <Text style={styles.typeLabel}>{challenge.category ? challenge.category.charAt(0).toUpperCase() + challenge.category.slice(1) : 'Sfida'}</Text>
+          </View>
           <View style={styles.statusContainer}>
             {challenge.completed && (
               <View style={styles.completedBadge}>
@@ -60,23 +63,16 @@ const ChallengeCard = ({ challenge, onPress }) => {
             )}
           </View>
         </View>
-        
         <View style={styles.content}>
           <Text style={styles.title} numberOfLines={2}>{challenge.title || 'Titolo mancante'}</Text>
-          <Text style={styles.location}>{challenge.location || 'Posizione non specificata'}</Text>
-          
           <View style={styles.footer}>
             <View style={styles.infoRow}>
-              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}>
+              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}> 
                 <Text style={styles.difficultyText}>{challenge.difficulty || 'N/A'}</Text>
               </View>
               <View style={styles.pointsContainer}>
                 <Text style={styles.pointsText}>{challenge.points || 0} pts</Text>
               </View>
-            </View>
-            
-            <View style={styles.categoryContainer}>
-              <Text style={styles.categoryText}>{challenge.category || 'Categoria non specificata'}</Text>
             </View>
           </View>
         </View>
@@ -116,8 +112,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
-  emoji: {
-    fontSize: 32,
+  typeContainerBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  typeIcon: {
+    fontSize: 18,
+    marginRight: 6,
+  },
+  typeLabel: {
+    fontSize: 13,
+    fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
+    textTransform: 'capitalize',
   },
   statusContainer: {
     flexDirection: 'row',
@@ -143,12 +154,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
     marginBottom: 4,
-  },
-  location: {
-    fontSize: theme.fonts.sizes.small,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.9)',
-    marginBottom: 12,
   },
   footer: {
     marginTop: 'auto',

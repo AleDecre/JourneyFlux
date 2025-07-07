@@ -67,43 +67,29 @@ const ProfileScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Header Profile */}
-        <LinearGradient
-          colors={['#667eea', '#764ba2']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.header}
-        >
-          <View style={styles.profileSection}>
-            <View style={styles.avatarContainer}>
-              <Text style={styles.avatar}>{userProfile.profileImage}</Text>
-            </View>
-            <Text style={styles.username}>{userProfile.username}</Text>
-            <Text style={styles.joinDate}>
-              Membro dal {new Date(userProfile.joinDate).toLocaleDateString('it-IT', {
-                month: 'long',
-                year: 'numeric'
-              })}
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <LinearGradient
+        colors={['#667eea', '#764ba2']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
+        <View style={styles.headerContent}>
+          <View>
+            <Text style={styles.greeting}>Profilo</Text>
+            <Text style={styles.subtitle}>
+              Benvenuto, {userProfile.username}
             </Text>
           </View>
-
-          <View style={styles.quickStats}>
-            <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.storyPoints}</Text>
-              <Text style={styles.quickStatLabel}>Story Points</Text>
-            </View>
-            <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.narrativePathsCompleted}</Text>
-              <Text style={styles.quickStatLabel}>Percorsi Narrativi</Text>
-            </View>
-            <View style={styles.quickStatItem}>
-              <Text style={styles.quickStatValue}>{userProfile.stats.partnersVisited}</Text>
-              <Text style={styles.quickStatLabel}>Partner Visitati</Text>
-            </View>
+          <View style={styles.headerInfoBox}>
+            <Text style={styles.headerInfoLabel}>Story Points</Text>
+            <Text style={styles.headerInfoValue}>{userProfile.stats.storyPoints}</Text>
           </View>
-        </LinearGradient>
+        </View>
+      </LinearGradient>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        {/* Header Profile */}
+        
 
         {/* Stats Cards */}
         <View style={styles.statsContainer}>
@@ -119,7 +105,7 @@ const ProfileScreen = ({ navigation }) => {
               title="Story Points"
               value={userProfile.stats.storyPoints}
               subtitle={`${userProfile.stats.totalPoints} punti totali`}
-              icon="�"
+              icon="🌟"
               colors={['#667eea', '#764ba2']}
             />
           </View>
@@ -298,59 +284,40 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingVertical: 30,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
-  profileSection: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  avatarContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  avatar: {
-    fontSize: 48,
-  },
-  username: {
-    fontSize: 28,
-    fontFamily: theme.fonts.bold,
-    color: '#FFFFFF',
-    marginBottom: 8,
-  },
-  joinDate: {
-    fontSize: 16,
-    fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.8)',
-  },
-  quickStats: {
+  headerContent: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 16,
-    padding: 16,
-  },
-  quickStatItem: {
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  quickStatValue: {
+  greeting: {
     fontSize: 24,
     fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
-  quickStatLabel: {
+  subtitle: {
+    fontSize: 16,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255, 255, 255, 0.9)',
+    marginTop: 4,
+  },
+  headerInfoBox: {
+    alignItems: 'center',
+    // nessun background opaco
+  },
+  headerInfoLabel: {
     fontSize: 12,
     fontFamily: theme.fonts.regular,
-    color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
-    marginTop: 4,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  headerInfoValue: {
+    fontSize: 20,
+    fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
   },
   statsContainer: {
     paddingHorizontal: 16,

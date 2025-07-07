@@ -58,7 +58,7 @@ export default function ItineraryScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <LinearGradient
           colors={getCategoryColors()}
@@ -200,23 +200,40 @@ export default function ItineraryScreen({ navigation }) {
             )}
           </View>
         </View>
-      </ScrollView>
 
-      {/* Footer con azione */}
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.actionButton} onPress={handleStartItinerary}>
-          <LinearGradient
-            colors={getCategoryColors()}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.actionButtonGradient}
-          >
-            <Text style={styles.actionButtonText}>
-              {itinerary.itineraryType === 'community' ? 'Segui Itinerario' : 'Prenota Tour'}
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
+        {/* Disponibilità e warning */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>ℹ️ Info Importanti</Text>
+          <View style={styles.warningBox}>
+            <Text style={styles.warningText}>Attenzione: alcune visite vanno prenotate con largo anticipo.</Text>
+            <Text style={styles.warningText}>Acquistare almeno 15 giorni prima dell’inizio per evitare esaurimento posti.</Text>
+          </View>
+          <View style={styles.availabilityBox}>
+            {/* Simulazione posti disponibili */}
+            {(() => {
+              const posti = itinerary.availableSpots ?? 12; // fallback demo
+              let color = posti > 20 ? '#27AE60' : posti > 5 ? '#FFB74D' : '#E74C3C';
+              return (
+                <Text style={[styles.availabilityText, { color }]}> {posti} posti disponibili</Text>
+              );
+            })()}
+          </View>
+        </View>
+
+        {/* Pulsanti azione */}
+        <View style={styles.section}>
+          <TouchableOpacity style={styles.actionButton}>
+            <LinearGradient colors={['#4ECDC4', '#44A08D']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.actionButtonGradient}>
+              <Text style={styles.actionButtonText}>Richiedi info all’organizzatore</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.actionButton, { marginTop: 12 }] }>
+            <LinearGradient colors={['#FF6B6B', '#FF8E8E']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.actionButtonGradient}>
+              <Text style={styles.actionButtonText}>Acquista</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -526,5 +543,29 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 18,
     fontFamily: theme.fonts.bold,
+  },
+  warningBox: {
+    backgroundColor: '#FFF3CD',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+  },
+  warningText: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#856404',
+    marginBottom: 8,
+  },
+  availabilityBox: {
+    backgroundColor: '#D1E7DD',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  availabilityText: {
+    fontSize: 16,
+    fontFamily: theme.fonts.semiBold,
+    color: '#155724',
   },
 });

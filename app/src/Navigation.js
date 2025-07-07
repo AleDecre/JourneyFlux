@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from './utils/theme';
+import { Platform } from 'react-native';
 
 // Screens
 import HomeScreen from './screens/HomeScreen';
@@ -57,7 +58,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: '#4ECDC4',
         tabBarInactiveTintColor: '#95A5A6',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#F8F9FA',
           borderTopWidth: 0,
           elevation: 8,
           shadowColor: '#000',
@@ -65,8 +66,7 @@ const TabNavigator = () => {
           shadowOpacity: 0.1,
           shadowRadius: 4,
           height: 60,
-          paddingTop: 8,
-          paddingBottom: 8,
+          ...(Platform.OS !== 'web' ? { paddingBottom: 12 } : {}), // padding solo su mobile
         },
         tabBarLabelStyle: {
           fontSize: 12,

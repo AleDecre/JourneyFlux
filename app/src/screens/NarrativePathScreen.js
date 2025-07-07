@@ -121,7 +121,7 @@ export default function NarrativePathScreen({ navigation }) {
   const isStepAccessible = (stepIndex) => stepIndex <= currentStepIndex;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <LinearGradient
           colors={getCategoryColors()}
@@ -293,25 +293,6 @@ export default function NarrativePathScreen({ navigation }) {
           </View>
         </View>
       </ScrollView>
-
-      {/* Footer con azione */}
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={handleStartPath}
-        >
-          <LinearGradient
-            colors={getCategoryColors()}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.actionButtonGradient}
-          >
-            <Text style={styles.actionButtonText}>
-              {completedSteps.length === 0 ? 'Inizia il Percorso' : 'Continua il Percorso'}
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -633,24 +614,5 @@ const styles = StyleSheet.create({
     color: '#7F8C8D',
     marginLeft: 8,
     fontStyle: 'italic',
-  },
-  footer: {
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#E9ECEF',
-  },
-  actionButton: {
-    borderRadius: 12,
-  },
-  actionButtonGradient: {
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  actionButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontFamily: theme.fonts.bold,
   },
 });
