@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     color: '#2C3E50',
     marginBottom: 16,
     marginHorizontal: 16,
+    fontFamily: 'Nunito_700Bold',
   },
   citiesContainer: {
     flexDirection: 'row',
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#2C3E50',
     textAlign: 'center',
+    fontFamily: 'Nunito_600SemiBold',
   },
   selectedCityName: {
     color: '#FFFFFF',
@@ -110,6 +112,7 @@ const styles = StyleSheet.create({
     color: '#7F8C8D',
     textAlign: 'center',
     marginTop: 4,
+    fontFamily: 'Nunito_400Regular',
   },
   selectedChallengeCount: {
     color: 'rgba(255, 255, 255, 0.9)',

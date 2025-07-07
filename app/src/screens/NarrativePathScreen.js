@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,6 +17,7 @@ export default function NarrativePathScreen({ navigation }) {
   const [isNearLocation, setIsNearLocation] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
+  const scrollViewRef = useRef();
 
   if (!narrativePath) {
     return (
@@ -73,11 +74,46 @@ export default function NarrativePathScreen({ navigation }) {
 
   const handleCompleteStep = (stepIndex) => {
     if (!completedSteps.includes(stepIndex)) {
-      setCompletedSteps([...completedSteps, stepIndex]);
-    }
-    if (stepIndex < narrativePath.steps.length - 1) {
+      const newCompletedSteps = [...completedSteps, stepIndex];
+      setCompletedSteps(newCompletedSteps);
+      if (stepIndex < narrativePath.steps.length - 1) {
+        setCurrentStepIndex(stepIndex + 1);
+        setTimeout(() => {
+          if (scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ y: (indexToScrollTo(stepIndex + 1)), animated: true });
+          }
+        }, 300);
+      }
+      // Check if all steps are completed
+      if (newCompletedSteps.length === narrativePath.steps.length) {
+        setTimeout(() => {
+          handleCompleteNarrativePath();
+        }, 500);
+      }
+    } else if (stepIndex < narrativePath.steps.length - 1) {
       setCurrentStepIndex(stepIndex + 1);
     }
+  };
+
+  // Calcola la posizione Y della tappa da scrollare (approssimazione)
+  const indexToScrollTo = (stepIdx) => {
+    // Ogni stepCard ha circa 220px di altezza + margini
+    return 400 + stepIdx * 240;
+  };
+
+  const handleCompleteNarrativePath = () => {
+    // Navigate to experience complete screen
+    navigation.navigate('ExperienceComplete', {
+      contentId: narrativePath.id,
+      contentType: 'narrative_path',
+      pointsEarned: narrativePath.rewards?.points || 250,
+      badgeEarned: narrativePath.rewards?.badge || 'badge_narrativo_generico',
+      socialShareData: {
+        title: narrativePath.title,
+        description: narrativePath.description,
+        category: narrativePath.category
+      }
+    });
   };
 
   const isStepCompleted = (stepIndex) => completedSteps.includes(stepIndex);
@@ -86,7 +122,7 @@ export default function NarrativePathScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <LinearGradient
           colors={getCategoryColors()}
           start={{ x: 0, y: 0 }}
@@ -196,7 +232,9 @@ export default function NarrativePathScreen({ navigation }) {
                         end={{ x: 1, y: 1 }}
                         style={styles.completeStepGradient}
                       >
-                        <Text style={styles.completeStepText}>Completa Tappa</Text>
+                        <Text style={styles.completeStepText}>
+                          {index === narrativePath.steps.length - 1 ? 'Completa Percorso' : 'Completa Tappa'}
+                        </Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   )}

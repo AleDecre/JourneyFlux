@@ -9,6 +9,7 @@ import { theme } from './utils/theme';
 import HomeScreen from './screens/HomeScreen';
 import ChallengeScreen from './screens/ChallengeScreen';
 import ChallengeCompleteScreen from './screens/ChallengeCompleteScreen';
+import ExperienceCompleteScreen from './screens/ExperienceCompleteScreen';
 import MapScreen from './screens/MapScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NarrativePathScreen from './screens/NarrativePathScreen';
@@ -25,6 +26,7 @@ const HomeStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Challenge" component={ChallengeScreen} />
       <Stack.Screen name="ChallengeComplete" component={ChallengeCompleteScreen} />
+      <Stack.Screen name="ExperienceComplete" component={ExperienceCompleteScreen} />
       <Stack.Screen name="NarrativePath" component={NarrativePathScreen} />
       <Stack.Screen name="Itinerary" component={ItineraryScreen} />
       <Stack.Screen name="PartnerExperience" component={PartnerExperienceScreen} />

@@ -27,6 +27,28 @@ export default function ItineraryScreen({ navigation }) {
   const reviewsCount = creator.reviewsCount || itinerary.totalReviews || reviews.length;
   const rating = creator.rating || itinerary.rating;
 
+  const handleStartItinerary = () => {
+    // Simulate following/completing the itinerary
+    setTimeout(() => {
+      handleCompleteItinerary();
+    }, 1000);
+  };
+
+  const handleCompleteItinerary = () => {
+    // Navigate to experience complete screen
+    navigation.navigate('ExperienceComplete', {
+      contentId: itinerary.id,
+      contentType: 'itinerary',
+      pointsEarned: 150,
+      badgeEarned: itinerary.type === 'community' ? 'badge_community_explorer' : 'badge_tour_professional',
+      socialShareData: {
+        title: itinerary.title,
+        description: itinerary.description,
+        creator: itinerary.creator?.name
+      }
+    });
+  };
+
   const getCategoryColors = () => {
     if (itinerary.itineraryType === 'community') {
       return ['#4ECDC4', '#7ED5D1'];
@@ -182,7 +204,7 @@ export default function ItineraryScreen({ navigation }) {
 
       {/* Footer con azione */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleStartItinerary}>
           <LinearGradient
             colors={getCategoryColors()}
             start={{ x: 0, y: 0 }}

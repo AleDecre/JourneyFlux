@@ -8,11 +8,13 @@ import { getPartnerExperienceById } from '../data/partnerExperiences';
 import { getBadgeById } from '../data/badges';
 import { theme } from '../utils/theme';
 import PassportBadge from '../components/PassportBadge';
+import QRCode from 'react-native-qrcode-svg';
 
 export default function PartnerExperienceScreen({ navigation }) {
   const route = useRoute();
   const { partnerExperienceId } = route.params;
   const partner = getPartnerExperienceById(partnerExperienceId);
+  const [showQRCode, setShowQRCode] = React.useState(false);
 
   if (!partner) {
     return (
@@ -26,6 +28,25 @@ export default function PartnerExperienceScreen({ navigation }) {
 
   // Recupera il badge dall'ID
   const badge = getBadgeById(partner.rewards?.badge);
+
+  const handleRedeemOffer = () => {
+    setShowQRCode(true);
+  };
+
+  const handleCompletePartnerExperience = () => {
+    // Navigate to experience complete screen
+    navigation.navigate('ExperienceComplete', {
+      contentId: partner.id,
+      contentType: 'partner_experience',
+      pointsEarned: partner.rewards?.points || 100,
+      badgeEarned: partner.rewards?.badge || 'badge_partner_explorer',
+      socialShareData: {
+        title: partner.name,
+        description: partner.experience?.description,
+        partnerName: partner.partner?.name
+      }
+    });
+  };
 
   const getPartnerTypeColors = () => {
     switch (partner.partner?.type) {
@@ -131,20 +152,33 @@ export default function PartnerExperienceScreen({ navigation }) {
             <Text style={styles.sectionTitle}>🎫 Come Riscattare</Text>
             <View style={styles.redemptionCard}>
               <View style={styles.qrCodeContainer}>
-                <View style={styles.qrCodePlaceholder}>
-                  <Ionicons name="qr-code-outline" size={48} color="#4ECDC4" />
-                  <Text style={styles.qrCodeText}>QR Code</Text>
-                </View>
-                <View style={styles.codeContainer}>
-                  <Text style={styles.codeLabel}>Codice:</Text>
-                  <Text style={styles.codeValue}>{partner.redemption?.code}</Text>
-                </View>
+                <QRCode
+                  value={partner.redemption?.code || 'JOURNEYFLUX'}
+                  size={100}
+                  color="#2C3E50"
+                  backgroundColor="#fff"
+                />
+                <Text style={styles.qrCodeText}>{partner.redemption?.code}</Text>
               </View>
-              
-              <View style={styles.instructionsContainer}>
-                <Text style={styles.instructionsTitle}>Istruzioni:</Text>
-                <Text style={styles.instructionsText}>{partner.redemption?.instructions}</Text>
+              <View style={styles.codeContainer}>
+                <Text style={styles.codeLabel}>Codice:</Text>
+                <Text style={styles.codeValue}>{partner.redemption?.code}</Text>
               </View>
+              <TouchableOpacity style={styles.actionButton} onPress={handleRedeemOffer}>
+                <LinearGradient
+                  colors={getPartnerTypeColors()}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.actionButtonGradient}
+                >
+                  <Text style={styles.actionButtonText}>Riscatta Offerta</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              {showQRCode && (
+                <TouchableOpacity style={styles.qrConfirmButton} onPress={handleCompletePartnerExperience}>
+                  <Text style={styles.qrConfirmButtonText}>Ho riscattato l'offerta</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
 
@@ -201,21 +235,39 @@ export default function PartnerExperienceScreen({ navigation }) {
               )}
             </View>
           </View>
+
+          {showQRCode && (
+            <View style={styles.qrContainer}>
+              <Text style={styles.qrTitle}>Mostra questo QR al partner per riscattare l'offerta</Text>
+              <QRCode
+                value={partner.redemption?.code || 'JOURNEYFLUX'}
+                size={180}
+                color="#2C3E50"
+                backgroundColor="#fff"
+              />
+              <Text style={styles.qrCodeText}>{partner.redemption?.code}</Text>
+              <TouchableOpacity style={styles.qrConfirmButton} onPress={handleCompletePartnerExperience}>
+                <Text style={styles.qrConfirmButtonText}>Ho riscattato l'offerta</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </ScrollView>
 
       {/* Footer con azione */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.actionButton}>
-          <LinearGradient
-            colors={getPartnerTypeColors()}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.actionButtonGradient}
-          >
-            <Text style={styles.actionButtonText}>Riscatta Offerta</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        {!showQRCode && (
+          <TouchableOpacity style={styles.actionButton} onPress={handleRedeemOffer}>
+            <LinearGradient
+              colors={getPartnerTypeColors()}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.actionButtonGradient}
+            >
+              <Text style={styles.actionButtonText}>Riscatta Offerta</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -553,5 +605,44 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 18,
     fontFamily: theme.fonts.bold,
+  },
+  qrContainer: {
+    alignItems: 'center',
+    marginVertical: 32,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  qrTitle: {
+    fontSize: 16,
+    fontFamily: 'Nunito_700Bold',
+    color: '#2C3E50',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  qrCodeText: {
+    fontSize: 14,
+    fontFamily: 'Nunito_600SemiBold',
+    color: '#7F8C8D',
+    marginTop: 12,
+    marginBottom: 8,
+  },
+  qrConfirmButton: {
+    backgroundColor: '#4ECDC4',
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    marginTop: 16,
+  },
+  qrConfirmButtonText: {
+    color: '#fff',
+    fontFamily: 'Nunito_700Bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
