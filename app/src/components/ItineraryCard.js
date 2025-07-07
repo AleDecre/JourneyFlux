@@ -1,128 +1,86 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../utils/theme';
 
 const ItineraryCard = ({ itinerary, onPress }) => {
   if (!itinerary) return null;
 
-  // Colori per tipo itinerario
-  const getTypeColors = (type) => {
-    const colors = {
-      'community': ['#4ECDC4', '#7ED5D1'], // Turchese
-      'tour_operator': ['#667eea', '#764ba2'], // Blu-viola
-      'default': ['#6B7280', '#9CA3AF'] // Grigio
-    };
-    return colors[type] || colors.default;
-  };
+  const gradientColors = itinerary.type === 'community' 
+    ? ['#FF6B6B', '#FF8E8E']
+    : ['#45B7D1', '#6AC5E5'];
 
-  const getTypeIcon = (type) => {
-    const icons = {
-      'community': 'people-outline',
-      'tour_operator': 'business-outline',
-      'default': 'map-outline'
-    };
-    return icons[type] || icons.default;
-  };
-
-  const typeColors = getTypeColors(itinerary.type);
-  const typeIcon = getTypeIcon(itinerary.type);
+  const typeIcon = itinerary.type === 'community' ? '👥' : '🎯';
+  const typeLabel = itinerary.type === 'community' ? 'Community' : 'Tour Operator';
 
   return (
-    <TouchableOpacity 
-      style={styles.container}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <LinearGradient
-        colors={typeColors}
+        colors={gradientColors}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       >
-        {/* Header con tipo e rating */}
+        {/* Header */}
         <View style={styles.header}>
           <View style={styles.typeContainer}>
-            <Ionicons name={typeIcon} size={20} color="#FFFFFF" />
-            <Text style={styles.typeText}>
-              {itinerary.type === 'community' ? 'Community' : 'Tour Operator'}
-            </Text>
+            <Text style={styles.typeIcon}>{typeIcon}</Text>
+            <Text style={styles.typeLabel}>{typeLabel}</Text>
           </View>
-          {itinerary.rating && (
-            <View style={styles.ratingContainer}>
-              <Ionicons name="star" size={16} color="#FFD700" />
-              <Text style={styles.ratingText}>{itinerary.rating}</Text>
+          {itinerary.featured && (
+            <View style={styles.featuredBadge}>
+              <Text style={styles.featuredText}>⭐</Text>
             </View>
           )}
         </View>
 
-        {/* Contenuto principale */}
+        {/* Content */}
         <View style={styles.content}>
           <Text style={styles.title} numberOfLines={2}>
             {itinerary.title}
           </Text>
-          <Text style={styles.description} numberOfLines={3}>
-            {itinerary.description}
-          </Text>
-        </View>
-
-        {/* Creator info (se community) */}
-        {itinerary.creator && (
-          <View style={styles.creatorSection}>
-            <Ionicons name="person-circle-outline" size={16} color="rgba(255,255,255,0.8)" />
-            <Text style={styles.creatorText}>
-              by {itinerary.creator.name}
-            </Text>
-            {itinerary.creator.verified && (
-              <Ionicons name="checkmark-circle" size={14} color="#10B981" />
-            )}
-          </View>
-        )}
-
-        {/* Info bottom */}
-        <View style={styles.footer}>
-          <View style={styles.infoRow}>
-            <View style={styles.infoItem}>
-              <Ionicons name="location-outline" size={16} color="rgba(255,255,255,0.8)" />
-              <Text style={styles.infoText}>{itinerary.city}</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Ionicons name="time-outline" size={16} color="rgba(255,255,255,0.8)" />
-              <Text style={styles.infoText}>{itinerary.duration}</Text>
-            </View>
-          </View>
           
-          <View style={styles.bottomRow}>
-            <View style={styles.costContainer}>
-              <Text style={styles.costText}>
-                {itinerary.estimatedCost}
+          <View style={styles.infoRow}>
+            <Text style={styles.infoText}>
+              ⏱️ {itinerary.duration}
+            </Text>
+            <Text style={styles.infoText}>
+              💰 {itinerary.estimatedCost}
+            </Text>
+          </View>
+
+          {itinerary.creator && (
+            <View style={styles.creatorRow}>
+              <Text style={styles.creatorText}>
+                👤 {itinerary.creator.name}
+              </Text>
+              {itinerary.creator.verified && (
+                <Text style={styles.verifiedIcon}>✓</Text>
+              )}
+            </View>
+          )}
+
+          {itinerary.rating && (
+            <View style={styles.ratingRow}>
+              <Text style={styles.ratingText}>
+                ⭐ {itinerary.rating}/5
+              </Text>
+              <Text style={styles.reviewsText}>
+                ({itinerary.reviewsCount || 0} recensioni)
               </Text>
             </View>
-            {itinerary.booking?.required && (
-              <View style={styles.bookingBadge}>
-                <Ionicons name="calendar-outline" size={12} color="#FFFFFF" />
-                <Text style={styles.bookingText}>Prenotazione</Text>
-              </View>
-            )}
-          </View>
+          )}
         </View>
-
-        {/* Indicatore featured */}
-        {itinerary.featured && (
-          <View style={styles.featuredBadge}>
-            <Ionicons name="star" size={16} color="#FFD700" />
-          </View>
-        )}
       </LinearGradient>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+  card: {
     borderRadius: 16,
+    marginBottom: 16,
+    marginHorizontal: 16, // margine come ChallengeCard
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -133,15 +91,11 @@ const styles = StyleSheet.create({
       android: {
         elevation: 6,
       },
-      web: {
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-      },
     }),
   },
   gradient: {
+    padding: 20,
     borderRadius: 16,
-    padding: 16,
-    minHeight: 180,
   },
   header: {
     flexDirection: 'row',
@@ -152,114 +106,83 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  typeIcon: {
+    fontSize: 14,
+    marginRight: 6,
+  },
+  typeLabel: {
+    fontSize: 12,
+    fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
+  },
+  featuredBadge: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
-    gap: 4,
   },
-  typeText: {
-    fontSize: 12,
-    color: '#FFFFFF',
-    fontWeight: '600',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-    gap: 2,
-  },
-  ratingText: {
-    fontSize: 12,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+  featuredText: {
+    fontSize: 14,
   },
   content: {
     flex: 1,
-    marginBottom: 12,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
-    marginBottom: 6,
-  },
-  description: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.9)',
-    lineHeight: 20,
-  },
-  creatorSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
     marginBottom: 12,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  creatorText: {
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.9)',
-    fontWeight: '500',
-  },
-  footer: {
-    gap: 8,
+    lineHeight: 22,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  infoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+    marginBottom: 8,
   },
   infoText: {
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.8)',
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255, 255, 255, 0.9)',
   },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  costContainer: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  costText: {
-    fontSize: 12,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-  },
-  bookingBadge: {
+  creatorRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-    gap: 4,
+    marginBottom: 8,
   },
-  bookingText: {
-    fontSize: 10,
+  creatorText: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255, 255, 255, 0.9)',
+    marginRight: 6,
+  },
+  verifiedIcon: {
+    fontSize: 14,
     color: '#FFFFFF',
-    fontWeight: '600',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
-  featuredBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    borderRadius: 8,
-    padding: 4,
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ratingText: {
+    fontSize: 14,
+    fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
+    marginRight: 8,
+  },
+  reviewsText: {
+    fontSize: 12,
+    fontFamily: theme.fonts.regular,
+    color: 'rgba(255, 255, 255, 0.8)',
   },
 });
 

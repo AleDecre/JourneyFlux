@@ -14,6 +14,7 @@ import NarrativePathCard from '../components/NarrativePathCard';
 import ItineraryCard from '../components/ItineraryCard';
 import PartnerExperienceCard from '../components/PartnerExperienceCard';
 import CitySelector from '../components/CitySelector';
+import { theme } from '../utils/theme';
 
 // Data imports - MVP 2.0
 import { challenges } from '../data/challenges';
@@ -94,18 +95,15 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleNarrativePathPress = (path) => {
-    // TODO: Navigate to NarrativePathScreen when created
-    console.log('Navigating to narrative path:', path.title);
+    navigation.navigate('NarrativePath', { narrativePathId: path.id });
   };
 
   const handleItineraryPress = (itinerary) => {
-    // TODO: Navigate to ItineraryScreen when created
-    console.log('Navigating to itinerary:', itinerary.title);
+    navigation.navigate('Itinerary', { itineraryId: itinerary.id });
   };
 
   const handlePartnerExperiencePress = (experience) => {
-    // TODO: Navigate to PartnerExperienceScreen when created
-    console.log('Navigating to partner experience:', experience.name);
+    navigation.navigate('PartnerExperience', { partnerExperienceId: experience.id });
   };
 
   const handleCitySelect = (city) => {
@@ -416,11 +414,12 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
   subtitle: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.9)',
     marginTop: 4,
   },
@@ -433,11 +432,12 @@ const styles = StyleSheet.create({
   },
   pointsLabel: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: 'rgba(255, 255, 255, 0.8)',
   },
   pointsValue: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#FFFFFF',
   },
   scrollView: {
@@ -455,11 +455,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
   },
   contentCount: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
   },
   showMoreButton: {
@@ -475,7 +476,7 @@ const styles = StyleSheet.create({
   showMoreText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   emptyState: {
     alignItems: 'center',
@@ -484,6 +485,7 @@ const styles = StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 16,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     textAlign: 'center',
     marginBottom: 16,
@@ -500,7 +502,7 @@ const styles = StyleSheet.create({
   clearFilterText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: theme.fonts.semiBold,
   },
   quickStats: {
     marginHorizontal: 16,
@@ -516,7 +518,7 @@ const styles = StyleSheet.create({
   },
   quickStatsTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
     marginBottom: 16,
     textAlign: 'center',
@@ -535,11 +537,12 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: theme.fonts.bold,
     color: '#4ECDC4',
   },
   statLabel: {
     fontSize: 12,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
     marginTop: 4,
   },
@@ -549,6 +552,7 @@ const styles = StyleSheet.create({
   },
   challengeCount: {
     fontSize: 14,
+    fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
   },
   statsRow: {

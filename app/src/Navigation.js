@@ -11,6 +11,9 @@ import ChallengeScreen from './screens/ChallengeScreen';
 import ChallengeCompleteScreen from './screens/ChallengeCompleteScreen';
 import MapScreen from './screens/MapScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import NarrativePathScreen from './screens/NarrativePathScreen';
+import ItineraryScreen from './screens/ItineraryScreen';
+import PartnerExperienceScreen from './screens/PartnerExperienceScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,6 +25,9 @@ const HomeStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Challenge" component={ChallengeScreen} />
       <Stack.Screen name="ChallengeComplete" component={ChallengeCompleteScreen} />
+      <Stack.Screen name="NarrativePath" component={NarrativePathScreen} />
+      <Stack.Screen name="Itinerary" component={ItineraryScreen} />
+      <Stack.Screen name="PartnerExperience" component={PartnerExperienceScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
