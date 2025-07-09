@@ -12,7 +12,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../../utils/theme';
 import { usePlanner } from '../../context/PlannerContext';
 import { cities } from '../../data/cities';
-import ItineraryPreviewModal from './ItineraryPreviewModal'; // Importa il tuo componente di modal
 import { Ionicons } from '@expo/vector-icons';
 
 const CHAT_STEPS = [
@@ -98,9 +97,7 @@ const OnboardingChatScreen = ({ navigation }) => {
   const [chatMessages, setChatMessages] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isTyping, setIsTyping] = useState(false);
-  // Stato per mostrare il pulsante "Vai al planner" e il modal
   const [showPlannerButton, setShowPlannerButton] = useState(false);
-  const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [itineraryGenerated, setItineraryGenerated] = useState(false);
   const scrollViewRef = useRef();
 
@@ -540,13 +537,6 @@ const OnboardingChatScreen = ({ navigation }) => {
               </LinearGradient>
             </TouchableOpacity>
           )}
-          {/* --- FIX: Render ItineraryPreviewModal sopra tutto il resto --- */}
-          <ItineraryPreviewModal
-            visible={showPreviewModal}
-            onClose={() => setShowPreviewModal(false)}
-            itinerary={state.userPreferences?.generatedItinerary}
-            // Puoi aggiungere altre props se servono
-          />
         </View>
       </LinearGradient>
     </SafeAreaView>

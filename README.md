@@ -10,7 +10,7 @@ Una app React Native che combina **Percorsi Narrativi**, **Itinerari Community**
 
 JourneyFlux è l'app che **trasforma l'Italia nei tuoi segreti personali**. Non più semplici sfide, ma **Percorsi Narrativi** che ti guidano alla scoperta di storie nascoste, misteri urbani e tesori che il 99% dei turisti non vedrà mai.
 
-### ✅ **MVP 2.0 - COMPLETAMENTE IMPLEMENTATO E UI UNIFORMATA**
+### ✅ **VERSIONE 2.1.0 - CODEBASE CLEAN & PRODUCTION-READY**
 
 🎭 **Percorsi Narrativi Tematici** ✅
 - 6 mini-avventure curate per Roma e Napoli

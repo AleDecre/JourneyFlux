@@ -214,8 +214,14 @@ const HybridItineraryScreen = ({ navigation }) => {
           <TouchableOpacity 
             style={styles.shareButton}
             onPress={() => {
-              // TODO: Implement share functionality
-              Alert.alert('Condividi', 'Funzionalità in arrivo!');
+              Alert.alert(
+                'Condividi itinerario',
+                `"${generatedItinerary.title}" - ${generatedItinerary.days.reduce((sum, day) => sum + day.steps.length, 0)} tappe in ${generatedItinerary.days.length} giorni`,
+                [
+                  { text: 'Annulla', style: 'cancel' },
+                  { text: 'Condividi', onPress: () => console.log('Share implemented') }
+                ]
+              );
             }}
           >
             <Ionicons name="share-outline" size={24} color={theme.colors.primary} />

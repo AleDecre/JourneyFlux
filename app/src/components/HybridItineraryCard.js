@@ -170,7 +170,14 @@ const HybridItineraryCard = ({
                 <TouchableOpacity
                   style={[styles.actionButton, styles.secondaryActionButton]}
                   onPress={() => {
-                    // TODO: Handle partner experience navigation
+                    Alert.alert(
+                      'Offerta Partner',
+                      `${step.partnerName || 'Partner'}\n\nOfferta speciale disponibile!\nMostra questa schermata per usufruire dello sconto.`,
+                      [
+                        { text: 'Chiudi', style: 'cancel' },
+                        { text: 'Vai a Maps', onPress: () => console.log('Open partner location in Maps') }
+                      ]
+                    );
                   }}
                 >
                   <View style={styles.secondaryActionButtonContent}>

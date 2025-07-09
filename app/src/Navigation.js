@@ -19,10 +19,8 @@ import PartnerExperienceScreen from './screens/PartnerExperienceScreen';
 
 // New Travel Planner screens
 import OnboardingChatScreen from './screens/PreTrip/OnboardingChatScreen';
-import PlannerScreen from './screens/PreTrip/PlannerScreen';
 import HybridItineraryScreen from './screens/InTrip/HybridItineraryScreen';
 import DiaryScreen from './screens/PostTrip/DiaryScreen';
-import ItineraryPreviewModal from './screens/PreTrip/ItineraryPreviewModal';
 import ItineraryDetailScreen from './screens/PreTrip/ItineraryDetailScreen';
 
 const Tab = createBottomTabNavigator();
@@ -49,8 +47,6 @@ const PreTripStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="OnboardingChat" component={OnboardingChatScreen} />
-      <Stack.Screen name="Planner" component={PlannerScreen} />
-      <Stack.Screen name="ItineraryPreviewModal" component={ItineraryPreviewModal} options={{ presentation: 'modal' }} />
       <Stack.Screen name="ItineraryDetail" component={ItineraryDetailScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

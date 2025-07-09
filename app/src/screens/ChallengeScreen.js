@@ -14,7 +14,6 @@ import { getChallengeById } from '../data/challenges';
 import { getBadgeById } from '../data/badges';
 import { theme } from '../utils/theme';
 import { Ionicons } from '@expo/vector-icons';
-import AppText from '../components/AppText';
 
 const ChallengeScreen = ({ route, navigation }) => {
   const { challengeId } = route.params;
@@ -114,21 +113,21 @@ const ChallengeScreen = ({ route, navigation }) => {
             onPress={() => navigation.goBack()}
           >
             <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
-            <AppText style={styles.backButtonText}>Indietro</AppText>
+            <Text style={styles.backButtonText}>Indietro</Text>
           </TouchableOpacity>
           <View style={styles.headerContent}>
             <View style={styles.typeContainerBanner}>
-              <AppText style={styles.typeIcon}>{challenge.image}</AppText>
-              <AppText style={styles.typeLabel}>{challenge.category ? challenge.category.charAt(0).toUpperCase() + challenge.category.slice(1) : 'Sfida'}</AppText>
+              <Text style={styles.typeIcon}>{challenge.image}</Text>
+              <Text style={styles.typeLabel}>{challenge.category ? challenge.category.charAt(0).toUpperCase() + challenge.category.slice(1) : 'Sfida'}</Text>
             </View>
-            <AppText style={styles.challengeTitle}>{challenge.title}</AppText>
+            <Text style={styles.challengeTitle}>{challenge.title}</Text>
             <View style={styles.challengeInfoRow}>
               <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(challenge.difficulty) }]}> 
-                <AppText style={styles.difficultyText}>{challenge.difficulty}</AppText>
+                <Text style={styles.difficultyText}>{challenge.difficulty}</Text>
               </View>
               <View style={styles.pointsBadge}>
                 <Ionicons name="diamond-outline" size={16} color="#FFFFFF" style={{ marginRight: 4 }} />
-                <AppText style={styles.pointsText}>{challenge.points} punti</AppText>
+                <Text style={styles.pointsText}>{challenge.points} punti</Text>
               </View>
             </View>
           </View>

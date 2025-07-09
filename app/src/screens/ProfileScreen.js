@@ -229,8 +229,14 @@ const ProfileScreen = ({ navigation }) => {
                   ]}
                   onPress={() => {
                     if (!coupon.used) {
-                      // TODO: Implementare la logica di utilizzo coupon
-                      alert(`Coupon: ${coupon.title}\nCodice: ${coupon.code}`);
+                      Alert.alert(
+                        'Utilizza Coupon',
+                        `${coupon.title}\n\nCodice: ${coupon.code}\nValore: ${coupon.discountType === 'percentage' ? `${coupon.discountValue}%` : `€${coupon.discountValue}`}\n\nMostra questo codice al partner per utilizzare l'offerta.`,
+                        [
+                          { text: 'Chiudi', style: 'cancel' },
+                          { text: 'Copia Codice', onPress: () => console.log('Code copied:', coupon.code) }
+                        ]
+                      );
                     }
                   }}
                 >

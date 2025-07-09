@@ -17,7 +17,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { getChallengeById } from '../data/challenges';
 import { getBadgeById } from '../data/badges';
 import PassportBadge from '../components/PassportBadge';
-import AppText from '../components/AppText';
 import { theme } from '../utils/theme';
 
 const { width } = Dimensions.get('window');
@@ -85,7 +84,7 @@ const ChallengeCompleteScreen = ({ route, navigation }) => {
   if (!challenge) {
     return (
       <SafeAreaView style={styles.container}>
-        <AppText style={styles.errorText}>Sfida non trovata</AppText>
+        <Text style={styles.errorText}>Sfida non trovata</Text>
       </SafeAreaView>
     );
   }
