@@ -16,12 +16,15 @@ import { getUserProfile } from '../data/user';
 import { getEarnedBadges, getAvailableBadges, getBadgesByType, getBadgesByTypeWithCounts } from '../data/badges';
 import { getCompletedChallenges } from '../data/challenges';
 import { theme } from '../utils/theme';
+import { usePlanner } from '../context/PlannerContext';
 
 const ProfileScreen = ({ navigation }) => {
   const userProfile = getUserProfile();
   const earnedBadges = getEarnedBadges();
   const availableBadges = getAvailableBadges();
   const completedChallenges = getCompletedChallenges();
+  const { state: plannerState } = usePlanner();
+  const savedTrips = plannerState.savedTrips || [];
   
   // MVP 2.0 - Badge categories - Using helper functions
   const narrativeBadges = getBadgesByTypeWithCounts('narrativo');
@@ -206,42 +209,101 @@ const ProfileScreen = ({ navigation }) => {
           ) : (
             <View style={styles.emptyState}>
               <Text style={styles.emptyStateText}>
-                Segui gli itinerari della community per badges collaborativi!
+                Segui gli itinerari della community per sbloccare badge sociali!
               </Text>
             </View>
           )}
         </View>
 
-        {/* Attività Recenti */}
+        {/* Sezione Coupon e Loyalty */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🎯 Attività Recenti</Text>
-          <View style={styles.activityContainer}>
-            <View style={styles.activityItem}>
-              <Text style={styles.activityIcon}>🎭</Text>
-              <View style={styles.activityContent}>
-                <Text style={styles.activityTitle}>Percorsi Narrativi</Text>
-                <Text style={styles.activitySubtitle}>
-                  {userProfile.stats.narrativePathsCompleted} completati
-                </Text>
-              </View>
+          <Text style={styles.sectionTitle}>🎫 I tuoi Coupon</Text>
+          {userProfile.couponsEarned && userProfile.couponsEarned.length > 0 ? (
+            <View style={styles.couponsContainer}>
+              {userProfile.couponsEarned.map((coupon, index) => (
+                <TouchableOpacity
+                  key={coupon.id}
+                  style={[
+                    styles.couponCard,
+                    coupon.used && styles.couponCardUsed
+                  ]}
+                  onPress={() => {
+                    if (!coupon.used) {
+                      // TODO: Implementare la logica di utilizzo coupon
+                      alert(`Coupon: ${coupon.title}\nCodice: ${coupon.code}`);
+                    }
+                  }}
+                >
+                  <LinearGradient
+                    colors={coupon.used ? ['#BDC3C7', '#95A5A6'] : ['#FF6B6B', '#FF8E8E']}
+                    style={styles.couponGradient}
+                  >
+                    <View style={styles.couponHeader}>
+                      <Text style={styles.couponTitle}>{coupon.title}</Text>
+                      <View style={styles.couponValue}>
+                        <Text style={styles.couponValueText}>
+                          {coupon.discountType === 'percentage' ? `${coupon.discountValue}%` : `€${coupon.discountValue}`}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text style={styles.couponDescription}>{coupon.description}</Text>
+                    <View style={styles.couponFooter}>
+                      <Text style={styles.couponCode}>Codice: {coupon.code}</Text>
+                      <Text style={styles.couponExpiry}>
+                        Scade: {new Date(coupon.validUntil).toLocaleDateString('it-IT')}
+                      </Text>
+                    </View>
+                    {coupon.used && (
+                      <View style={styles.usedBadge}>
+                        <Text style={styles.usedBadgeText}>UTILIZZATO</Text>
+                      </View>
+                    )}
+                  </LinearGradient>
+                </TouchableOpacity>
+              ))}
             </View>
-            <View style={styles.activityItem}>
-              <Text style={styles.activityIcon}>🗺️</Text>
-              <View style={styles.activityContent}>
-                <Text style={styles.activityTitle}>Itinerari Seguiti</Text>
-                <Text style={styles.activitySubtitle}>
-                  {userProfile.stats.itinerariesFollowed} esplorati
-                </Text>
-              </View>
+          ) : (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                Completa 3 viaggi per sbloccare i tuoi primi coupon partner!
+              </Text>
             </View>
-            <View style={styles.activityItem}>
-              <Text style={styles.activityIcon}>🍷</Text>
-              <View style={styles.activityContent}>
-                <Text style={styles.activityTitle}>Partner Visitati</Text>
-                <Text style={styles.activitySubtitle}>
-                  {userProfile.stats.partnersVisited} locali scoperti
-                </Text>
-              </View>
+          )}
+        </View>
+
+        {/* Sezione Loyalty Progress */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>🏆 Programma Fedeltà</Text>
+          <View style={styles.loyaltyContainer}>
+            <View style={styles.loyaltyHeader}>
+              <Text style={styles.loyaltyLevel}>
+                Livello {userProfile.loyaltyProgress.currentLevel}
+              </Text>
+              <Text style={styles.loyaltyProgress}>
+                {userProfile.loyaltyProgress.tripsCompleted} / {userProfile.loyaltyProgress.tripsCompleted + userProfile.loyaltyProgress.tripsToNextLevel} viaggi
+              </Text>
+            </View>
+            
+            <View style={styles.loyaltyProgressBar}>
+              <View 
+                style={[
+                  styles.loyaltyProgressFill,
+                  { 
+                    width: `${(userProfile.loyaltyProgress.tripsCompleted / (userProfile.loyaltyProgress.tripsCompleted + userProfile.loyaltyProgress.tripsToNextLevel)) * 100}%` 
+                  }
+                ]}
+              />
+            </View>
+            
+            <Text style={styles.loyaltyNextLevel}>
+              Prossimo livello: {userProfile.loyaltyProgress.tripsToNextLevel} viaggi rimanenti
+            </Text>
+            
+            <View style={styles.loyaltyRewards}>
+              <Text style={styles.loyaltyRewardsTitle}>Ricompense prossimo livello:</Text>
+              {userProfile.loyaltyProgress.nextLevelRewards.map((reward, index) => (
+                <Text key={index} style={styles.loyaltyReward}>• {reward}</Text>
+              ))}
             </View>
           </View>
         </View>
@@ -450,26 +512,97 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
   },
-  categoriesContainer: {
+  
+  // Nuovi stili per coupon e loyalty
+  couponsContainer: {
+    paddingHorizontal: 16,
+  },
+  couponCard: {
+    marginBottom: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  couponCardUsed: {
+    opacity: 0.6,
+  },
+  couponGradient: {
+    padding: 16,
+  },
+  couponHeader: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
-  categoryTag: {
-    backgroundColor: '#4ECDC4',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  categoryText: {
+  couponTitle: {
+    fontSize: 18,
+    fontFamily: theme.fonts.semiBold,
     color: '#FFFFFF',
+    flex: 1,
+  },
+  couponValue: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  couponValueText: {
+    fontSize: 16,
+    fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
+  },
+  couponDescription: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#FFFFFF',
+    marginBottom: 12,
+    opacity: 0.9,
+  },
+  couponFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  couponCode: {
     fontSize: 12,
     fontFamily: theme.fonts.semiBold,
+    color: '#FFFFFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
-  activityContainer: {
+  couponExpiry: {
+    fontSize: 12,
+    fontFamily: theme.fonts.regular,
+    color: '#FFFFFF',
+    opacity: 0.8,
+  },
+  usedBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  usedBadgeText: {
+    fontSize: 10,
+    fontFamily: theme.fonts.bold,
+    color: '#FFFFFF',
+  },
+  
+  // Stili per loyalty program
+  loyaltyContainer: {
+    marginHorizontal: 16,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    marginHorizontal: 16,
     padding: 16,
     elevation: 2,
     shadowColor: '#000',
@@ -477,30 +610,55 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
-  activityItem: {
+  loyaltyHeader: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    marginBottom: 12,
   },
-  activityIcon: {
-    fontSize: 24,
-    marginRight: 16,
-  },
-  activityContent: {
-    flex: 1,
-  },
-  activityTitle: {
-    fontSize: 16,
-    fontFamily: theme.fonts.semiBold,
+  loyaltyLevel: {
+    fontSize: 18,
+    fontFamily: theme.fonts.bold,
     color: '#2C3E50',
-    marginBottom: 2,
   },
-  activitySubtitle: {
+  loyaltyProgress: {
     fontSize: 14,
     fontFamily: theme.fonts.regular,
     color: '#7F8C8D',
+  },
+  loyaltyProgressBar: {
+    height: 8,
+    backgroundColor: '#E9ECEF',
+    borderRadius: 4,
+    marginBottom: 8,
+  },
+  loyaltyProgressFill: {
+    height: '100%',
+    backgroundColor: '#4ECDC4',
+    borderRadius: 4,
+  },
+  loyaltyNextLevel: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#7F8C8D',
+    marginBottom: 16,
+  },
+  loyaltyRewards: {
+    borderTopWidth: 1,
+    borderTopColor: '#E9ECEF',
+    paddingTop: 12,
+  },
+  loyaltyRewardsTitle: {
+    fontSize: 14,
+    fontFamily: theme.fonts.semiBold,
+    color: '#2C3E50',
+    marginBottom: 8,
+  },
+  loyaltyReward: {
+    fontSize: 14,
+    fontFamily: theme.fonts.regular,
+    color: '#7F8C8D',
+    marginBottom: 4,
   },
 });
 

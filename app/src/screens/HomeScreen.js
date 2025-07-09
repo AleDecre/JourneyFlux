@@ -15,6 +15,7 @@ import ItineraryCard from '../components/ItineraryCard';
 import PartnerExperienceCard from '../components/PartnerExperienceCard';
 import CitySelector from '../components/CitySelector';
 import { theme } from '../utils/theme';
+import { usePlanner } from '../context/PlannerContext';
 
 // Data imports - MVP 2.0
 import { challenges } from '../data/challenges';
@@ -43,6 +44,8 @@ const HomeScreen = ({ navigation }) => {
   
   const userProfile = getUserProfile();
   const featuredCities = getFeaturedCities();
+  const { state: plannerState } = usePlanner();
+  const savedTrips = plannerState.savedTrips || [];
 
   // Get content for all types
   const allNarrativePaths = getAllNarrativePaths();
@@ -629,6 +632,33 @@ const styles = StyleSheet.create({
   },
   filterTextActive: {
     color: '#FFFFFF',
+  },
+  savedTripCard: {
+    marginHorizontal: 16,
+    marginBottom: 12,
+    borderRadius: 16,
+    overflow: 'hidden',
+    elevation: 2,
+  },
+  savedTripGradient: {
+    padding: 16,
+    borderRadius: 16,
+  },
+  savedTripTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  savedTripSubtitle: {
+    fontSize: 14,
+    color: '#fff',
+    marginTop: 2,
+  },
+  savedTripMeta: {
+    fontSize: 13,
+    color: '#fff',
+    marginTop: 6,
+    opacity: 0.8,
   },
 });
 

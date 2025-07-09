@@ -6,6 +6,7 @@ import { useFonts, Nunito_300Light, Nunito_400Regular, Nunito_500Medium, Nunito_
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import Navigation from './src/Navigation';
+import { PlannerProvider } from './src/context/PlannerContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,12 +31,14 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}>
-        <Navigation />
-        <StatusBar style="auto" />
-      </View>
-    </SafeAreaProvider>
+    <PlannerProvider>
+      <SafeAreaProvider>
+        <View style={styles.container}>
+          <Navigation />
+          <StatusBar style="auto" />
+        </View>
+      </SafeAreaProvider>
+    </PlannerProvider>
   );
 }
 

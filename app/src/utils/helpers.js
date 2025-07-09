@@ -213,3 +213,311 @@ export const getWeatherInfo = (city) => {
     description: `Condizioni ${randomWeather} a ${city}`
   };
 };
+
+// Mock AI itinerary generator
+export const generateItinerary = (preferences) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const { duration, selectedCity, interests, budget, travelStyle, selectedDates } = preferences;
+      
+      // Mock itinerary based on preferences
+      const itinerary = {
+        id: `itinerary_${Date.now()}`,
+        title: generateItineraryTitle(selectedCity, interests),
+        description: generateItineraryDescription(preferences),
+        days: generateItineraryDays(preferences),
+        totalEstimatedCost: calculateTotalCost(preferences),
+        totalDuration: calculateTotalDuration(preferences),
+        generatedAt: new Date().toISOString(),
+        preferences: preferences,
+      };
+      
+      resolve(itinerary);
+    }, 2000); // Simulate AI processing time
+  });
+};
+
+// Helper functions for itinerary generation
+const generateItineraryTitle = (cityId, interests) => {
+  const cityNames = {
+    'roma': 'Roma',
+    'napoli': 'Napoli',
+    'firenze': 'Firenze',
+    'milano': 'Milano',
+    'venezia': 'Venezia',
+  };
+  
+  const cityName = cityNames[cityId] || 'Italia';
+  const primaryInterest = interests[0] || 'cultura';
+  
+  const titleTemplates = {
+    cultura: ['Tesori nascosti di', 'Segreti culturali di', 'Meraviglie storiche di'],
+    gastronomia: ['Sapori autentici di', 'Delizie culinarie di', 'Gusto tradizionale di'],
+    arte: ['Capolavori artistici di', 'Arte e bellezza di', 'Creatività artistica di'],
+    natura: ['Natura incontaminata di', 'Oasi verdi di', 'Bellezze naturali di'],
+    avventura: ['Avventure urbane a', 'Esperienze uniche a', 'Scoperte emozionanti a'],
+  };
+  
+  const templates = titleTemplates[primaryInterest] || titleTemplates.cultura;
+  const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+  
+  return `${randomTemplate} ${cityName}`;
+};
+
+const generateItineraryDescription = (preferences) => {
+  const { duration, interests, budget, travelStyle } = preferences;
+  
+  const budgetLabels = {
+    low: 'economico',
+    medium: 'equilibrato',
+    high: 'premium',
+  };
+  
+  const styleLabels = {
+    relaxed: 'rilassante',
+    active: 'dinamico',
+    mixed: 'bilanciato',
+  };
+  
+  return `Un itinerario ${styleLabels[travelStyle]} di ${duration} ${duration === 1 ? 'giorno' : 'giorni'} con budget ${budgetLabels[budget]}, ` +
+    `focalizzato su ${interests.join(', ')} e personalizzato per le tue preferenze.`;
+};
+
+const generateItineraryDays = (preferences) => {
+  const { duration, selectedDates, interests, budget, travelStyle, selectedCity } = preferences;
+  const days = [];
+  
+  for (let i = 0; i < duration; i++) {
+    const dayDate = selectedDates[i] || new Date(Date.now() + i * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    
+    const day = {
+      dayNumber: i + 1,
+      date: dayDate,
+      title: `Giorno ${i + 1}`,
+      description: generateDayDescription(i + 1, preferences),
+      steps: generateDaySteps(i + 1, preferences),
+      estimatedCost: calculateDayCost(preferences),
+      estimatedDuration: calculateDayDuration(preferences),
+    };
+    
+    days.push(day);
+  }
+  
+  return days;
+};
+
+const generateDayDescription = (dayNumber, preferences) => {
+  const { interests, travelStyle } = preferences;
+  
+  if (dayNumber === 1) {
+    return `Inizia la tua avventura con ${interests[0]} e scopri i primi segreti della città`;
+  } else if (dayNumber === preferences.duration) {
+    return `Concludi il tuo viaggio con esperienze memorabili e ricordi indimenticabili`;
+  } else {
+    return `Continua l'esplorazione con ${interests[dayNumber % interests.length]} e nuove scoperte`;
+  }
+};
+
+const generateDaySteps = (dayNumber, preferences) => {
+  const { interests, budget, travelStyle, selectedCity } = preferences;
+  
+  // Mock step templates based on interests
+  const stepTemplates = {
+    cultura: [
+      {
+        title: 'Visita al Museo Archeologico',
+        description: 'Scopri antichi tesori e reperti storici',
+        type: 'narrative',
+        estimatedTime: '90 min',
+        estimatedCost: budget === 'low' ? 8 : budget === 'medium' ? 12 : 18,
+        coordinates: { lat: 41.9028, lng: 12.4964 },
+      },
+      {
+        title: 'Palazzo Storico Nascosto',
+        description: 'Esplora un palazzo ricco di storia e leggende',
+        type: 'narrative',
+        estimatedTime: '60 min',
+        estimatedCost: budget === 'low' ? 5 : budget === 'medium' ? 8 : 12,
+        coordinates: { lat: 41.9016, lng: 12.4667 },
+      },
+    ],
+    gastronomia: [
+      {
+        title: 'Degustazione di Specialità Locali',
+        description: 'Assaggia i piatti tipici della tradizione',
+        type: 'partner',
+        estimatedTime: '45 min',
+        estimatedCost: budget === 'low' ? 12 : budget === 'medium' ? 18 : 25,
+        coordinates: { lat: 41.8986, lng: 12.4768 },
+      },
+      {
+        title: 'Mercato Tradizionale',
+        description: 'Scopri i prodotti freschi e le specialità locali',
+        type: 'itinerary',
+        estimatedTime: '30 min',
+        estimatedCost: budget === 'low' ? 5 : budget === 'medium' ? 8 : 12,
+        coordinates: { lat: 41.9003, lng: 12.4731 },
+      },
+    ],
+    arte: [
+      {
+        title: 'Galleria d\'Arte Contemporanea',
+        description: 'Ammira opere d\'arte moderne e contemporanee',
+        type: 'narrative',
+        estimatedTime: '75 min',
+        estimatedCost: budget === 'low' ? 10 : budget === 'medium' ? 15 : 20,
+        coordinates: { lat: 41.9009, lng: 12.4833 },
+      },
+      {
+        title: 'Atelier dell\'Artista Locale',
+        description: 'Incontra un artista locale e scopri le sue opere',
+        type: 'partner',
+        estimatedTime: '45 min',
+        estimatedCost: budget === 'low' ? 8 : budget === 'medium' ? 12 : 18,
+        coordinates: { lat: 41.8943, lng: 12.4934 },
+      },
+    ],
+    natura: [
+      {
+        title: 'Parco Nascosto nel Centro',
+        description: 'Rilassati in un\'oasi verde lontana dal caos',
+        type: 'itinerary',
+        estimatedTime: '60 min',
+        estimatedCost: 0,
+        coordinates: { lat: 41.9016, lng: 12.4823 },
+      },
+      {
+        title: 'Giardino Botanico Segreto',
+        description: 'Esplora piante rare e angoli nascosti',
+        type: 'narrative',
+        estimatedTime: '90 min',
+        estimatedCost: budget === 'low' ? 5 : budget === 'medium' ? 8 : 12,
+        coordinates: { lat: 41.8919, lng: 12.4863 },
+      },
+    ],
+  };
+  
+  const steps = [];
+  const stepsPerDay = travelStyle === 'relaxed' ? 2 : travelStyle === 'active' ? 4 : 3;
+  
+  for (let i = 0; i < stepsPerDay; i++) {
+    const interestIndex = (i + dayNumber - 1) % interests.length;
+    const interest = interests[interestIndex];
+    const templates = stepTemplates[interest] || stepTemplates.cultura;
+    const template = templates[i % templates.length];
+    
+    const step = {
+      id: `step_${dayNumber}_${i + 1}`,
+      ...template,
+      title: `${template.title} ${dayNumber}.${i + 1}`,
+      order: i + 1,
+      points: calculateStepPoints(template.type, budget),
+      badge: generateStepBadge(template.type, interest),
+      tags: [interest, budget, travelStyle],
+      location: generateStepLocation(selectedCity, template.coordinates),
+    };
+    
+    steps.push(step);
+  }
+  
+  return steps;
+};
+
+const calculateStepPoints = (type, budget) => {
+  const basePoints = {
+    narrative: 150,
+    partner: 100,
+    itinerary: 120,
+    custom: 80,
+  };
+  
+  const budgetMultiplier = {
+    low: 1.0,
+    medium: 1.2,
+    high: 1.5,
+  };
+  
+  return Math.round(basePoints[type] * budgetMultiplier[budget]);
+};
+
+const generateStepBadge = (type, interest) => {
+  const badges = {
+    narrative: {
+      cultura: 'Esploratore Culturale',
+      gastronomia: 'Maestro del Gusto',
+      arte: 'Connoisseur d\'Arte',
+      natura: 'Guardiano Verde',
+      avventura: 'Avventuriero Urbano',
+    },
+    partner: {
+      cultura: 'Amico dei Locali',
+      gastronomia: 'Gourmet Locale',
+      arte: 'Collezionista d\'Arte',
+      natura: 'Eco-Esploratore',
+      avventura: 'Scopritore di Gemme',
+    },
+    itinerary: {
+      cultura: 'Viaggiatore Esperto',
+      gastronomia: 'Foodie Autentico',
+      arte: 'Critico d\'Arte',
+      natura: 'Amante della Natura',
+      avventura: 'Esploratore Coraggioso',
+    },
+  };
+  
+  return badges[type]?.[interest] || 'Esploratore';
+};
+
+const generateStepLocation = (cityId, coordinates) => {
+  const cityNames = {
+    'roma': 'Roma',
+    'napoli': 'Napoli',
+    'firenze': 'Firenze',
+    'milano': 'Milano',
+    'venezia': 'Venezia',
+  };
+  
+  return `${cityNames[cityId] || 'Italia'} - Centro Storico`;
+};
+
+const calculateDayCost = (preferences) => {
+  const { budget, travelStyle } = preferences;
+  
+  const baseCosts = {
+    low: 25,
+    medium: 45,
+    high: 75,
+  };
+  
+  const styleMultiplier = {
+    relaxed: 0.8,
+    active: 1.2,
+    mixed: 1.0,
+  };
+  
+  return Math.round(baseCosts[budget] * styleMultiplier[travelStyle]);
+};
+
+const calculateDayDuration = (preferences) => {
+  const { travelStyle } = preferences;
+  
+  const baseDurations = {
+    relaxed: 180, // 3 hours
+    active: 300, // 5 hours
+    mixed: 240, // 4 hours
+  };
+  
+  return baseDurations[travelStyle];
+};
+
+const calculateTotalCost = (preferences) => {
+  const { duration } = preferences;
+  const dayCost = calculateDayCost(preferences);
+  return dayCost * duration;
+};
+
+const calculateTotalDuration = (preferences) => {
+  const { duration } = preferences;
+  const dayDuration = calculateDayDuration(preferences);
+  return dayDuration * duration;
+};

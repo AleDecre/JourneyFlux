@@ -17,6 +17,14 @@ import NarrativePathScreen from './screens/NarrativePathScreen';
 import ItineraryScreen from './screens/ItineraryScreen';
 import PartnerExperienceScreen from './screens/PartnerExperienceScreen';
 
+// New Travel Planner screens
+import OnboardingChatScreen from './screens/PreTrip/OnboardingChatScreen';
+import PlannerScreen from './screens/PreTrip/PlannerScreen';
+import HybridItineraryScreen from './screens/InTrip/HybridItineraryScreen';
+import DiaryScreen from './screens/PostTrip/DiaryScreen';
+import ItineraryPreviewModal from './screens/PreTrip/ItineraryPreviewModal';
+import ItineraryDetailScreen from './screens/PreTrip/ItineraryDetailScreen';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -36,6 +44,18 @@ const HomeStack = () => {
   );
 };
 
+// Stack Navigator per PreTrip (Travel Planner)
+const PreTripStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="OnboardingChat" component={OnboardingChatScreen} />
+      <Stack.Screen name="Planner" component={PlannerScreen} />
+      <Stack.Screen name="ItineraryPreviewModal" component={ItineraryPreviewModal} options={{ presentation: 'modal' }} />
+      <Stack.Screen name="ItineraryDetail" component={ItineraryDetailScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+};
+
 // Tab Navigator principale
 const TabNavigator = () => {
   return (
@@ -47,6 +67,10 @@ const TabNavigator = () => {
 
           if (route.name === 'HomeTab') {
             iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'PlannerTab') {
+            iconName = focused ? 'calendar' : 'calendar-outline';
+          } else if (route.name === 'DiaryTab') {
+            iconName = focused ? 'journal' : 'journal-outline';
           } else if (route.name === 'MapTab') {
             iconName = focused ? 'map' : 'map-outline';
           } else if (route.name === 'ProfileTab') {
@@ -79,6 +103,20 @@ const TabNavigator = () => {
         component={HomeStack} 
         options={{
           tabBarLabel: 'Esplora'
+        }}
+      />
+      <Tab.Screen 
+        name="PlannerTab" 
+        component={PreTripStack} 
+        options={{
+          tabBarLabel: 'Pianifica'
+        }}
+      />
+      <Tab.Screen 
+        name="DiaryTab" 
+        component={DiaryScreen} 
+        options={{
+          tabBarLabel: 'Diario'
         }}
       />
       <Tab.Screen 

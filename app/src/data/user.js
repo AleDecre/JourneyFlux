@@ -98,17 +98,63 @@ export const userData = {
     travelRadius: 50, // km
     
     // Preferenze social
-    profileVisibility: "public",
-    shareProgress: true,
-    showOnLeaderboard: true,
-    
-    // Preferenze notifiche
-    notificationSettings: {
-      nearbyContent: true,
-      newContent: true,
-      socialActivity: false,
-      partnerOffers: true,
-      streakReminders: true
+    privateProfile: false,
+    allowReviews: true,
+    shareProgress: true
+  },
+  
+  // 🎫 COUPON E LOYALTY - NUOVO
+  couponsEarned: [
+    {
+      id: 1,
+      title: "Sconto 20% - Bar del Fico",
+      description: "Aperitivo gratuito con ogni piatto principale",
+      partnerId: 1,
+      discountValue: 20,
+      discountType: "percentage", // percentage | fixed
+      validFrom: "2025-07-01",
+      validUntil: "2025-08-31",
+      used: false,
+      usedDate: null,
+      code: "FLUX20BAR",
+      category: "aperitivo",
+      minTripsRequired: 3,
+      earnedDate: "2025-07-08",
+    },
+    {
+      id: 2,
+      title: "Colazione Omaggio - Caffè Centrale",
+      description: "Cornetto e cappuccino gratuiti",
+      partnerId: 3,
+      discountValue: 8,
+      discountType: "fixed",
+      validFrom: "2025-07-01",
+      validUntil: "2025-09-30",
+      used: true,
+      usedDate: "2025-07-08",
+      code: "FLUX8CAFFE",
+      category: "colazione",
+      minTripsRequired: 2,
+      earnedDate: "2025-06-15",
+    }
+  ],
+  
+  // 🏆 LOYALTY PROGRESS
+  loyaltyProgress: {
+    currentLevel: 1,
+    tripsCompleted: 1,
+    tripsToNextLevel: 2,
+    nextLevelRewards: [
+      "Sconto 15% partner selezionati",
+      "Accesso anticipato a nuovi percorsi",
+      "Badge esclusivo 'Esploratore Fedele'"
+    ],
+    levelBenefits: {
+      1: ["Accesso base", "Coupon standard"],
+      2: ["Sconti premium", "Contenuti esclusivi"],
+      3: ["VIP access", "Sconti maggiori", "Eventi speciali"],
+      4: ["Ambassador benefits", "Coinvolgimento nella creazione"],
+      5: ["Legend status", "Massimi benefici"]
     }
   },
   
